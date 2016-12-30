@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Validator;
+use Validator, Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Request,Auth,Session;
+use Illuminate\Contracts\Auth\Guard;
+
 
 class AuthController extends Controller
 {
@@ -35,11 +38,16 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    // }
+    public function __construct(Guard $auth)
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->auth = $auth;
+        
+        $this->middleware('guest', ['except' => 'getLogout']);
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,6 +61,68 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
+    }
+    public function getLogin()
+    {   
+        
+        if( !Auth::Check() ){
+            return view('auth.login');
+        }else{
+            return redirect('dashboard');
+        }
+        
+    }
+/**
+     * post login function for POST REQUEST.
+     */
+     
+    public function postLogin()
+    {
+
+        if (Request::isMethod('post')) {
+            
+            $input = Request::all();
+            if( $input )
+            {                   
+                $credential = array(
+                    'email' => $input['email'], 
+                    'password' => $input['password']
+                );
+                
+                //$remember = isset($input['remember']) ? true : false;
+                
+                $auth = Auth::attempt( $credential );
+//print_r($auth);die();
+                if( $auth ){
+                         
+                               // return view('user');
+                    return Redirect::to('pending/applications');
+                           
+                    
+                    
+                }else {
+                    
+                    Session::flash('error', 'Invalid username or password!');
+                }       
+                
+            }else{
+            
+                Session::flash('error', 'Fields can not be empty!');    
+                
+            }
+        }
+        
+        
+        return redirect('/');
+
+    }
+
+    public function getLogout()
+    {
+        Session::flush();
+        Auth::logout();     
+        return redirect('auth/login');
+        
     }
 
     /**

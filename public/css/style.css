@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i');
+body{font-family: 'PT Sans', sans-serif;background-color: #fff;}
+.rPadding{padding-right:0;}
+.lPadding{padding-left:0;}
+.v-hr {border: 1px solid #e3e3e3;margin-top: 0;margin-bottom: 0;}
+header{background-color:#4f8fe3;padding:15px 0 15px;}
+.logo {padding: 8px 0 0;}
+.search-bar input {height: 48px;border-radius: 3px;border: 0 none;position:relative;padding: 6px 45px;}
+.search-bar .form-group {margin-bottom:0;}
+.search-bar .form-group img{position:absolute;}
+.search-bar .form-group img {position: absolute;left: 30px;top: 15px;}
+.user-login .nav>li>a:focus, .user-login .nav>li>a:hover{background:none !important;}
+.user-login .nav>li>a{color:#fff; padding:5px 15px;font-weight:bold;}
+.user-login ul li ul.dropdown-menu{padding:0;border-radius:0;box-shadow:0 3px 6px rgba(0,0,0,.175);}
+.user-login ul li ul.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background-color:#4f8fe3;color:#fff;}
+/******** User Login Dropdown Css **********/		
+	.user-login ul li ul.dropdown-menu {box-shadow:none;}		
+	.user-login ul li ul.dropdown-menu li {padding: 5px;}		
+	.user-login ul li ul.dropdown-menu li a{color:#444;font-weight:bold;}		
+	.user-login ul li ul.dropdown-menu li a i{margin-right:10px;}		
+	.user-login ul li ul.dropdown-menu li:hover {background: #ECEFF1;}		
+	.user-login ul li ul.dropdown-menu li > a:hover:before {display: block;content: "";position: absolute;left: 0px;top: 0px;bottom: 0px;border-left: 3px solid #0077cc;}		
+	.user-login ul li ul.dropdown-menu li {position: relative;}
+/********* Middle Menu Css ************/
+
+#middle-menu{background-color:#fff;padding:20px 0;border-bottom:2px solid #eee;}
+.middle-menu-list ul {width: 50%;float: left;}
+.middle-menu-list ul li a.btn.btn-add {background: #4f8fe3;padding: 10px 35px;color: #fff;font-weight: bold;font-size: 16px;border-radius:3px;}
+.middle-menu-list ul li a.btn.btn-add img {padding-right: 10px;margin-top: -3px;}
+.middle-menu-list ul.left-list>li:first-child {padding-left: 5px;}
+.middle-menu-list ul.left-list>li {padding: 0 30px 0;position:relative;}
+.middle-menu-list ul.left-list li a i {font-size: 20px;color:#344f61;}
+.middle-menu-list ul.left-list li.dropdown a {text-decoration:none;border: 2px solid #ddd;padding: 10px 20px;color: #425b6c;font-weight: bold;display:block;}
+.middle-menu-list ul li ul.dropdown-menu {padding: 0;border-radius: 5px;min-width:280px;top:60px;border:2px solid #4f8fe3;}
+.middle-menu-list ul li ul.dropdown-menu li a{border:0 !important;}
+.middle-menu-list ul li ul.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background:none;color:#344f61 !important;}
+.middle-menu-list ul li ul.dropdown-menu>li>a{background:none;color:#b3bdc5 !important;}
+.dropdown-content {display: none;position: absolute;background-color: #f9f9f9;min-width: 160px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
+.dropdown-content a {color: black;padding: 12px 16px;text-decoration: none;display: block;}
+.middle-menu-list ul li ul.dropdown-menu li {border-bottom: 1px solid #ddd;padding: 0;}
+.middle-menu-list ul li ul.dropdown-menu li a {padding: 15px 30px !important;}
+.middle-menu-list ul li ul.dropdown-menu:before {content: '';position: absolute;height: 20px;width: 20px; border-right:10px solid transparent;border-top:15px solid #4f8fe3;top: -20px;left: 45%; border-left:10px solid transparent;transform:rotate(180deg);-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg); }
+
+/*********** Inner content css here******************/
+.inner-content{background-color:#f7f8f8;}
+.inner-right-side {border-left: 1px solid #e3e3e3;padding: 0 30px;}
+.advance-search {padding: 30px 0 0;margin-bottom:10px;}
+.adv_search {text-align: right;padding: 0 17px 0 0;}
+.advance-search-list h3{color:#c5cdd3;margin-top:0;margin-bottom:10px;font-size:14px;text-align:left;font-weight:bold;}
+.advance-search-list ul li{border-bottom:1px solid #e3e3e3;cursor:pointer;margin-bottom:0;padding:15px 20px; position:relative;}
+.advance-search-list ul li:hover{box-shadow:0px 10px 20px rgba(0,0,0,.1);-webkit-box-shadow:0px 10px 20px rgba(0,0,0,.1);-moz-box-shadow:0px 10px 20px rgba(0,0,0,.1);transition-duration: 0.3s;background:#fff;}
+.advance-search-list ul li .media-body h4 {font-size: 14px;font-weight: bold;}
+.advance-search-list ul li .media-body p {font-size: 14px;font-weight: bold;margin:0;}
+.advance-search input {height: 48px;border-radius: 2px;border: 3px solid #e3e3e3;position:relative;width:260px !important;padding: 0px 10px 0px 30px;}
+.advance-search .form-group i  {position:absolute;top:48px;left:30px;font-size:12px;color:#999;}
+.advance-search button.btn-default {background: #4f8fe3;color: #fff;height: 48px;padding: 10px 10px;font-weight: bold;border-color: #4f8fe3;border-radius:2px;}
+.inner-right-side h1 {font-size: 20px;margin-bottom: 20px;padding: 0;}
+.inner-right-side .form-group input {margin-bottom: 20px;height: 48px;border-radius: 3px;border: 2px solid #ddd;}
+.js{position:relative;}
+.js input.inputfile {position: absolute;opacity: 0;overflow: hidden;top: 0;left: 0;width: 100%;height: 100%;}
+.js span {position: absolute;height: 48px;width: 100%;left: 0;top: 24px;background: #4f8fe3;text-align: center;padding: 10px;color: #fff;font-weight: bold;font-size: 16px;cursor:pointer;border-radius:3px;text-transform:uppercase;}
+.add_more_btn button {border: 0;background: none;position:absolute;top:-50px;right:0;}
+.submit_btn{margin-bottom:20px;}
+.submit_btn  .btn-submit{background-color:#4f8fe3;padding:15px 45px;color:#fff;border:0 none;border-radius:3px;font-weight:bold;}
+.submit_btn  .btn-cancel{background-color:#f34101;padding:15px 45px;color:#fff;border:0 none;border-radius:3px;margin-left:10px;font-weight:bold;}
+.add-more .form-group input[type=checkbox], input[type=radio]{height:auto;margin-top:40px;}
+.add-more button.btn-danger {position: absolute;bottom: 96px;right: 43px; z-index: 999;}
+.inner-right-side .address_detail select {border-radius: 3px;height: 48px;margin-bottom: 20px;}
+
+/**************** Sub Agent Search Css ***************************/
+.sub-domain-search {padding: 15px 30px;border-radius: 0;border: 0 none;border-bottom: 1px solid #ddd;box-shadow: 0 6px 9px 5px rgba(0,0,0,0.4);-webkit-box-shadow: 0 3px 12px -6px rgba(0,0,0,0.4);height: 69px;margin-bottom: 25px;background: #fff;}		
+.sub-domain-search select {border: 0 none;box-shadow: none;border-bottom: 1px solid #0077cc;border-radius: 0;padding:0;font-weight:bold;color:#0077cc;}
+
+
+/************ Agent Page Css **************************/
+
+#example_length,#example_filter,#example_info{display:none;}
+.agent_detail h1{padding:30px 0 0;}
+table.dataTable tbody tr{background:none !important;}
+table.dataTable tbody th, table.dataTable tbody td{padding:20px 30px !important;color:#859596;font-weight:bold;}
+table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{border:0 none !important;text-align:center; }
+#example_paginate {width: 100%;text-align: center;margin-top: 40px;}
+
+.advance-search-list ul li .action {position: absolute;right: 13px;top: 25px;font-weight: bold;text-decoration: none;display:none;}
+.advance-search-list ul li:hover .action {display: block;}
+
+/******************* Login Page Css Here ************************/		
+			
+	.login-container{background-color:#0077cc;}		
+	.login-wrapper{background:#fff;padding:10px 20px;border-radius:3px;width:420px;margin:20.5% auto;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);}		
+	.login-wrapper .inner_logo{margin-bottom:20px;margin-top:20px;}		
+	.login-wrapper form input{height:48px;border-radius:3px;}		
+	.login-wrapper form label{color:#0077cc;}		
+	.login-wrapper form .btn-login{background-color:#0077cc;padding:10px 25px;border-radius:3px;color:#fff;font-weight:bold;margin-bottom:20px;}		
+	.forgot_password .modal-content {border-radius: 0;}		
+	.forgot_password .modal-header {background: #0077cc;color: #fff;}		
+	.forgot_password .modal-header button.close {position: absolute;right: -10px;top: -7px;background: #fff;opacity: 1;width: 30px;border: 2px solid #0077cc;height: 30px;border-radius: 28px;font-size: 20px;}		
+	.forgot_password .modal-body form input {height: 48px;width: 350px;border-radius: 3px;}		
+	.forgot_password .modal-body form .btn-reset {background:#f34101;padding:13px 35px;border-radius:3px;color:#fff;font-weight:bold;}
+
+
+/************* Agent Register Wrapper Css ****************/
+.agent-register-wrapper{background:#fff;padding:10px 20px;border-radius:3px;width:890px;margin:15.5% auto;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);}
+.agent-register-wrapper .inner_logo{margin-bottom:20px;margin-top:20px;}
+.agent-register-wrapper .company_detail input{height:48px;border-radius:3px;}
+.agent-register-wrapper .address_detail input{height:48px;border-radius:3px;}
+.agent-register-wrapper .address_detail select{height:48px;border-radius:3px;}
+.agent-register-wrapper .domain_detail input{height:48px;border-radius:3px;}
+.agent-register-wrapper .company_detail form label{color:#0077cc;}
+.login-wrapper form .btn-login{background-color:#0077cc;padding:10px 25px;border-radius:3px;color:#fff;font-weight:bold;margin-bottom:20px;}
+.agent-register-wrapper .domain_detail{padding:0;}
+
+
+/********************* Footer  Css *****************/
+
+footer{background-color:#49505a;color:#fff;padding:20px 0;}
+footer p{margin-bottom:0}

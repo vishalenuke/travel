@@ -11,6 +11,34 @@
 |
 */
 
+// Route::get('dash/login', 'AuthController@getLogin');
+// Route::post('dash/login', 'AuthController@postLogin');
+ 
+// Route::get('dash/register', 'AuthController@getRegister');
+// Route::post('dash/register', 'AuthController@postRegister');
+ 
+ //Route::get('logout', 'AuthController@getLogout');
+
+
+Route::resource('whitelabel','WhiteLabelController' );
+Route::resource('whitelabel-search','WhiteLabelController@search' );
+Route::resource('agency','AgencyController' );
+Route::get('pending/applications','AgencyController@pendingApplications');
+Route::get('agency-search','AgencyController@search' );
+Route::get('airline-search','AirlineController@search' );
+Route::resource('airline','AirlineController' );
+//Route::resource('city','CityController' );
+//Route::resource('user','UserController' );
 Route::get('/', function () {
-    return view('welcome');
+	//Auth::logout();	
+	return Redirect::to('/auth/login');
+    //return view('auth.login');
 });
+Route::get('/register', function () {
+
+    return view('auth.register');
+});
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController',
+]);
