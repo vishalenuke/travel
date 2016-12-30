@@ -16,7 +16,9 @@ class AgencyController extends Controller {
 
 	public function __construct()
     {
-    	if(!Auth::check()){
+    	
+    	$method=$_SERVER['REQUEST_METHOD'];
+    	if(!(Auth::check() || $method=="POST")){
     		Redirect::to('auth/logout')->send();
 
     	}
@@ -27,7 +29,7 @@ class AgencyController extends Controller {
     }
 	public function keys($search='')
 	{
-		return array("0"=>"first_name","1"=>"status","2"=>"agent_id","image"=>"image_url","controller"=>"Agency","search"=>$search);
+		return array("0"=>"first_name","1"=>"user_status","2"=>"agent_id","image"=>"image_url","controller"=>"Agency","search"=>$search);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -42,18 +44,34 @@ class AgencyController extends Controller {
 		try{
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
-			$data=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
-			//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
+			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
 
 		}
 		//,$elements=array()
-		//print_r($keys);die();
+		//dd($data);die();
 		return view('agent',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 		
 	}
-
+	public function subAgents($id){
+		// $data=array();
+		// $user='';
+		// $search='';
+		// $keys=array();
+		
+		// try{
+		// 	 $search=isset($_GET['value'])?$_GET['value']:'';
+		// 	 $keys=self::keys($search);
+		// 	$data=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
+		// 	$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+		// 	//print_r($user);die();
+		// }catch(\Exception $e){
+		// }
+		
+		// return view('forms.user',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+	}
 	public function pendingApplications()
 	{
 		$data=array();
@@ -62,8 +80,8 @@ class AgencyController extends Controller {
 		try{
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
-			$data=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.status','=',0)->paginate(10);
-			//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.status','=',0)->paginate(10);
+			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
 
@@ -80,8 +98,8 @@ class AgencyController extends Controller {
 		try{
 			$search=$_GET['value'];
 			$keys=self::keys($search);
-			$data=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
-			//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
+			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
 
@@ -101,7 +119,7 @@ class AgencyController extends Controller {
 		$user='';
 		$keys=self::keys();
 		try{
-			$data=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
 			
 
 		}catch(\Exception $e){
@@ -127,7 +145,9 @@ class AgencyController extends Controller {
 	 */
 	public function store()
 	{
+		$admin=Auth::user();
 		try{
+			//print_r("expression");die();
 			$input = Request::all();
 			$user=new User;
 			$agency=new Agency;
@@ -145,7 +165,7 @@ class AgencyController extends Controller {
 			if(isset($userArray['role']) && empty($userArray['role']))
 				$userArray['role']="agent";
 			
-				$userArray['status']=(Auth::user()->role=="admin")?1:0;
+				$userArray['status']=(!empty($admin))?($admin->role=="admin"?1:0):0;
 	    	
 			$user=$user->create($userArray);
 			$agencyArray['user_id']=$user->id;
@@ -162,14 +182,43 @@ class AgencyController extends Controller {
 			$agency->save();
 			$document->save();
 			$address->save();
-			Session::flash('message','Agency added successfully.');
+			if(empty($admin))
+				Session::flash('message','Agency register successfully.');
+			else
+				Session::flash('message','Agency added successfully.');
+			
 		}catch(\Exception $e){
-			Session::flash('error','Agency not added.');
+			if(empty($admin))
+				Session::flash('error','Agency not register.');
+			else
+				Session::flash('error','Agency not added.');
+			//print_r($e->getMessage());die();
 		}
 		
 		return Redirect::back();		
 	}
 
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function approve($id)
+	{
+		$agency='';
+		$user='';
+		try{
+			$agency=Agency::find($id);
+			$user=User::find($agency->user_id);
+			$user->status=$user->status?0:1;
+			$user->save();
+		}catch(\Exception $e){
+			//Session::flash('error','Not approve.');
+		}
+		
+		
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -199,7 +248,7 @@ class AgencyController extends Controller {
 		try{
 			 $search=isset($_GET['value'])?$_GET['value']:'';
 			 $keys=self::keys($search);
-			$data=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
 			$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
 			//print_r($user);die();
 		}catch(\Exception $e){
@@ -210,8 +259,9 @@ class AgencyController extends Controller {
 	}
 public function uploadImage($input,$user=''){
 	$url='';
-	if((!empty($user))&& $user->image_url)
+	if((!empty($user))&& $user->image_url){
 		$url=$user->image_url;
+	}
 	if( isset($input['image']) && $input['image'] != null ){
 								
 		$file = array('image' => Input::file('image'));
@@ -320,10 +370,10 @@ public function uploadImage($input,$user=''){
 			$address->delete();
 			Session::flash('message','Agency deleted successfully.');
 		}catch(\Exception $e){
-			Session::flash('error','Agency not deleted.');
+			Session::flash('error',$e->getMessage());
 			
 		}	
-		return Redirect::to('/agency/create?action=create');
+		//return Redirect::back();
 		
 	}
 

@@ -117,7 +117,9 @@ var rowCount = 1;
 		if(controller)
 			controller=controller.toLowerCase();
 		//var url='/'+controller+'/'+id+'/subagents?action=show&&'+search;
-		var url='/'+controller+'/'+id+'/subagents';
+		var url='/'+controller+'/'+id;
+		if(controller=='agency')
+		 url+='/subagents';
 		//alert(url);
 		if(id){
 			$.get(url , function(data)
@@ -129,3 +131,50 @@ var rowCount = 1;
 		}
 		
 	}
+
+function _delete(id,controller=''){
+	if(confirm("Do you want to delete.")){
+		// var search=$('.search').val();
+		// search= search ? '?value='+search :'';
+		if(controller)
+			controller=controller.toLowerCase();
+		var url='/'+controller+'/'+id;
+		var _token=$('#__token').data('id');
+		alert(_token);
+		if(id){
+			$.ajax({
+			    url: url,
+			    type: 'DELETE',
+			    data: { _token:_token},
+			    success: function(data) {
+			        location.reload();
+			    }
+			});			
+		}
+	}		
+}
+
+function approve(id,controller=''){
+	if(confirm("Do you want to approve.")){
+		// var search=$('.search').val();
+		// search= search ? '?value='+search :'';
+		if(controller)
+			controller=controller.toLowerCase();
+		var url='/'+controller+'/'+id+'/approve';
+		var _token=$('#__token').data('id');
+		alert(_token);
+		if(id){
+			$.ajax({
+			    url: url,
+			    type: 'GET',
+			    data: { _token:_token},
+			    success: function(data) {
+			        location.reload();
+			    }
+			});
+			
+		}
+	}
+		
+		
+}

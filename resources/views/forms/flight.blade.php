@@ -14,7 +14,7 @@
 			
 			{{Form::hidden('_search', isset($keys['search'])?$keys['search']:'')}}
 			
-			{{Form::text('company_name', null, array('class' => 'form-control','placeholder'=>"Company Name"))}}
+			{{Form::text('company_name', null, array('class' => 'form-control','placeholder'=>"Company Name","required"=>"required"))}}
 		  </div>
 		</div>
 		
@@ -22,7 +22,7 @@
 		  <div class="form-group">
 			<label for="">Manufactured By:</label>
 			<!--<input type="text" class="form-control" id="last_name" placeholder="Last Name">-->
-			{{Form::text('mfd_by', null, array('class' => 'form-control','placeholder'=>"Manufactured By"))}}
+			{{Form::text('mfd_by', null, array('class' => 'form-control','placeholder'=>"Manufactured By","required"=>"required"))}}
 		  </div>
 		</div>
 
@@ -30,14 +30,14 @@
 		  <div class="form-group">
 			<label for="">Manufactured Date:</label>
 			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
-			{{Form::text('mfd_on', null, array('class' => 'form-control datepicker','placeholder'=>"Manufactured Date"))}}
+			{{Form::text('mfd_on', null, array('class' => 'form-control datepicker','placeholder'=>"Manufactured Date","required"=>"required"))}}
 		  </div>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
 				<label for="">Country:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::select('country', array('1' => 'India', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"Country"))}}
+				{{Form::select('country', array('1' => 'India', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"Country","required"=>"required"))}}
 				
 			  </div>
 		</div>		
