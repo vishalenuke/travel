@@ -90,7 +90,7 @@ class AuthController extends Controller
                 //$remember = isset($input['remember']) ? true : false;
                 
                 $auth = Auth::attempt( $credential );
-//print_r($auth);die();
+
                 if( $auth ){
                          
                                // return view('user');
@@ -100,9 +100,10 @@ class AuthController extends Controller
                         return redirect('agency');
                     
                     
-                }else {
+                }else{
                     
                     Session::flash('error', 'Invalid username or password!');
+                    //print_r("error");die();
                 }       
                 
             }else{
@@ -113,7 +114,7 @@ class AuthController extends Controller
         }
         
         
-        return redirect('/');
+        return redirect('auth/login');
 
     }
 
