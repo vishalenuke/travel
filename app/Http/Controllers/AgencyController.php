@@ -324,6 +324,7 @@ public function uploadImage($input,$user=''){
 	{
 		$search='';
 		$keys=array();
+		$password='';
 		try{
 			$input = Request::all();
 			//print_r($id);die();
@@ -345,8 +346,10 @@ public function uploadImage($input,$user=''){
 //print_r($input['image_url']);die();
 			$userArray=arrayFromObject($user,$input);
 			
-			if($userArray['password'])
+			if($userArray['password']){
+				$password=$userArray['password'];
 				$userArray['password'] = Hash::make($userArray['password']);
+			}
 			$agencyArray=arrayFromObject($agency,$input);
 			//print_r($document);die();
 			if(isset($userArray['role']) && empty($userArray['role']))
@@ -359,16 +362,28 @@ public function uploadImage($input,$user=''){
 			$agencyArray['user_id']=$agency->user_id;
 			$addressArray['user_id']=$agency->user_id;
 
-			if(!(isset($userArray['password']) and $userArray['password']))
+			if(!(isset($userArray['password']) and $userArray['password'])){
+				$password='';
 				unset($userArray['password']);
+			}
 			$userArray['status']=(Auth::user()->role=="admin")?1:0;
 			
-			$user=$user->update($userArray)?true:$user->create($userArray);
+			$user1=$user->update($userArray)?true:$user->create($userArray);
 			$agency=$agency->update($agencyArray)?true:$agency->create($agencyArray);
 			$document=$document->update($documentArray)?true:$document->create($documentArray);
 			$address=$address->update($addressArray)?true:$address->create($addressArray);
-		
-			Session::flash('message','Agency updated successfully.');
+			
+			if($user->email && isset($input['send_email']) && $input['send_email']=="on" && user_Email( $user->email, $password,"Your profile details has been updated." )){
+				if(empty($login)){
+					Session::flash('message', 'Agency updated successfully.Email has been send to user.');
+					//Session::flash('message','Agency register successfully.');
+				}
+				else
+					Session::flash('message','Agency updated successfully.');
+			}else{
+				Session::flash('error','Unable to send email.');
+			}
+			//Session::flash('message','Agency updated successfully.');
 		}catch(\Exception $e){
 			//print_r($e->getMessage());die();
 			Session::flash('error',$e->getMessage());
