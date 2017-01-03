@@ -53,7 +53,7 @@ class PasswordController extends Controller
     public function postEmail(Request $request)
    {
         $email=$request->only('email')['email'];
-        $c_mobile='';
+        
         $user='';
        
             $user = User::where(['email'=>$request->only('email')])->first();  
@@ -68,19 +68,20 @@ class PasswordController extends Controller
                    });
 
                    switch ($response) {
-                       case Password::RESET_LINK_SENT: Session::flash('message',trans($response));
-                           return redirect('auth/login')->with('message', trans($response));
-
-                       case Password::INVALID_USER: Session::flash('error',trans($response));
-                           return redirect('auth/login')->withErrors(['email' => trans($response)]);
+                       case Password::RESET_LINK_SENT: 
+                           Session::flash('message',trans($response));
+                           break;
+                       case Password::INVALID_USER: 
+                            Session::flash('error',trans($response));
+                           
                    }
             }
            
         }else{
             Session::flash('error','User not found');
-                return redirect('auth/login');
+                
         }
-        //return redirect()->back();
+        return redirect('auth/login');
    }
     public function postReset(Request $request)
         {
@@ -100,7 +101,7 @@ class PasswordController extends Controller
             if((!empty($user)) && $request->only('password')['password']==$request->only('password_confirmation')['password_confirmation'])
             {
                     $user->password=Hash::make($request->only('password')['password']);
-                    Session::flash('success','Password reset successfuly');
+                    Session::flash('message','Password reset successfuly');
             $user->save();
                
             }
