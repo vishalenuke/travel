@@ -15,7 +15,7 @@
 						<div class="form-group">
 							
 							 <input type="hidden" name="token" value="{{ $token }}">
-							 <input type="text" class="form-control icon-field" name="email" placeholder="E-Mail Address/Country code-Mobile number*" value="{{ old('email') }}" autocomplete="on"  required>
+							 <input type="text" class="form-control icon-field" name="email" placeholder="E-Mail*" value="{{ old('email') }}" autocomplete="on"  required>
 							 <small>(For mobile number use example: 91-XXXXXXXXXX)</small>
 							
 							<span class="icon email-icon" style="margin-top:-20px;"></span>

@@ -68,48 +68,44 @@ class PasswordController extends Controller
                    });
 
                    switch ($response) {
-                       case Password::RESET_LINK_SENT:
-                           return redirect()->back()->with('message', trans($response));
+                       case Password::RESET_LINK_SENT: Session::flash('message',trans($response));
+                           return redirect('auth/login')->with('message', trans($response));
 
-                       case Password::INVALID_USER:
-                           return redirect()->back()->withErrors(['email' => trans($response)]);
+                       case Password::INVALID_USER: Session::flash('error',trans($response));
+                           return redirect('auth/login')->withErrors(['email' => trans($response)]);
                    }
             }
            
         }else{
             Session::flash('error','User not found');
-                return Redirect::back();
+                return redirect('auth/login');
         }
         //return redirect()->back();
    }
-    // public function postReset(Request $request)
-    //     {
+    public function postReset(Request $request)
+        {
     
-    //         $email=DB::table('password_resets')->where('token',$request->only('token')['token'])->first();
+            $email=DB::table('password_resets')->where('token',$request->only('token')['token'])->first();
             
-    //         if(!$email || strcmp($email->email,$request->only('email')['email'])){
-    //             Session::flash('error','User not found');
-    //             return Redirect::back();
-    //         }
-    //         $new_email=explode('-', $request->only('email')['email']);
-    //         $c_mobile='';
-    //         $user='';
-    //         if(count($new_email)>1){
-    //             $c_mobile=implode('-', $new_email);
-    //             $user = User::where(['email'=>$request->only('email')])->orWhere(['mobile'=>$c_mobile])->first();
-    //         }else{
-    //             $user = User::where(['email'=>$request->only('email')])->orWhere(['mobile_number'=>$request->only('email')])->first();  
-    //         }
-    //         //$user=User::where('email',$request->only('email')['email'])->orWhere('mobile_number',$request->only('email')['email'])->first();
-    //         if($request->only('password')['password']==$request->only('password_confirmation')['password_confirmation'])
-    //         {
-    //                 $user->password=Hash::make($request->only('password')['password']);
-    //                 Session::flash('success','Password reset successfuly');
-    //         $user->save();
+            if(empty($email) || strcmp($email->email,$request->only('email')['email'])){
+                Session::flash('error','User not found');
+                return redirect('auth/login');
+            }
+            $new_email=$request->only('email')['email'];
+            
+            
+                $user = User::where(['email'=>$request->only('email')])->first();  
+            
+            
+            if((!empty($user)) && $request->only('password')['password']==$request->only('password_confirmation')['password_confirmation'])
+            {
+                    $user->password=Hash::make($request->only('password')['password']);
+                    Session::flash('success','Password reset successfuly');
+            $user->save();
                
-    //         }
+            }
             
-    //      return redirect('/auth/login');
-    // }
+         return redirect('/auth/login');
+    }
 
 }
