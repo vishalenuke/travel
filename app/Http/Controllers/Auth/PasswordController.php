@@ -58,7 +58,7 @@ class PasswordController extends Controller
        
             $user = User::where(['email'=>$request->only('email')])->first();  
         
-        
+        //print_r($user);die();
      
         if(!empty($user)){
             if(!empty($user->email)){
