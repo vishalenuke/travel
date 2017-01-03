@@ -46,7 +46,7 @@
 							{!! Form::open(array('url' => '/password/email','class'=>'form-inline')) !!} 
 							  <div class="form-group">
 								
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Your Email Address">
+								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Your Email Address" name="email">
 							  </div>
 							 
 							  <button type="submit" class="btn btn-reset">Send Password</button>
