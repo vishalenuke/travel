@@ -43,7 +43,7 @@
 					<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
 				  </div>
 				  <div class="modal-body">
-							<form class="form-inline">
+							{!! Form::open(array('url' => '/password/email','class'=>'form-inline')) !!} 
 							  <div class="form-group">
 								
 								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Your Email Address">
@@ -51,7 +51,7 @@
 							 
 							  <button type="submit" class="btn btn-reset">Send Password</button>
 							  
-							</form>
+							{!! Form::close() !!}
 				  </div>
 				 
 				</div>

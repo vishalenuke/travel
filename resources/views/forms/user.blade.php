@@ -228,7 +228,7 @@
 				<label>
 				{{Form::checkbox('send_email', null)}}
 
-				  <!-- <input type="checkbox">  -->Do not Send Mail
+				  <!-- <input type="checkbox">  -->Send Mail
 				</label>	
 			  </div>
 			</div>

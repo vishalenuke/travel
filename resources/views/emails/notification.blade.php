@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Email Notification</title>
-    <link href="{{url('images/favicon.png')}}" rel="icon" type="image/x-icon">
+    <link href="#" rel="icon" type="image/x-icon">
    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
   </head>
 
@@ -15,7 +15,7 @@
       <div style="width:571px;margin:30px auto;">
 
         <div style="background-color:#fff;padding:10px 15px;">
-        <a href="{{url('/')}}"><img src="https://s4.postimg.org/81ln39zu5/logo.jpg" alt="" title=""/></a></div>
+        <a href="{{url('/')}}"><img src="#" alt="" title=""/></a></div>
         <div style="background-color:#6666ff;height:8px; margin-bottom:12px;"></div>
 
         <!-- body -->
