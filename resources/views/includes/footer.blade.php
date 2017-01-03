@@ -1,4 +1,4 @@
-<footer>
+<footer id="site-footer">
 	<div class="container">
 		<div class="col-dm-12 col-sm-12 col-xs-12">
 			<div class="footer-text text-center">
@@ -19,4 +19,7 @@
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
 
 	  <script type="text/javascript" src="{{url('/js/jquery.dataTables.min.js')}}"></script>
+	  
+	  <script src="{{url('/js/jquery.validate.js')}}"></script>
+	  
 		<script src="{{url('/js/main.js')}}"></script>

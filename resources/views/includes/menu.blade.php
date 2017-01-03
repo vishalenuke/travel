@@ -18,18 +18,25 @@
 									</li>
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Management<span class="caret"></span></a>
+										@if(hasPermission())
 										<ul class="dropdown-menu">
+
+										@if(isAdmin())
 											<li><a href="{{url('pending/applications')}}">Pending Applications</a></li>
+										@endif
 											<li><a href="{{url('agency')}}">Agent Management</a></li>
 											<li><a href="{{url('airline')}}">Airline Management</a></li>
 											<li><a href="{{url('whitelabel')}}">White Label</a></li>
 											
 										</ul>
+										@endif
 									</li>
 									
 								</ul>
 								<ul class="list-inline clearfix">
+								@if(hasPermission())
 									<li class="pull-right"><a href="{{url('/'.$type.'/create?action=create')}}" class="btn btn-add"><img src="{{url('img/add.png')}}" alt="" title=""/> Add</a></li>
+								@endif
 								</ul>
 							</div>
 						</div>

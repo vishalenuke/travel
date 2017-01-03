@@ -1,3 +1,4 @@
+@if(hasPermission())
 @foreach($data as $value)
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 	<li  >
@@ -44,3 +45,4 @@
       	</div>
 	</li>
 @endforeach	
+@endif

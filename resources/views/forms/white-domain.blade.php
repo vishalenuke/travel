@@ -14,30 +14,24 @@
 			
 			{{Form::hidden('_search', isset($keys['search'])?$keys['search']:'')}}
 			
-			{{Form::text('domain', null, array('class' => 'form-control','placeholder'=>"Domain","required"=>"required","required"=>"required"))}}
+			{{Form::text('domain', null, array('class' => 'form-control required','placeholder'=>"Domain"))}}
 		  </div>
 		</div>
 		
-		<div class="col-md-4 col-sm-4 col-xs-12">
-		  <div class="form-group">
-			<label for="">Description:</label>
-			<!--<input type="text" class="form-control" id="last_name" placeholder="Last Name">-->
-			{{Form::text('description', null, array('class' => 'form-control','placeholder'=>"Description By"))}}
-		  </div>
-		</div>
+
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group">
 			<label for="">Site Name:</label>
 			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
-			{{Form::text('site_name', null, array('class' => 'form-control','placeholder'=>"Site Name","required"=>"required","required"=>"required"))}}
+			{{Form::text('site_name', null, array('class' => 'form-control required','placeholder'=>"Site Name"))}}
 		  </div>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
 				<label for="">Contact No.:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::number('mobile', null, array('class' => 'form-control','placeholder'=>"Contact No.","required"=>"required"))}}
+				{{Form::text('mobile', null, array('class' => 'form-control required','placeholder'=>"Contact No."))}}
 				
 			  </div>
 		</div>	
@@ -57,7 +51,15 @@
 		  <div class="form-group">
 			<label for="">Email:</label>
 			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
-			{{Form::email('email', null, array('class' => 'form-control','placeholder'=>"Email","required"=>"required"))}}
+			{{Form::email('email', null, array('class' => 'form-control required','placeholder'=>"Email"))}}
+		  </div>
+		</div>
+		<div class="col-md-12 col-sm-12 col-xs-12">
+		  <div class="form-group">
+			<label for="">Description:</label>
+			<!--<input type="text" class="form-control" id="last_name" placeholder="Last Name">-->
+			<!-- {{Form::text('description', null, array('class' => 'form-control','placeholder'=>"Description By"))}} -->
+			{{ Form::textarea('description',null,array('class' => 'form-control required','placeholder'=>"Description","rows"=>"2")) }}
 		  </div>
 		</div>
 		
@@ -68,7 +70,7 @@
 		 </div>
 	<div class="social_detail clearfix">
 		<h1>Social Media</h1>
-			
+			<div class="row">
 				<div class="col-md-6 col-sm-6 col-xs-12">
 				  <div class="form-group">
 					<label for="">Facebook URL:</label>
@@ -100,7 +102,7 @@
 					{{Form::text('google_plus_url', null, array('class' => 'form-control','placeholder'=>"Google+ Url"))}}
 				  </div>
 				</div>  
-			
+			</div>
 	</div>
 	<div class="">
 		 <div class="v-hr"></div>

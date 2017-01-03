@@ -11,13 +11,7 @@
 |
 */
 
-// Route::get('dash/login', 'AuthController@getLogin');
-// Route::post('dash/login', 'AuthController@postLogin');
- 
-// Route::get('dash/register', 'AuthController@getRegister');
-// Route::post('dash/register', 'AuthController@postRegister');
- 
- //Route::get('logout', 'AuthController@getLogout');
+
 
 
 Route::resource('whitelabel','WhiteLabelController' );
@@ -29,12 +23,9 @@ Route::get('pending/applications','AgencyController@pendingApplications');
 Route::get('agency-search','AgencyController@search' );
 Route::get('airline-search','AirlineController@search' );
 Route::resource('airline','AirlineController' );
-//Route::resource('city','CityController' );
-//Route::resource('user','UserController' );
-Route::get('/', function () {
-	//Auth::logout();	
-	return Redirect::to('/auth/login');
-    //return view('auth.login');
+Route::get('account/verification/{id}', 'AgencyController@verification');
+Route::get('/', function () {	
+	return Redirect::to('auth/login');    
 });
 Route::get('/register', function () {
 

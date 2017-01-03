@@ -21,7 +21,7 @@
 					<td>{{ isset($keys[0])?ucwords($value[$keys[0]]):''}}</td>
 					<td>{{ isset($value['role'])?$value['role']:''}}</td>
 					<td style="color: red;" >Not Approved</td>
-					<td>{{ isset($keys[0])?ucwords($value[$keys[0]]):''}}</td>
+					<td>{{ isset($keys[3])?ucwords($value[$keys[3]]):''}}</td>
 					<td>
 					<div class="action-list">
 						<ul class="list-inline">
@@ -32,20 +32,16 @@
 
 						<img src="{{$value[$keys[1]]?url('/img/user_delete.png'):url('/img/user_right.png')}}" alt="" title=""/>
 						</li>
-						{!! Form::open(array('route' => array($controller.'.destroy', $value[$keys[2]]), 'method' => 'delete')) !!}
+						
 						<li><a href="javascript:void(0)" onclick="_delete('{{$value[$keys[2]]}}','{{$controller}}')" ><img src="{{url('/img/user_trash.png')}}" alt="" title=""/></li>
-						{!! Form::close() !!}
+						
 						</ul>
 
 					</div>
 					</td>
 					
 				</tr>
-			@endforeach
-				
-				
-				
-				
+			@endforeach				
 			</tbody>
 		</table>
 	</div>

@@ -1,4 +1,4 @@
-<header id="" class="">
+<header id="site-header" class="header">
 			<div class="container">
 				<div class="row">
 						<!--header -->

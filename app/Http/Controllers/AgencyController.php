@@ -19,17 +19,15 @@ class AgencyController extends Controller {
     	
     	$method=$_SERVER['REQUEST_METHOD'];
     	if(!(Auth::check() || $method=="POST")){
-    		Redirect::to('auth/logout')->send();
+    		Auth::logout();
 
     	}
     	
-        //$this->auth = $auth;
         
-        //$this->middleware('guest', ['except' => 'getLogout']);
     }
 	public function keys($search='')
 	{
-		return array("0"=>"first_name","1"=>"user_status","2"=>"agent_id","image"=>"image_url","controller"=>"Agency","search"=>$search);
+		return array("0"=>"first_name","1"=>"user_status","2"=>"agent_id","3"=>"created_at","image"=>"image_url","controller"=>"Agency","search"=>$search);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -70,7 +68,7 @@ class AgencyController extends Controller {
 		// }catch(\Exception $e){
 		// }
 		
-		// return view('forms.user',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		 return view('tables.subagents');//,['data'=>$data,'user'=>$user,'keys'=>$keys]);
 	}
 	public function pendingApplications()
 	{
@@ -145,10 +143,11 @@ class AgencyController extends Controller {
 	 */
 	public function store()
 	{
-		$admin=Auth::user();
+		$login=Auth::user();
 		try{
 			//print_r("expression");die();
 			$input = Request::all();
+
 			$user=new User;
 			$agency=new Agency;
 			$document=new Document;
@@ -165,8 +164,16 @@ class AgencyController extends Controller {
 			if(isset($userArray['role']) && empty($userArray['role']))
 				$userArray['role']="agent";
 			
-				$userArray['status']=(!empty($admin))?($admin->role=="admin"?1:0):0;
-	    	
+				$userArray['status']=(!empty($login))?($login->role=="admin"?1:0):0;
+	    	//user create here.
+
+
+
+
+
+
+
+
 			$user=$user->create($userArray);
 			$agencyArray['user_id']=$user->id;
 			
@@ -182,13 +189,22 @@ class AgencyController extends Controller {
 			$agency->save();
 			$document->save();
 			$address->save();
-			if(empty($admin))
-				Session::flash('message','Agency register successfully.');
-			else
-				Session::flash('message','Agency added successfully.');
+			
+			if($user->email &&(empty($login) || isset($input['send_email']) && $input['send_email']=="on") && verificationEmail( $user->email )){
+				if(empty($login)){
+					Session::flash('message', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');
+					//Session::flash('message','Agency register successfully.');
+				}
+				else
+					Session::flash('message','Agency added successfully.');
+			}else{
+				Session::flash('error','Unable to send email.');
+			}
+
+			
 			
 		}catch(\Exception $e){
-			if(empty($admin))
+			if(empty($login))
 				Session::flash('error','Agency not register.');
 			else
 				Session::flash('error','Agency not added.');
@@ -197,7 +213,22 @@ class AgencyController extends Controller {
 		
 		return Redirect::back();		
 	}
-
+public function verification($id)
+	{
+		if($id && $user=User::where(['email'=>base64_decode($id),'is_verified'=>0])->first()){
+			$user->is_verified=1;
+			$user->save();
+			 if(!Session::has('message')) Session::flash('message','Email verification is successful.');
+			//print_r("successfully varified.");
+			 //return View::make('user.verification_success');
+		}else{
+			Session::flash('error','Email verification link has been expired.');
+			//return View::make('user.verification',['expired'=>true]);
+		}			
+				
+		return redirect('auth/login');
+		
+	}
 	/**
 	 * Display the specified resource.
 	 *

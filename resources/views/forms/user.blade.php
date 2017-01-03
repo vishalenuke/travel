@@ -1,5 +1,5 @@
 <!--<form > -->
-		<?php //print_r($user);die(); ?>
+		<?php $p=isset($_GET['action']) ?($_GET['action']=="create"?0: 1):0;?>
 		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array(($user?'agency.update':'agency.store'), ($user?$user->agent_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
@@ -47,7 +47,7 @@
 			<label for="">Password:</label>
 			<!--<input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password">
 			-->
-			{{Form::password('password',  array('class' => 'form-control','placeholder'=>"******","required"=>"required"))}}
+			{{$p?Form::password('password',  array('class' => 'form-control','placeholder'=>"******")):Form::password('password',  array('class' => 'form-control','placeholder'=>"******","required"=>"required"))}}
 		  </div>
 		</div>
 		

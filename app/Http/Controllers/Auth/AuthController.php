@@ -67,8 +67,6 @@ class AuthController extends Controller
         
         if( !Auth::Check() ){
             return view('auth.login');
-        }else{
-            return redirect('dashboard');
         }
         
     }
@@ -96,8 +94,10 @@ class AuthController extends Controller
                 if( $auth ){
                          
                                // return view('user');
-                    return Redirect::to('pending/applications');
-                           
+                    if(isAdmin())
+                        return redirect('pending/applications');
+                    else
+                        return redirect('agency');
                     
                     
                 }else {

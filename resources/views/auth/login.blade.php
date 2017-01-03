@@ -12,12 +12,12 @@
 							{!! Form::open(array('url' => '/auth/login', 'id'=>'login')) !!} 
 							  <div class="form-group">
 								<label for="exampleInputEmail1">Email address</label>
-								{{Form::email('email', null, array('class' => 'form-control','placeholder'=>"Email","required"=>"required" ))}}
+								{{Form::text('email', null, array('class' => 'form-control required','placeholder'=>"Email","id"=>"email" ))}}
 								<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"> -->
 							  </div>
 							  <div class="form-group">
 								<label for="exampleInputPassword1">Password</label>
-						{{Form::password('password',  array('class' => 'form-control','placeholder'=>"Password","required"=>"required"))}}
+						{{Form::password('password',  array('class' => 'form-control required','placeholder'=>"Password","id"=>"password"))}}
 								<!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
 							  </div>
 							 

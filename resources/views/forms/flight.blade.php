@@ -40,14 +40,7 @@
 				{{Form::select('country', array('1' => 'India', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"Country","required"=>"required"))}}
 				
 			  </div>
-		</div>		
-		<div class="col-md-4 col-sm-4 col-xs-12">
-		  <div class="form-group">
-			<label for="">Description:</label>
-			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
-			{{Form::text('description', null, array('class' => 'form-control datepicker','placeholder'=>"Description"))}}
-		  </div>
-		</div>
+		</div>	
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
 			<label for="">Image:</label>
@@ -59,7 +52,16 @@
 			 <!-- {{Form::file('image_url', null, array('class' => 'inputfile form-control',"id"=>"exampleInputFile"))}} -->
 			 
 		  </div>
+		</div>	
+		<div class="col-md-12 col-sm-12 col-xs-12">
+		  <div class="form-group">
+			<label for="">Description:</label>
+			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
+			<!-- {{Form::text('description', null, array('class' => 'form-control ','placeholder'=>"Description"))}} -->
+			{{ Form::textarea('description',null,array('class' => 'form-control ','placeholder'=>"Description","rows"=>"2")) }}
+		  </div>
 		</div>
+		
 	</div>
 										
 		 <div class="">
