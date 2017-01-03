@@ -50,7 +50,7 @@ function user_Email( $email,$password='',$message='Your account is created with 
 
 	try{
 		if( !empty($email))
-		return Mail::send('emails.notification', ['email'=>$email,'password'=>$password,'token'=> base64_encode($email),'message'=>$details], function ($m) use($email)   {
+		return Mail::send('emails.notification', ['email'=>$email,'password'=>$password,'token'=> base64_encode($email),'details'=>$message], function ($m) use($email)   {
 								
 					            $m->from('contact@travels.com', 'Travel Portal');
 
