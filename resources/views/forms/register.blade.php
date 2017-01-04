@@ -1,13 +1,11 @@
 <!--<form > -->
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'agency') ?>
 		<?php $p=isset($_GET['action']) ?($_GET['action']=="create"?0: 1):0;?>
-		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->agent_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
+		{{ Form::open(array('url' => 'auth/register','id'=>'_Form','method'=>'post','enctype'=>'multipart/form-data'))}}
+
 <div class="domain_detail clearfix">
-@if($controller=='subagents')
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Sub Agent's Details": "Edit Sub Agent's Details"):"Sub Agent's Registration"}}</h1>
-@else
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Agent's Details": "Edit Agent's Details"):"Agent's Registration"}}</h1>
-@endif
+<h1>Agent's Registration</h1>
+
 	<div class="row">
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">
@@ -46,14 +44,7 @@
 		  </div>
 		</div>
 		
-		<div class="col-md-4 col-sm-4 col-xs-12">
-		  <div class="form-group">
-			<label for="">Password:</label>
-			<!--<input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password">
-			-->
-			{{$p?Form::password('password',  array('class' => 'form-control','placeholder'=>"******")):Form::password('password',  array('class' => 'form-control required','placeholder'=>"******"))}}
-		  </div>
-		</div>
+		
 		
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
@@ -75,7 +66,7 @@
 		 </div>
 		
 </div>
-@if($controller!='subagents')
+
 <div class="company_detail clearfix">
 	<h1>Company Detail</h1>
 		<div class="row" >
@@ -176,7 +167,7 @@
 			
 			
 </div>
-@endif
+
 <div class="address_detail clearfix">
 	<h1>Address</h1>
 		<!-- <div class="col-md-12 col-sm-12 col-xs-12">
@@ -188,9 +179,16 @@
 		
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
-				<label for="">Address:</label>
+				<label for="">Address Line1:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Name"> -->
-				{{Form::text('address', null, array('class' => 'form-control required','placeholder'=>"Address"))}}
+				{{Form::text('address_line1', null, array('class' => 'form-control required','placeholder'=>"Address Line1"))}}
+			  </div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">Address Line2:</label>
+				<!-- <input type="email" class="form-control" id="" placeholder="Company Name"> -->
+				{{Form::text('address_line2', null, array('class' => 'form-control required','placeholder'=>"Address Line2"))}}
 			  </div>
 			</div>
 			

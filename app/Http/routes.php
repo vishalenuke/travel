@@ -25,6 +25,7 @@ Route::get('agency-search','AgencyController@search' );
 Route::get('airline-search','AirlineController@search' );
 Route::resource('airline','AirlineController' );
 Route::get('account/verification/{id}', 'AgencyController@verification');
+Route::get('auth/verification/{id}', 'AuthController@verification');
 Route::get('/', function () {	
 	return Redirect::to('auth/login');    
 });

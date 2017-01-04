@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Request,Auth,Session;
 use Illuminate\Contracts\Auth\Guard;
-
+use App\Application;
 
 class AuthController extends Controller
 {
@@ -70,6 +70,98 @@ class AuthController extends Controller
         }
         
     }
+    public function verification($id)
+    {
+        if($id && $user=Application::where(['email'=>base64_decode($id),'is_verified'=>0])->first()){
+            $user->is_verified=1;
+            $user->save();
+             if(!Session::has('message')) Session::flash('message','Email verification is successful.');
+            //print_r("successfully varified.");
+             //return View::make('user.verification_success');
+        }else{
+            Session::flash('error','Email verification link has been expired.');
+            //return View::make('user.verification',['expired'=>true]);
+        }           
+                
+        return redirect('auth/login');
+        
+    }
+    public function getRegister()
+    {
+        
+        // //$countries = Country::all(['country_id', 'country_name']);
+        // $states=array();
+        // $cities=array();
+        return view('auth.register');//->with(['countries' => $countries,'states'=>$states,'cities'=>$cities]);
+        
+    }
+
+    public function postRegister()
+    {
+        
+        if (Request::isMethod('post')) {
+            
+            $input = Request::all(); 
+            $user = new Application;
+            $email='';
+            if( isset($input['email']) ) {
+                $email=$input['email'];
+            }
+            if($input){
+                $rulesWeb = array(
+                    'email' => 'required|email|unique:applications,email',                    
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'company_name' => 'required'
+                );
+                $messages = array(
+                    'email.required' => 'Please enter email address',
+                    'email.email' => 'Please enter valid email',
+                    'email.unique' => 'Email already exist',                   
+                    'first_name.required' => 'Please enter first name',
+                    'last_name.required' => 'Please enter last name',
+                    'company_name.required' => 'Please enter company name',
+                    
+                );
+                $validator = Validator::make($input, $rulesWeb, $messages);
+                if(!empty(Application::where(['email'=>$email,'is_verified'=>0])->first())){
+                    //Your email is registered on BizBricks. We have sent a verification email to abc@gmail.com. Please verify your email address to activate your account.
+                        //Session::flash('error', 'Your email is registered on Travel Portal. We have sent a verification email to '.$email.'. Please <a href="'.url('auth/verification/'.base64_encode($email)).'">verify</a> your email address to activate your account.');
+                    Session::flash('error', 'Your email is registered on Travel Portal. We have sent a verification email to '.$email.'. Please verify your email address.');
+             
+                }elseif($validator->fails()) {                   
+                    Session::flash('error', $this->getError($validator));
+                }else {
+                    
+                    if($url=$user->uploadImage($input))
+                        $input['image_url']=$url;
+                    $user = $user->create($input);
+                    
+                    Session::flash('message',  'Registration successfully.');
+                
+                        if($user->email){
+                           // welcomeEmail( $user,$password);
+                            if($user->is_email_varified){
+                                if(verificationEmail( $user->email ))
+                                    Session::flash('success', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');
+                            }
+                        }
+                       
+                        
+                               
+                        return view('auth.login');          
+                }
+            }else{
+                
+                Session::flash('errors', 'Fields cannot be empty');
+                
+            }
+        }
+        
+       
+        return view('auth.register');
+    }
+
 /**
      * post login function for POST REQUEST.
      */

@@ -32,9 +32,7 @@ function arrayFromObject($object,$input){
 	try{
 		if( !empty($email))
 		return Mail::send('emails.verification', ['email'=>$email,'token'=> base64_encode($email)], function ($m) use($email)   {
-								//$swiftMessage = $m->getSwiftMessage();
-								//$headers = $swiftMessage->getHeaders();
-								//$headers->addTextHeader('Return-Path', 'mayank.pratap@enukesoftware.com');
+								
 					            $m->from('contact@travels.com', 'Travel Portal');
 
 					            $m->to($email)->subject('Verfiy Your Email Account');

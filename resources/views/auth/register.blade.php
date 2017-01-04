@@ -15,7 +15,7 @@
 								<a href="#"><img src="img/inner_logo.png" alt="" title=""/></a>
 							</div>
 							
-							@include('forms.user')
+							@include('forms.register')
 						</div>
 					</div>
 				</div>
