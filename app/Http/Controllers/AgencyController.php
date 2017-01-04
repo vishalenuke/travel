@@ -417,7 +417,7 @@ public function uploadImage($input,$user=''){
 			Session::flash('error',$e->getMessage());
 			
 		}	
-		//return Redirect::back();
+		return array('success'=>true);
 		
 	}
 

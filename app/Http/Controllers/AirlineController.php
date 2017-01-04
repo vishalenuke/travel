@@ -226,7 +226,7 @@ public function search(){
 		}catch(\Exception $e){
 			Session::flash('error','Airline not deleted.');
 		}	
-		return Redirect::back();
+		return array('success'=>true);
 		
 	}
 
