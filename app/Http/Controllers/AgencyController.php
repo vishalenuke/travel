@@ -36,6 +36,9 @@ class AgencyController extends Controller {
 	 */
 	public function index()
 	{
+		if(!isAdmin()){
+			return Redirect::to('subagents');
+		}
 		$data=array();
 		$user='';
 		$keys='';

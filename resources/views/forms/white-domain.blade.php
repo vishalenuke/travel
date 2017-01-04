@@ -112,7 +112,7 @@
 		<div class="submit_btn">
 			<div class="button-inline">
 				<button type="submit" class="btn-submit">Submit</button>
-				<a class="btn-cancel btn-close" href="{{ url('airline') }}">Cancel</a>
+				<a class="btn-cancel btn-close" href="{{ url('whitelabel') }}">Cancel</a>
 			</div>
 		</div>
 		
