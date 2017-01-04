@@ -19,7 +19,7 @@ class AgencyController extends Controller {
     	
     	$method=$_SERVER['REQUEST_METHOD'];
     	if(!(Auth::check() || $method=="POST")){
-    		Redirect::to('auth/logout')->send();
+    		Auth::logout();
 
     	}
     	
@@ -36,9 +36,6 @@ class AgencyController extends Controller {
 	 */
 	public function index()
 	{
-		if(!isAdmin()){
-			return Redirect::to('subagents');
-		}
 		$data=array();
 		$user='';
 		$keys='';
