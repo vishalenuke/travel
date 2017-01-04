@@ -381,7 +381,7 @@ public function uploadImage($input,$user=''){
 				else
 					Session::flash('message','Agency updated successfully.');
 			}else{
-				Session::flash('error','Unable to send email.');
+				Session::flash('error','Agency updated successfully.');
 			}
 			//Session::flash('message','Agency updated successfully.');
 		}catch(\Exception $e){
