@@ -1,3 +1,4 @@
+
 @if(hasPermission())
 @foreach($data as $value)
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
@@ -31,10 +32,8 @@
       			<li>
       			<button type="button"  title="Edit" class="btn btn-default" onclick="edit('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-pencil"></i></button></li>
       			<li>
-	      		{!! Form::open(array('route' => array($controller.'.destroy', $value[$keys[2]]), 'method' => 'delete')) !!}
-	      		<button type="button" title="Delete" class="btn btn-default"><i class="fa fa-trash"></i></button>
-			       <!--  <button class='btn btn-danger pull-right btn-xs' type="submit"><i class="fa fa-user"></i></button> -->
-			    {!! Form::close() !!}
+      			<a href="javascript:void(0)" onclick="_delete('{{$value[$keys[2]]}}','{{$controller}}')" ><img src="{{url('/img/user_trash.png')}}" alt="" title=""/></a>
+	      		
 			    </li>
 			    </ul>
 		    @endif

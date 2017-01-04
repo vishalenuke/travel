@@ -13,7 +13,7 @@
 			
 			{{Form::hidden('_search', isset($keys['search'])?$keys['search']:'')}}
 			
-			{{Form::text('first_name', null, array('class' => 'form-control','placeholder'=>"First Name","required"=>"required"))}}
+			{{Form::text('first_name', null, array('class' => 'form-control required','placeholder'=>"First Name"))}}
 		  </div>
 		</div>
 		
@@ -21,7 +21,7 @@
 		  <div class="form-group">
 			<label for="">Last Name:</label>
 			<!--<input type="text" class="form-control" id="last_name" placeholder="Last Name">-->
-			{{Form::text('last_name', null, array('class' => 'form-control','placeholder'=>"Last Name"))}}
+			{{Form::text('last_name', null, array('class' => 'form-control required','placeholder'=>"Last Name"))}}
 		  </div>
 		</div>
 
@@ -29,7 +29,7 @@
 		  <div class="form-group">
 			<label for="">Email:</label>
 			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
-			{{Form::email('email', null, array('class' => 'form-control','placeholder'=>"Email","required"=>"required"))}}
+			{{Form::email('email', null, array('class' => 'form-control required','placeholder'=>"Email"))}}
 		  </div>
 		</div>
 		
@@ -38,7 +38,7 @@
 			<label for="">Mobile:</label>
 			<!--<input type="number" class="form-control" id="" placeholder="Mobile Number">
 			-->
-			{{Form::number('phone', null, array('class' => 'form-control','placeholder'=>"Mobile","required"=>"required"))}}
+			{{Form::number('phone', null, array('class' => 'form-control required','placeholder'=>"Mobile"))}}
 		  </div>
 		</div>
 		
@@ -47,7 +47,7 @@
 			<label for="">Password:</label>
 			<!--<input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password">
 			-->
-			{{$p?Form::password('password',  array('class' => 'form-control','placeholder'=>"******")):Form::password('password',  array('class' => 'form-control','placeholder'=>"******","required"=>"required"))}}
+			{{$p?Form::password('password',  array('class' => 'form-control','placeholder'=>"******")):Form::password('password',  array('class' => 'form-control required','placeholder'=>"******"))}}
 		  </div>
 		</div>
 		
@@ -80,7 +80,7 @@
 				<label for="">Company Name:</label>
 				<!--<input type="email" class="form-control" id="" placeholder="Company Name">
 				-->
-				{{Form::text('company_name', null, array('class' => 'form-control','placeholder'=>"Company Name","required"=>"required"))}}
+				{{Form::text('company_name', null, array('class' => 'form-control required','placeholder'=>"Company Name"))}}
 			  </div>
 			</div>
 			
@@ -89,7 +89,7 @@
 				<label for="">Company Type:</label>
 				<!--<input type="email" class="form-control" id="" placeholder="Company Type">
 			  	-->
-			  	{{Form::text('company_type', null, array('class' => 'form-control','placeholder'=>"Company Type","required"=>"required"))}}
+			  	{{Form::text('company_type', null, array('class' => 'form-control required','placeholder'=>"Company Type"))}}
 			  </div>
 			</div>
 
@@ -97,7 +97,7 @@
 			  <div class="form-group">
 				<label for="">Founded On:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Founded On"> -->
-				{{Form::text('date_of_incorporation', null, array('class' => 'form-control datepicker','placeholder'=>"Founded On","required"=>"required"))}}
+				{{Form::text('date_of_incorporation', null, array('class' => 'form-control required  datepicker','placeholder'=>"Founded On"))}}
 			  </div>
 			</div>
 			
@@ -105,7 +105,7 @@
 			  <div class="form-group">
 				<label for="">Past Experience:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Past Experience"> -->
-				{{Form::text('past_experience', null, array('class' => 'form-control','placeholder'=>"Past Experience"))}}
+				{{Form::text('past_experience', null, array('class' => 'form-control required','placeholder'=>"Past Experience"))}}
 			  </div>
 			</div> 
 			
@@ -113,7 +113,7 @@
 			  <div class="form-group">
 				<label for="">PAN:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="PAN"> -->
-				{{Form::text('company_pan', null, array('class' => 'form-control','placeholder'=>"PAN","required"=>"required"))}}
+				{{Form::text('company_pan', null, array('class' => 'form-control required','placeholder'=>"PAN"))}}
 			  </div>
 			</div>
 			
@@ -121,7 +121,7 @@
 			  <div class="form-group">
 				<label for="">Contact Person:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Contact Person"> -->
-				{{Form::text('contact_person', null, array('class' => 'form-control','placeholder'=>"Contact Person"))}}
+				{{Form::text('contact_person', null, array('class' => 'form-control required','placeholder'=>"Contact Person"))}}
 			  </div>
 			</div>
 			
@@ -129,7 +129,7 @@
 			  <div class="form-group">
 				<label for="">Authority Name:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Authority Name"> -->
-				{{Form::text('name_of_authority', null, array('class' => 'form-control','placeholder'=>"Authority Name","required"=>"required"))}}
+				{{Form::text('name_of_authority', null, array('class' => 'form-control required','placeholder'=>"Authority Name"))}}
 			  </div>
 			</div>
 			
@@ -137,14 +137,14 @@
 			  <div class="form-group">
 				<label for="">IATA Number:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="IATA Number"> -->
-				{{Form::number('iata_no', null, array('class' => 'form-control','placeholder'=>"IATA Number","required"=>"required"))}}
+				{{Form::number('iata_no', null, array('class' => 'form-control required','placeholder'=>"IATA Number"))}}
 			  </div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
 				<label for="">Valid From:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Valid From (Document)"> -->
-				{{Form::text('valid_from', null, array('class' => 'form-control datepicker','placeholder'=>"Valid From (Document)","required"=>"required"))}}
+				{{Form::text('valid_from', null, array('class' => 'form-control required datepicker','placeholder'=>"Valid From (Document)"))}}
 			  </div>
 			</div>
 
@@ -152,7 +152,7 @@
 			  <div class="form-group">
 				<label for="">Valid Till:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Valid Till (Document)"> -->
-				{{Form::text('valid_till', null, array('class' => 'form-control datepicker','placeholder'=>"Valid Till (Document)","required"=>"required"))}}
+				{{Form::text('valid_till', null, array('class' => 'form-control required datepicker','placeholder'=>"Valid Till (Document)"))}}
 			  </div>
 			</div>
 			
@@ -161,7 +161,7 @@
 			  <div class="form-group">
 				<label for="">Credit Limit:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Credit Limit"> -->
-				{{Form::text('credit_limit', null, array('class' => 'form-control','placeholder'=>"Credit Limit"))}}
+				{{Form::text('credit_limit', null, array('class' => 'form-control required','placeholder'=>"Credit Limit"))}}
 			  </div>
 			</div>
 		</div>	
@@ -186,7 +186,7 @@
 			  <div class="form-group">
 				<label for="">Address:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Name"> -->
-				{{Form::text('address', null, array('class' => 'form-control','placeholder'=>"Address","required"=>"required"))}}
+				{{Form::text('address', null, array('class' => 'form-control required','placeholder'=>"Address"))}}
 			  </div>
 			</div>
 			
@@ -194,7 +194,7 @@
 			  <div class="form-group">
 				<label for="">Country:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::select('country', array('1' => 'India', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"Country","required"=>"required"))}}
+				{{Form::select('country', countries(),null,array('class' => 'form-control required','placeholder'=>"Country"))}}
 				
 			  </div>
 			</div>
@@ -203,7 +203,7 @@
 			  <div class="form-group">
 				<label for="">State:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Founded On"> -->
-				{{Form::select('state', array('1' => 'Delhi', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"State","required"=>"required"))}}
+				{{Form::select('state', states(),null,array('class' => 'form-control required','placeholder'=>"State"))}}
 			  </div>
 			</div>
 			
@@ -211,7 +211,7 @@
 			  <div class="form-group">
 				<label for="">City:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Past Experience"> -->
-				{{Form::select('city', array('1' => 'Delhi', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"City","required"=>"required"))}}
+				{{Form::select('city', cities(),null,array('class' => 'form-control required','placeholder'=>"City"))}}
 			  </div>
 			</div> 
 			
@@ -219,7 +219,7 @@
 			  <div class="form-group">
 				<label for="">PIN:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="PAN"> -->
-				{{Form::number('pin', null, array('class' => 'form-control','placeholder'=>"PIN","required"=>"required"))}}
+				{{Form::number('pin', null, array('class' => 'form-control required','placeholder'=>"PIN"))}}
 			  </div>
 			</div>
 			@if(isset($_GET['action']))
@@ -240,7 +240,7 @@
 		<div class="submit_btn">
 			<div class="button-inline">
 				<button type="submit" class="btn-submit">Submit</button>
-				<button type="button" class="btn-cancel">Cancel</button>
+				<a class="btn-cancel btn-close" href="{{ url('agency') }}">Cancel</a>
 			</div>
 		</div>
 		

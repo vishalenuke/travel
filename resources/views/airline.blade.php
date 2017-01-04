@@ -14,8 +14,8 @@
 					@include('includes.advance-search')
 					<div class="col-md-8 col-sm-8 col-xs-12">
 						<div class="inner-right-side">
-							<h1>Airline Management</h1>
-							
+							<!-- <h1>Airline Management</h1> -->
+							@include('forms.flight')
 							
 							
 							

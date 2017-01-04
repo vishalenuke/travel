@@ -18,6 +18,7 @@ Route::resource('whitelabel','WhiteLabelController' );
 Route::resource('whitelabel-search','WhiteLabelController@search' );
 Route::resource('agency','AgencyController' );
 Route::resource('agency/{id}/subagents','AgencyController@subAgents' );
+Route::resource('subagents','SubagentsController' );
 Route::resource('agency/{id}/approve','AgencyController@approve' );
 Route::get('pending/applications','AgencyController@pendingApplications');
 Route::get('agency-search','AgencyController@search' );

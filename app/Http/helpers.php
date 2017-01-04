@@ -63,4 +63,18 @@ function user_Email( $email,$password='',$message='Your account is created with 
 	
 
 }
+function countries(){
+	return array('1' =>'India' ,'2'=>'China','3'=>'Other' );
+}
+function states(){
+	return array('1' =>'Delhi','2'=>'Haryana' ,'3'=>'Madhya Pradesh','4' =>'Uttar Pradesh','5'=>'Other' );
+}
+function cities(){
+	return array('1' =>'Delhi' ,'2'=>'Gurgaon','3'=>'Other' );
+}
+function generateUrl($fileToBeUploaded){
+	$url=implode('_',explode(' ',time().$fileToBeUploaded->getClientOriginalName()));
+	$fileToBeUploaded->move('images',$url );
+	return $url;
+}
 ?>

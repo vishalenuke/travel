@@ -1,5 +1,6 @@
 <?php if(!(isset($type) and $type) ){
 	$type=strtolower(isset($keys['controller'])?$keys['controller']:'');
+
 	}?>
 <div class="" id="middle-menu">
 			<div class="container">
@@ -23,9 +24,11 @@
 
 										@if(isAdmin())
 											<li><a href="{{url('pending/applications')}}">Pending Applications</a></li>
-										@endif
 											<li><a href="{{url('agency')}}">Agent Management</a></li>
 											<li><a href="{{url('airline')}}">Airline Management</a></li>
+										@else
+											<li><a href="{{url('subagents')}}">Sub Agent Management</a></li>
+										@endif
 											<li><a href="{{url('whitelabel')}}">White Label</a></li>
 											
 										</ul>

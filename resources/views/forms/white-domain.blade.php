@@ -1,7 +1,7 @@
 <!--<form > -->
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 
-		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post') ))}}
+		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
 	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New White Label Domain's Details": "Edit White Label Domain's Details"):"White Label Domain's Registration"}}</h1>
@@ -31,7 +31,7 @@
 			  <div class="form-group">
 				<label for="">Contact No.:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::text('mobile', null, array('class' => 'form-control required','placeholder'=>"Contact No."))}}
+				{{Form::number('mobile', null, array('class' => 'form-control required','placeholder'=>"Contact No."))}}
 				
 			  </div>
 		</div>	
@@ -39,7 +39,7 @@
 		  <div class="form-group js">
 			<label for="">Image:</label>
 			
-			<span> <input type="file" id="exampleInputFile" class="inputfile">
+			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
 
 			 Upload</span> 
@@ -112,7 +112,7 @@
 		<div class="submit_btn">
 			<div class="button-inline">
 				<button type="submit" class="btn-submit">Submit</button>
-				<button type="button" class="btn-cancel">Cancel</button>
+				<a class="btn-cancel btn-close" href="{{ url('airline') }}">Cancel</a>
 			</div>
 		</div>
 		

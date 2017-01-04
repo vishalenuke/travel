@@ -1,7 +1,7 @@
 <!--<form > -->
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 
-		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post') ))}}
+		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
 	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Flight's Details": "Edit Flight's Details"):"Flight's Registration"}}</h1>
@@ -14,7 +14,7 @@
 			
 			{{Form::hidden('_search', isset($keys['search'])?$keys['search']:'')}}
 			
-			{{Form::text('company_name', null, array('class' => 'form-control','placeholder'=>"Company Name","required"=>"required"))}}
+			{{Form::text('company_name', null, array('class' => 'form-control required','placeholder'=>"Company Name"))}}
 		  </div>
 		</div>
 		
@@ -22,7 +22,7 @@
 		  <div class="form-group">
 			<label for="">Manufactured By:</label>
 			<!--<input type="text" class="form-control" id="last_name" placeholder="Last Name">-->
-			{{Form::text('mfd_by', null, array('class' => 'form-control','placeholder'=>"Manufactured By","required"=>"required"))}}
+			{{Form::text('mfd_by', null, array('class' => 'form-control required','placeholder'=>"Manufactured By"))}}
 		  </div>
 		</div>
 
@@ -30,14 +30,14 @@
 		  <div class="form-group">
 			<label for="">Manufactured Date:</label>
 			<!--<input type="number" class="form-control" id="email" placeholder="Email">-->
-			{{Form::text('mfd_on', null, array('class' => 'form-control datepicker','placeholder'=>"Manufactured Date","required"=>"required"))}}
+			{{Form::text('mfd_on', null, array('class' => 'form-control required  datepicker','placeholder'=>"Manufactured Date"))}}
 		  </div>
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
 				<label for="">Country:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::select('country', array('1' => 'India', '2' => 'Other'),null,array('class' => 'form-control','placeholder'=>"Country","required"=>"required"))}}
+				{{Form::select('country', countries(),null,array('class' => 'form-control required','placeholder'=>"Country"))}}
 				
 			  </div>
 		</div>	
@@ -45,7 +45,7 @@
 		  <div class="form-group js">
 			<label for="">Image:</label>
 			
-			<span> <input type="file" id="exampleInputFile" class="inputfile">
+			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
 
 			 Upload</span> 
@@ -72,7 +72,8 @@
 		<div class="submit_btn">
 			<div class="button-inline">
 				<button type="submit" class="btn-submit">Submit</button>
-				<button type="button" class="btn-cancel">Cancel</button>
+				<a class="btn-cancel btn-close" href="{{ url('airline') }}">Cancel</a>
+				
 			</div>
 		</div>
 		

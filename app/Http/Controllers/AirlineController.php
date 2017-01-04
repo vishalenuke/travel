@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use Session;
 use Validator;
-use Input;
+use Illuminate\Support\Facades\Input;
 use Redirect;
 use View, Auth, App\Airline;
 class AirlineController extends Controller {
@@ -23,7 +23,7 @@ class AirlineController extends Controller {
     }
 	public function keys($search='')
 	{
-		return array("0"=>"company_name","1"=>"status","2"=>"id","controller"=>"Airline","search"=>$search);
+		return array("0"=>"company_name","1"=>"status","2"=>"id","controller"=>"Airline","image"=>"logo_url","search"=>$search);
 	}
 
 
@@ -101,6 +101,8 @@ public function search(){
 		try{
 			$input = Request::all();			
 			$modal = new Airline;
+			if($url=self::uploadImage($input))
+				$input['logo_url']=$url;
 			$modal=$modal->create($input);
 			$modal->save();
 			Session::flash('message','Airline added successfully.');
@@ -110,7 +112,31 @@ public function search(){
 		
 		return Redirect::back();		
 	}
+	public function uploadImage($input,$user=''){
+		$url='';
+		if((!empty($user))&& $user->logo_url){
+			$url=$user->logo_url;
+		}
+		if( isset($input['image']) && $input['image'] != null ){
+									
+			$file = array('image' => Input::file('image'));
+			$rules = array('image' => 'required|mimes:png,jpg,jpeg,gif');
+			$fileToBeUploaded = Input::file('image');				
+			//Validate image
+			$validator = Validator::make($file, $rules);
 
+			//Store validated image
+			if( !$validator->fails() && $fileToBeUploaded->isValid() ){				
+				
+				$url=generateUrl($fileToBeUploaded);
+				if((!empty($user))&& $user->logo_url && file_exists($already='images/'.$user->logo_url)){
+					unlink($already);		
+				}								
+			}	
+
+		}
+		return $url;
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -162,11 +188,18 @@ public function search(){
 		$keys=array();
 		try{
 			$input = Request::all();
+
 			//print_r($id);die();
 			$search=$input['_search'];
+
 			//print_r($search);die();
 			$keys=self::keys($search);
+
 			$modal = Airline::find($id);
+			//print_r($id);die();
+			if($url=self::uploadImage($input,$modal))
+				$input['logo_url']=$url;
+
 			$array=arrayFromObject($modal,$input);
 			$modal=$modal->update($array)?true:$modal->create($array);	
 			Session::flash('message','Airline updated successfully.');

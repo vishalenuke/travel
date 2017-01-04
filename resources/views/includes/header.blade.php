@@ -44,3 +44,4 @@
 				</div>
 			</div>
 		</header>
+		<input type="hidden" id="__token" data-id="{{csrf_token()}}">

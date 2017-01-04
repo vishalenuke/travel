@@ -19,7 +19,7 @@ class AgencyController extends Controller {
     	
     	$method=$_SERVER['REQUEST_METHOD'];
     	if(!(Auth::check() || $method=="POST")){
-    		Auth::logout();
+    		Redirect::to('auth/logout')->send();
 
     	}
     	
@@ -42,7 +42,7 @@ class AgencyController extends Controller {
 		try{
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.parent_id','=',null)->where('users.id','<>',Auth::user()->id)->paginate(10);
 			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -78,7 +78,7 @@ class AgencyController extends Controller {
 		try{
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.status','=',0)->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.status','=',0)->where('users.parent_id','=',null)->where('users.id','<>',Auth::user()->id)->paginate(10);
 			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -96,7 +96,7 @@ class AgencyController extends Controller {
 		try{
 			$search=$_GET['value'];
 			$keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->where('users.first_name','LIKE',"%{$search}%")->where('users.id','<>',Auth::user()->id)->paginate(10);
 			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -117,7 +117,7 @@ class AgencyController extends Controller {
 		$user='';
 		$keys=self::keys();
 		try{
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->where('users.id','<>',Auth::user()->id)->paginate(10);
 			
 
 		}catch(\Exception $e){
@@ -279,7 +279,7 @@ public function verification($id)
 		try{
 			 $search=isset($_GET['value'])?$_GET['value']:'';
 			 $keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
+			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
 			$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
 			//print_r($user);die();
 		}catch(\Exception $e){
@@ -304,8 +304,8 @@ public function uploadImage($input,$user=''){
 		//Store validated image
 		if( !$validator->fails() && $fileToBeUploaded->isValid() ){				
 			
-			$url=implode('_',explode(' ',$fileToBeUploaded->getClientOriginalName()));
-			$fileToBeUploaded->move('images',$url );
+			$url=generateUrl($fileToBeUploaded);
+			
 			if((!empty($user))&& $user->image_url && file_exists($already='images/'.$user->image_url)){
 				unlink($already);		
 			}								
@@ -389,9 +389,7 @@ public function uploadImage($input,$user=''){
 			Session::flash('error',$e->getMessage());
 
 		}	
-		//print_r($keys);die();
-		//return redirect()->route('agency.index', ['keys' => $keys]);
-		//return Redirect::to('/agency')->with('keys',$keys);//Redirect::back()->with('keys',$keys);
+		
 		return Redirect::to('/agency'.($search?'?value='.$search:''));
 		
 	}

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use Session;
 use Validator;
-use Input;
+use Illuminate\Support\Facades\Input;
 use Redirect;
 use View, Auth;
 use App\WhiteLabel;
@@ -24,7 +24,7 @@ public function __construct()
     }
 	public function keys($search='')
 	{
-		return array("0"=>"site_name","1"=>"status","2"=>"id","controller"=>"WhiteLabel","search"=>$search);
+		return array("0"=>"site_name","1"=>"status","2"=>"id","controller"=>"WhiteLabel","image"=>"file_url","search"=>$search);
 	}
 
 
@@ -117,6 +117,8 @@ public function __construct()
 		try{
 			$input = Request::all();
 			$user=new WhiteLabel;
+			if($url=self::uploadImage($input))
+				$input['file_url']=$url;
 			$userArray=arrayFromObject($user,$input);
 			$user=$user->create($userArray);
 		
@@ -127,7 +129,31 @@ public function __construct()
 		
 		return Redirect::back();		
 	}
+	public function uploadImage($input,$user=''){
+		$url='';
+		if((!empty($user))&& $user->file_url){
+			$url=$user->file_url;
+		}
+		if( isset($input['image']) && $input['image'] != null ){
+									
+			$file = array('image' => Input::file('image'));
+			$rules = array('image' => 'required|mimes:png,jpg,jpeg,gif');
+			$fileToBeUploaded = Input::file('image');				
+			//Validate image
+			$validator = Validator::make($file, $rules);
 
+			//Store validated image
+			if( !$validator->fails() && $fileToBeUploaded->isValid() ){				
+				
+				$url=generateUrl($fileToBeUploaded);
+				if((!empty($user))&& $user->file_url && file_exists($already='images/'.$user->file_url)){
+					unlink($already);		
+				}								
+			}	
+
+		}
+		return $url;
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -195,6 +221,8 @@ public function __construct()
 			//print_r($search);die();
 			$keys=self::keys($search);
 			$user=WhiteLabel::find($id);
+			if($url=self::uploadImage($input,$user))
+				$input['file_url']=$url;
 			$userArray=arrayFromObject($user,$input);
 
 			
@@ -226,7 +254,7 @@ public function __construct()
 		}catch(\Exception $e){
 			Session::flash('error','White label detail not deleted.');
 		}	
-		return Redirect::back();
+		return array('success'=>true);
 		
 	}
 

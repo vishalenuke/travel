@@ -65,7 +65,7 @@ jQuery.extend(jQuery.validator.messages, {
     // min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
 });
 $("#login").validate();
-$("#_Form").validate();
+//$("#_Form").validate();
 
  $('#resultModal').modal('show');
     $('#example').DataTable( 

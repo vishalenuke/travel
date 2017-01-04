@@ -115,9 +115,11 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{bo
 .login-wrapper form .btn-login{background-color:#0077cc;padding:10px 25px;border-radius:3px;color:#fff;font-weight:bold;margin-bottom:20px;}
 .agent-register-wrapper .domain_detail{padding:0;}
 
-.form-group .error{
+.form-group label.error{
 	color: red;
+	margin-bottom: 0;
 }
+
 /********************* Footer  Css *****************/
 
 footer{background-color:#49505a;color:#fff;padding:20px 0;}

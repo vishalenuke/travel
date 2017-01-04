@@ -13,7 +13,7 @@
 				</tr>
 			</thead>
 			
-			<tbody id="__token" data-id="{{csrf_token()}}">
+			<tbody >
 			
 			@foreach($data as $value)
 				<?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
