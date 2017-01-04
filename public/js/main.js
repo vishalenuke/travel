@@ -46,7 +46,7 @@ $('#login').bind("submit",function(e){
 
 });
 jQuery.extend(jQuery.validator.messages, {
-    required: "required",
+    required: "Required*",
     remote: "Please fix this field.",
     email: "Please enter a valid email address.",
     url: "Please enter a valid URL.",
