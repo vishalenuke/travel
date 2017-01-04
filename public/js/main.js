@@ -204,6 +204,8 @@ function _delete1(id,controller=''){
 function _delete(id,controller=''){
 	//_delete1(id,controller);	
 	$('#deleteModal').modal('show');
+	$('#confirm_message').html('Do you really want to delete.');
+	$('#delete_popup').html('Delete');
 	$('#delete_popup').removeClass('btn-danger');
 	$('#delete_popup').addClass('btn-danger');
 	$('#delete_popup').attr('onclick',"_delete1("+id+",'"+controller+"')");	
