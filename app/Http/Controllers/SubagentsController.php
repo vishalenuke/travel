@@ -279,7 +279,7 @@ public function verification($id)
 			 $search=isset($_GET['value'])?$_GET['value']:'';
 			 $keys=self::keys($search);
 			$data=User::where('users.parent_id','<>',null)->where('users.parent_id','=',$this->agent)->paginate(10);
-			$user=User::leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+			$user=User::selectRaw('users.id as agent_id,users.*,address.*')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
 			//$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
 			//print_r($user);die();
 		}catch(\Exception $e){
@@ -331,10 +331,10 @@ public function uploadImage($input,$user=''){
 			$search=$input['_search'];
 			//print_r($search);die();
 			$keys=self::keys($search);
-			$agency=Agency::find($id);
-			$user=User::find($agency->user_id);
-			$document=Document::where(['agent_id'=>$id])->first();
-			$address=Address::where(['user_id'=>$agency->user_id])->first();
+			
+			$user=User::find($id);
+			
+			$address=Address::where(['user_id'=>$id])->first();
 
 			if(empty($address))
 			{
@@ -350,17 +350,17 @@ public function uploadImage($input,$user=''){
 				$password=$userArray['password'];
 				$userArray['password'] = Hash::make($userArray['password']);
 			}
-			$agencyArray=arrayFromObject($agency,$input);
+			
 			//print_r($document);die();
 			if(isset($userArray['role']) && empty($userArray['role']))
 				unset($userArray['role']);
-			$documentArray=arrayFromObject($document,$input);
+			
 
 			$addressArray=arrayFromObject($address,$input);
 
-			$documentArray['agent_id']=$agency->id;
-			$agencyArray['user_id']=$agency->user_id;
-			$addressArray['user_id']=$agency->user_id;
+			
+			
+			$addressArray['user_id']=$id;
 
 			if(!(isset($userArray['password']) and $userArray['password'])){
 				$password='';
@@ -369,19 +369,18 @@ public function uploadImage($input,$user=''){
 			$userArray['status']=(Auth::user()->role=="admin")?1:0;
 			
 			$user1=$user->update($userArray)?true:$user->create($userArray);
-			$agency=$agency->update($agencyArray)?true:$agency->create($agencyArray);
-			$document=$document->update($documentArray)?true:$document->create($documentArray);
+			
 			$address=$address->update($addressArray)?true:$address->create($addressArray);
 			
 			if($user->email && isset($input['send_email']) && $input['send_email']=="on" && user_Email( $user->email, $password,"Your profile details has been updated." )){
 				if(empty($login)){
-					Session::flash('message', 'Agency updated successfully.Email has been send to user.');
+					Session::flash('message', 'Sub agent updated successfully.Email has been send to user.');
 					//Session::flash('message','Agency register successfully.');
 				}
 				else
-					Session::flash('message','Agency updated successfully.');
+					Session::flash('message','Sub agent updated successfully.');
 			}else{
-				Session::flash('error','Unable to send email.');
+				Session::flash('message','Sub agent updated successfully.');
 			}
 			//Session::flash('message','Agency updated successfully.');
 		}catch(\Exception $e){

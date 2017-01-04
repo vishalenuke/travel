@@ -202,7 +202,7 @@ class AgencyController extends Controller {
 				else
 					Session::flash('message','Agency added successfully.');
 			}else{
-				Session::flash('error','Unable to send email.');
+				Session::flash('message','Agency added successfully.');
 			}
 
 			
@@ -385,7 +385,7 @@ public function uploadImage($input,$user=''){
 				else
 					Session::flash('message','Agency updated successfully.');
 			}else{
-				Session::flash('error','Agency updated successfully.');
+				Session::flash('message','Agency updated successfully.');
 			}
 			//Session::flash('message','Agency updated successfully.');
 		}catch(\Exception $e){
@@ -407,16 +407,16 @@ public function uploadImage($input,$user=''){
 	public function destroy($id)
 	{
 		try{			
-			$agency=Agency::find($id);
-			$user=User::find($agency->user_id);
-			$document=Document::where(['agent_id'=>$id])->first();
-			$address=Address::where(['user_id'=>$agency->user_id])->first();
+			
+			$user=User::find($id);
+			
+			$address=Address::where(['user_id'=>$id])->first();
 
-			$agency->delete();
+			
 			$user->delete();
-			$document->delete();
+			
 			$address->delete();
-			Session::flash('message','Agency deleted successfully.');
+			Session::flash('message','Sub agent deleted successfully.');
 		}catch(\Exception $e){
 			Session::flash('error',$e->getMessage());
 			

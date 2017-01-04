@@ -1,9 +1,13 @@
 <!--<form > -->
+<?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 		<?php $p=isset($_GET['action']) ?($_GET['action']=="create"?0: 1):0;?>
-		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array(($user?'agency.update':'agency.store'), ($user?$user->agent_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
+		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->agent_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
-
+@if($controller=='subagents')
+	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Sub Agent's Details": "Edit Sub Agent's Details"):"Sub Agent's Registration"}}</h1>
+@else
 	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Agent's Details": "Edit Agent's Details"):"Agent's Registration"}}</h1>
+@endif
 	<div class="row">
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">
@@ -71,7 +75,7 @@
 		 </div>
 		
 </div>
-
+@if($controller!='subagents')
 <div class="company_detail clearfix">
 	<h1>Company Detail</h1>
 		<div class="row" >
@@ -172,7 +176,7 @@
 			
 			
 </div>
-
+@endif
 <div class="address_detail clearfix">
 	<h1>Address</h1>
 		<!-- <div class="col-md-12 col-sm-12 col-xs-12">
