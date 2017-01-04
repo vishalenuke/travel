@@ -27,7 +27,7 @@ class AgencyController extends Controller {
     }
 	public function keys($search='')
 	{
-		return array("0"=>"first_name","1"=>"user_status","2"=>"agent_id","3"=>"created_at","image"=>"image_url","controller"=>"Agency","search"=>$search);
+		return array("0"=>"first_name","1"=>"user_status","2"=>"id","3"=>"created_at","image"=>"image_url","controller"=>"Agency","search"=>$search);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -36,7 +36,7 @@ class AgencyController extends Controller {
 	 */
 	public function index()
 	{
-		if(isAdmin()){
+		if(!isAdmin()){
 			return Redirect::to('subagents');
 		}
 		$data=array();
@@ -57,21 +57,22 @@ class AgencyController extends Controller {
 		
 	}
 	public function subAgents($id){
-		// $data=array();
-		// $user='';
-		// $search='';
-		// $keys=array();
+		$data=array();
+		$user='';
+		$search='';
+		$keys=array();
 		
-		// try{
-		// 	 $search=isset($_GET['value'])?$_GET['value']:'';
-		// 	 $keys=self::keys($search);
-		// 	$data=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
-		// 	$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
-		// 	//print_r($user);die();
-		// }catch(\Exception $e){
-		// }
+		try{
+			 $search=isset($_GET['value'])?$_GET['value']:'';
+			 $keys=self::keys($search);
+
+			$data=User::selectRaw('users.id as id,users.status as user_status,users.*')->where('users.parent_id','<>',null)->where('users.parent_id','=',$id)->paginate(10);
+			$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+			
+		}catch(\Exception $e){
+		}
 		
-		 return view('tables.subagents');//,['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		 return view('tables.sub-agents',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 	}
 	public function pendingApplications()
 	{

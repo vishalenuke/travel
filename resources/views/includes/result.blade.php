@@ -20,7 +20,7 @@
 		</div>
 		<div class="action">
 			
-		@if(!isset($pending))
+		
 
       		@if(isset($keys[2]))
       			<!-- <a href="javascript:void(0)"  onclick="edit('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-user"></i></a> -->
@@ -38,9 +38,7 @@
 			    </ul>
 		    @endif
 
-		@else
-			<button class='btn btn-danger pull-right btn-xs' type="submit">Pending...</button>
-		@endif
+		
       	</div>
 	</li>
 @endforeach	

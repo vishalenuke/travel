@@ -17,12 +17,14 @@ class SubagentsController extends Controller
 	
 	public function __construct()
     {
-		$this->agent = Auth::user()->id;    	
+		$this->agent ='';    	
     	
     	$method=$_SERVER['REQUEST_METHOD'];
     	if(!(Auth::check() || $method=="POST")){
     		Auth::logout();
 
+    	}else{
+    		$this->agent = Auth::user()->id;
     	}
     	
         
@@ -70,7 +72,7 @@ class SubagentsController extends Controller
 		// }catch(\Exception $e){
 		// }
 		
-		 return view('tables.subagents');//,['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		 return view('tables.subagents',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 	}
 	public function pendingApplications()
 	{
@@ -98,7 +100,7 @@ class SubagentsController extends Controller
 		try{
 			$search=$_GET['value'];
 			$keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->paginate(10);
+			$data=User::where('users.parent_id','<>',null)->where('users.parent_id','=',$this->agent)->paginate(10);
 			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -119,7 +121,7 @@ class SubagentsController extends Controller
 		$user='';
 		$keys=self::keys();
 		try{
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
+			$data=User::where('users.parent_id','<>',null)->where('users.parent_id','=',$this->agent)->paginate(10);
 			
 
 		}catch(\Exception $e){
@@ -151,20 +153,18 @@ class SubagentsController extends Controller
 			$input = Request::all();
 
 			$user=new User;
-			$agency=new Agency;
-			$document=new Document;
+			
 			$address=new Address;
 			if($url=self::uploadImage($input))
 				$input['image_url']=$url;
 			$userArray=arrayFromObject($user,$input);
-			$agencyArray=arrayFromObject($agency,$input);
-			$documentArray=arrayFromObject($document,$input);
+			
 			$addressArray=arrayFromObject($address,$input);
 			if($userArray['password'])
 				$userArray['password'] = Hash::make($userArray['password']);
 
 			if(isset($userArray['role']) && empty($userArray['role']))
-				$userArray['role']="agent";
+				$userArray['role']="sub_agent";
 			
 				$userArray['status']=(!empty($login))?($login->role=="admin"?1:0):0;
 	    	//user create here.
@@ -177,19 +177,16 @@ class SubagentsController extends Controller
 
 
 			$user=$user->create($userArray);
-			$agencyArray['user_id']=$user->id;
 			
-			$agency=$agency->create($agencyArray);
-			$documentArray['agent_id']=$agency->id;
-			$document=$document->create($documentArray);
+			
+			
 			$addressArray['user_id']=$user->id;
 			$address=$address->create($addressArray);
 			
 
 
 			$user->save();
-			$agency->save();
-			$document->save();
+			
 			$address->save();
 			
 			if($user->email &&(empty($login) || isset($input['send_email']) && $input['send_email']=="on") && verificationEmail( $user->email )){
@@ -281,8 +278,9 @@ public function verification($id)
 		try{
 			 $search=isset($_GET['value'])?$_GET['value']:'';
 			 $keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->paginate(10);
-			$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+			$data=User::where('users.parent_id','<>',null)->where('users.parent_id','=',$this->agent)->paginate(10);
+			$user=User::leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+			//$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
 			//print_r($user);die();
 		}catch(\Exception $e){
 		}
