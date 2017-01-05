@@ -256,7 +256,9 @@ public function verification($id)
 
 
 			$input=Application::find($id);
-			if(!$input->status){
+			if(User::where(['email'=>$input->email])->count()){
+				Session::flash('message','This email is already register for other user.');
+			}elseif(!$input->status){
 				$user=new User;
 				$agency=new Agency;
 				$document=new Document;
