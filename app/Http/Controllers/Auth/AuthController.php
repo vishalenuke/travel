@@ -157,7 +157,7 @@ class AuthController extends Controller
                 }
             }else{
                 
-                Session::flash('errors', 'Fields cannot be empty');
+                Session::flash('error', 'Fields cannot be empty');
                 
             }
         }
