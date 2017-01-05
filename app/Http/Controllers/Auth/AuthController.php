@@ -126,9 +126,10 @@ class AuthController extends Controller
                     
                 );
                 $validator = Validator::make($input, $rulesWeb, $messages);
-                if(!empty(Application::where(['email'=>$email,'is_verified'=>0])->first())){
+                if(!empty($application=Application::where(['email'=>$email,'is_verified'=>0])->first())){
                     //Your email is registered on BizBricks. We have sent a verification email to abc@gmail.com. Please verify your email address to activate your account.
                         //Session::flash('error', 'Your email is registered on Travel Portal. We have sent a verification email to '.$email.'. Please <a href="'.url('auth/verification/'.base64_encode($email)).'">verify</a> your email address to activate your account.');
+                    verificationEmail( $application->email );
                     Session::flash('error', 'Your email is registered on Travel Portal. We have sent a verification email to '.$email.'. Please verify your email address.');
              
                 }elseif($validator->fails()) {                   
@@ -141,14 +142,13 @@ class AuthController extends Controller
                         $input['pan_copy_url']=$pan_url;
                     $user = $user->create($input);
                     
-                    Session::flash('message',  'Registration successfully.');
+                    
                 
-                        if($user->email){
-                           // welcomeEmail( $user,$password);
-                            if($user->is_email_varified){
-                                if(verificationEmail( $user->email ))
-                                    Session::flash('success', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');
-                            }
+                        if($user->email && verificationEmail( $user->email )){                          
+                                
+                            Session::flash('success', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');                            
+                        }else{
+                            Session::flash('message',  'Registration successfully.');
                         }
                        
                         

@@ -11,6 +11,10 @@ class Application extends Model
 	
 	public $fillable = [ 'id', 'first_name', 'last_name', 'email', 'image_url', 'phone', 'address_line1', 'address_line2', 'city', 'state', 'country', 'zip_code', 'status', 'is_verified', 'company_name', 'company_pan','pan_copy_url', 'date_of_incorporation', 'company_type', 'past_experience', 'credit_limit', 'contact_person', 'iata_no', 'name_of_authority', 'document_name', 'document_no', 'valid_from', 'valid_till', 'created_at', 'updated_at', 'deleted_at'];
 
+	protected $hidden = [
+        'remember_token',
+    ];
+
 	public function uploadImage($input,$user=''){
 		$url='';
 		if((!empty($user))&& $user->image_url){
