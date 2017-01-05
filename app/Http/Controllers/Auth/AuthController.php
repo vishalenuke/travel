@@ -130,7 +130,7 @@ class AuthController extends Controller
                     //Your email is registered on BizBricks. We have sent a verification email to abc@gmail.com. Please verify your email address to activate your account.
                         //Session::flash('error', 'Your email is registered on Travel Portal. We have sent a verification email to '.$email.'. Please <a href="'.url('auth/verification/'.base64_encode($email)).'">verify</a> your email address to activate your account.');
                     verificationEmail( $application->email );
-                    Session::flash('error', 'Your email is registered on Travel Portal. We have sent a verification email to '.$email.'. Please verify your email address.');
+                    Session::flash('error', 'Your email is already registered on Travel Portal. We have sent a verification email to '.$email.'. Please verify your email address.');
              
                 }elseif($validator->fails()) {                   
                     Session::flash('error', $this->getError($validator));
