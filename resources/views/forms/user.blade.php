@@ -221,9 +221,9 @@
 			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
-				<label for="">PIN:</label>
+				<label for="">Zip Code:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="PAN"> -->
-				{{Form::number('pin', null, array('class' => 'form-control required','placeholder'=>"PIN"))}}
+				{{Form::number('zip_code', null, array('class' => 'form-control required','placeholder'=>"Zip Code"))}}
 			  </div>
 			</div>
 			@if(isset($_GET['action']))

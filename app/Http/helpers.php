@@ -6,6 +6,36 @@ function arrayFromObject($object,$input){
   		}
   		return $array;
 	}
+	function arrayFromResult($object,$input){
+		$array=array();
+		$countries=countries();
+		$states=states();
+		$cities=cities();
+		foreach ($object as $key => $value) {
+			if($value=='contact_person'){
+	  			$array["owner's_name"]=isset($input[$value])?$input[$value]:'';
+	  			
+	  		}elseif($value=='is_verified'){
+	  			$array['verification_status']=isset($input[$value]) && $input[$value]?"verified":"not verified";
+	  			
+	  		}elseif($value=='pan_copy_url'){
+	  			$array['pan_card_copy']="<a href='".url('images/'.$input['pan_copy_url'])."' target='_blank'>Pan Card</a>";
+	  			
+	  		}elseif($value=='image_url'){
+	  			$array['photo']="<a href='".url('images/'.$input['image_url'])."' target='_blank'>Photo</a>";
+	  			
+	  		}else
+      			$array[$value]=isset($input[$value])?$input[$value]:'';
+  		}
+  		
+  		
+  		$array['country']=$countries[$array['country']];
+  		$array['state']=$states[$array['state']];
+  		$array['city']=$cities[$array['city']];
+  		$array['status']=$array['status']?"Approved":"Not Approve"; 		
+
+  		return $array;
+	}
 	function imageUrl($value='',$keys=''){
 		$url=url('/img/list_user_icon.png');
 		if(!(empty($value) && empty($keys))){

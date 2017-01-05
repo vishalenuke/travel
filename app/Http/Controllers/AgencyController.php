@@ -323,13 +323,33 @@ public function verification($id)
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
-	
+		$data=array();
+		$user='';
+		$search='';
+		$keys=array();
 		
+		try{
+			 $search=isset($_GET['value'])?$_GET['value']:'';
+			 $keys=self::keys($search);
+			//$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
+			$result=Application::find($id);
+			$keysShow=self::keysShow();
+			$user=arrayFromResult($keysShow,$result);
+			//print_r($user)
+			
+		}catch(\Exception $e){
+		}
+		
+		return view('profiles.agent-profile',['user'=>$user,'keys'=>$keys,'id'=>$id]);
+		//return $id;
 		
 	}
+public function keysShow(){
+	return array('first_name', 'last_name', 'email', 'image_url', 'phone', 'address_line1', 'address_line2', 'city', 'state', 'country', 'zip_code', 'status', 'is_verified', 'company_name', 'company_pan','pan_copy_url', 'date_of_incorporation', 'company_type', 'past_experience', 'credit_limit', 'contact_person', 'iata_no', 'valid_from', 'valid_till', 'created_at', 'updated_at');
 
+}
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -470,15 +490,25 @@ public function uploadImage($input,$user=''){
 	public function destroy($id)
 	{
 		try{			
-			
+			$st=0;
 			$user=User::find($id);
 			
 			$address=Address::where(['user_id'=>$id])->first();
 
+			if(!empty($user)){
+				$user->delete();
+				$st=1;
+			}else{
+				$st=0;
+			}
 			
-			$user->delete();
-			
-			$address->delete();
+			if(!empty($address)){
+				$address->delete();
+				$st=1;
+			}else{
+				$st=0;
+			}
+			if($st)
 			Session::flash('message','Sub agent deleted successfully.');
 		}catch(\Exception $e){
 			Session::flash('error',$e->getMessage());

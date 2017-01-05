@@ -119,16 +119,19 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{bo
 	color: red;
 	margin-bottom: 0;
 }
-
+label.text-normal {
+    font-weight: 100 !important;
+}
+.domain_detail ul li{width:40%;}
 /********************* Footer  Css *****************/
 
  footer {
     background-color: #49505a;
     color: #fff;
     padding: 20px 0;
-    position: fixed;
+    /*position: fixed;
     width: 100%;
-    bottom: 0;
+    bottom: 0;*/
 }
 footer p{margin-bottom:0}
 #example_paginate{display: none;}

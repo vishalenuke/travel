@@ -166,8 +166,8 @@ var rowCount = 1;
 			controller=controller.toLowerCase();
 		//var url='/'+controller+'/'+id+'/subagents?action=show&&'+search;
 		var url='/'+controller+'/'+id;
-		if(controller=='agency')
-		 url+='/subagents';
+		// if(controller=='agency')
+		//  url+='/subagents';
 		//alert(url);
 		if(id){
 			$.get(url , function(data)
