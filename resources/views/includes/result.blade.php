@@ -14,13 +14,13 @@
 
 			@if(isset($keys[0]))<h4 class="media-heading">{{ucwords($value[$keys[0]])}}</h4>@endif
 			@if(isset($value['city']))
-			{{cities()[$value['city']]}}
+			{{isset(cities()[$value['city']])?cities()[$value['city']]:''}}
 			@endif
 			@if(isset($value['state']))
-			{{states()[$value['state']]}}
+			{{isset(states()[$value['state']])?states()[$value['state']]:''}}
 			@endif
 			@if(isset($value['country']))
-			{{countries()[$value['country']]}}
+			{{isset(countries()[$value['country']])?countries()[$value['country']]:''}}
 			@endif
 
 
