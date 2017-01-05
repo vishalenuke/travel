@@ -10,18 +10,9 @@
 							</div>
 						</div>
 						
-						<div class="col-md-6 col-sm-6 col-xs-12">
-							<div class="search-bar text-center">
-								<form class="">
-									<div class="form-group">
-									  <input type="text" class="form-control" placeholder="Search">
-									  <img src="{{url('/img/search-icon.png')}}" alt="" title=""/>
-									</div>
-								</form>
-							</div>
-						</div>
 						
-						<div class="col-md-3 col-sm-3 col-xs-12">
+						
+						<div class="col-md-9 col-sm-9 col-xs-12">
 							<div class="user-login">
 								<ul class="nav navbar-right">
 									<li class="dropdown">

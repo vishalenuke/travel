@@ -8,7 +8,7 @@ class Address extends Model
 	protected $primaryKey='id';
 	public $timestamps = false;
 	
-	public $fillable = [ 'user_id', 'address', 'country', 'state', 'city', 'pin', 'status', 'created_at', 'updated_at', 'deleted_at'];
+	public $fillable = [ 'user_id', 'address','address_line1','address_line2', 'country', 'state', 'city', 'pin', 'status', 'created_at', 'updated_at', 'deleted_at'];
 	
 	//protected $hidden = [];
 }

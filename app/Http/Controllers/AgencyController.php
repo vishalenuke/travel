@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Redirect;
 use View, Hash, Auth;
 use App\Agency, App\User, App\Document, App\Address;
+use App\Application;
 
 class AgencyController extends Controller {
 
@@ -82,7 +83,8 @@ class AgencyController extends Controller {
 		try{
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
-			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.status','=',0)->where('users.parent_id','=',null)->where('users.id','<>',Auth::user()->id)->paginate(10);
+
+			$data=Application::where(['status'=>0])->paginate(10);
 			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -217,6 +219,7 @@ class AgencyController extends Controller {
 		
 		return Redirect::back();		
 	}
+
 public function verification($id)
 	{
 		if($id && $user=User::where(['email'=>base64_decode($id),'is_verified'=>0])->first()){
@@ -243,14 +246,72 @@ public function verification($id)
 	{
 		$agency='';
 		$user='';
+		$login=Auth::user();
 		try{
-			$agency=Agency::find($id);
-			$user=User::find($agency->user_id);
-			$user->status=$user->status?0:1;
-			$user->save();
+			// $agency=Agency::find($id);
+			// $user=User::find($agency->user_id);
+			// $user->status=$user->status?0:1;
+			// $user->save();
+
+
+
+			$input=Application::find($id);
+			if(!$input->status){
+				$user=new User;
+				$agency=new Agency;
+				$document=new Document;
+				$address=new Address;
+
+				if($url=self::uploadImage($input))
+					$input['image_url']=$url;
+				$userArray=arrayFromObject($user,$input);
+				
+				$agencyArray=arrayFromObject($agency,$input);
+				$documentArray=arrayFromObject($document,$input);
+				$addressArray=arrayFromObject($address,$input);
+				if($userArray['password'])
+					$userArray['password'] = Hash::make($userArray['password']);
+
+				if(isset($userArray['role']) && empty($userArray['role']))
+					$userArray['role']="agent";
+				
+					$userArray['status']=(!empty($login))?($login->role=="admin"?1:0):0;
+		    	//user create here.
+
+
+
+
+
+
+
+
+				$user=$user->create($userArray);
+				$agencyArray['user_id']=$user->id;
+				
+				$agency=$agency->create($agencyArray);
+				$documentArray['agent_id']=$agency->id;
+				$document=$document->create($documentArray);
+				$addressArray['user_id']=$user->id;
+				$address=$address->create($addressArray);
+				
+
+
+				$user->save();
+				$agency->save();
+				$document->save();
+				$address->save();
+				$input->status=1;
+				$input->save();
+				Session::flash('message','Email has been sent to the user.');
+			}else{
+				Session::flash('message','Already approved.');
+			}
+				
+
 		}catch(\Exception $e){
 			//Session::flash('error','Not approve.');
 		}
+			
 		
 		
 	}
@@ -284,8 +345,8 @@ public function verification($id)
 			 $search=isset($_GET['value'])?$_GET['value']:'';
 			 $keys=self::keys($search);
 			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
-			$user=Agency::join('users', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
-			//print_r($user);die();
+			$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+			
 		}catch(\Exception $e){
 		}
 		

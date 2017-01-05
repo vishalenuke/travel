@@ -49,7 +49,7 @@
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
-			<label for="">Image:</label>
+			<label for="">Photo:</label>
 			
 			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
@@ -100,7 +100,8 @@
 			  <div class="form-group">
 				<label for="">Past Experience:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Past Experience"> -->
-				{{Form::text('past_experience', null, array('class' => 'form-control required','placeholder'=>"Past Experience"))}}
+				
+				{{Form::select('past_experience', years(),null,array('class' => 'form-control required','placeholder'=>"Past Experience"))}}
 			  </div>
 			</div> 
 			
@@ -111,20 +112,27 @@
 				{{Form::text('company_pan', null, array('class' => 'form-control required','placeholder'=>"PAN"))}}
 			  </div>
 			</div>
-			
 			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="js">
 			  <div class="form-group">
-				<label for="">Contact Person:</label>
-				<!-- <input type="email" class="form-control" id="" placeholder="Contact Person"> -->
-				{{Form::text('contact_person', null, array('class' => 'form-control required','placeholder'=>"Contact Person"))}}
+				<label for="">Attach PAN Card Copy:</label>
+				
+				<span> <input type="file" id="exampleInputFile1" class="inputfile" name="pan_image">
+				<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
+
+				 Upload</span> 
+				 
+				 
+			  </div>
 			  </div>
 			</div>
 			
+			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
-				<label for="">Authority Name:</label>
+				<label for="">Owner's Name:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Authority Name"> -->
-				{{Form::text('name_of_authority', null, array('class' => 'form-control required','placeholder'=>"Authority Name"))}}
+				{{Form::text('contact_person', null, array('class' => 'form-control required','placeholder'=>"Owner's Name"))}}
 			  </div>
 			</div>
 			
@@ -192,22 +200,6 @@
 			  </div>
 			</div>
 			
-			<div class="col-md-4 col-sm-4 col-xs-12">
-			  <div class="form-group">
-				<label for="">Country:</label>
-				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::select('country', countries(),null,array('class' => 'form-control required','placeholder'=>"Country"))}}
-				
-			  </div>
-			</div>
-
-			<div class="col-md-4 col-sm-4 col-xs-12">
-			  <div class="form-group">
-				<label for="">State:</label>
-				<!-- <input type="email" class="form-control" id="" placeholder="Founded On"> -->
-				{{Form::select('state', states(),null,array('class' => 'form-control required','placeholder'=>"State"))}}
-			  </div>
-			</div>
 			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
@@ -216,12 +208,28 @@
 				{{Form::select('city', cities(),null,array('class' => 'form-control required','placeholder'=>"City"))}}
 			  </div>
 			</div> 
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">State:</label>
+				<!-- <input type="email" class="form-control" id="" placeholder="Founded On"> -->
+				{{Form::select('state', states(),null,array('class' => 'form-control required','placeholder'=>"State"))}}
+			  </div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">Country:</label>
+				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
+				{{Form::select('country', countries(),null,array('class' => 'form-control required','placeholder'=>"Country"))}}
+				
+			  </div>
+			</div>
+			
 			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
-				<label for="">PIN:</label>
+				<label for="">Zip Code:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="PAN"> -->
-				{{Form::number('pin', null, array('class' => 'form-control required','placeholder'=>"PIN"))}}
+				{{Form::number('pin', null, array('class' => 'form-control required','placeholder'=>"Zip Code"))}}
 			  </div>
 			</div>
 			@if(isset($_GET['action']))
@@ -242,7 +250,7 @@
 		<div class="submit_btn">
 			<div class="button-inline">
 				<button type="submit" class="btn-submit">Submit</button>
-				<a class="btn-cancel btn-close" href="{{ url('agency') }}">Cancel</a>
+				<a class="btn-cancel btn-close" href="{{ url('auth/login') }}">Cancel</a>
 			</div>
 		</div>
 		

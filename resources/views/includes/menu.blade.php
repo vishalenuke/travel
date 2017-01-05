@@ -8,7 +8,7 @@
 						<div class="col-md-12 col-sm-12 col-xs-12 rPadding">
 							<div class="middle-menu-list">
 								<ul class="list-inline left-list">
-									<li><a href="#"><i class="fa fa-bars"></i></a>
+									<!-- <li><a href="#"><i class="fa fa-bars"></i></a>
 									
 									<div class="dropdown-content">
 										<a href="#">Link 1</a>
@@ -16,7 +16,7 @@
 										<a href="#">Link 3</a>
 									</div>
 									
-									</li>
+									</li> -->
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Management<span class="caret"></span></a>
 										@if(hasPermission())

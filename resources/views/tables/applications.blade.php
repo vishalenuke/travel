@@ -5,7 +5,7 @@
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Role</th>
+					
 					<th>Status</th>
 					<th>Created At</th>
 					<th>Action</th>
@@ -19,7 +19,7 @@
 				<?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 				<tr>
 					<td>{{ isset($keys[0])?ucwords($value[$keys[0]]):''}}</td>
-					<td>{{ isset($value['role'])?$value['role']:''}}</td>
+					
 					<td style="color: red;" >Not Approved</td>
 					<td>{{ isset($keys[3])?ucwords($value[$keys[3]]):''}}</td>
 					<td>

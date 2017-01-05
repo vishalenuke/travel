@@ -70,6 +70,9 @@ function states(){
 function cities(){
 	return array('1' =>'Delhi' ,'2'=>'Gurgaon','3'=>'Other' );
 }
+function years(){
+	return array('1' =>'1' ,'2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'More' );
+}
 function generateUrl($fileToBeUploaded){
 	$url=implode('_',explode(' ',time().$fileToBeUploaded->getClientOriginalName()));
 	$fileToBeUploaded->move('images',$url );

@@ -60,7 +60,7 @@ header{background-color:#4f8fe3;padding:15px 0 15px;}
 .advance-search button.btn-default {background: #4f8fe3;color: #fff;height: 48px;padding: 10px 10px;font-weight: bold;border-color: #4f8fe3;border-radius:2px;}
 .inner-right-side h1 {font-size: 20px;margin-bottom: 20px;padding: 0;}
 .inner-right-side .form-group input {margin-bottom: 20px;height: 48px;border-radius: 3px;border: 2px solid #ddd;}
-.js{position:relative;}
+.js{position:relative;height:90px;}
 .js input.inputfile {position: absolute;opacity: 0;overflow: hidden;top: 0;left: 0;width: 100%;height: 100%;}
 .js span {position: absolute;height: 48px;width: 100%;left: 0;top: 24px;background: #4f8fe3;text-align: center;padding: 10px;color: #fff;font-weight: bold;font-size: 16px;cursor:pointer;border-radius:3px;text-transform:uppercase;}
 .add_more_btn button {border: 0;background: none;position:absolute;top:-50px;right:0;}
@@ -122,6 +122,13 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{bo
 
 /********************* Footer  Css *****************/
 
-footer{background-color:#49505a;color:#fff;padding:20px 0;}
+ footer {
+    background-color: #49505a;
+    color: #fff;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
 footer p{margin-bottom:0}
 #example_paginate{display: none;}

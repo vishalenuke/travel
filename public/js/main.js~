@@ -219,7 +219,7 @@ function approve(id,controller=''){
 	$('#delete_popup').addClass('btn-success');
 	$('#delete_popup').attr('onclick',"approve1("+id+",'"+controller+"')");	
 }
-function approve1(id,controller=''){
+function approve1(id,controller){
 	
 		// var search=$('.search').val();
 		// search= search ? '?value='+search :'';
@@ -228,17 +228,17 @@ function approve1(id,controller=''){
 		var url='/'+controller+'/'+id+'/approve';
 		var _token=$('#__token').data('id');
 		
-		if(id){
+		
 			$.ajax({
 			    url: url,
 			    type: 'GET',
 			    data: { _token:_token},
 			    success: function(data) {
-			        location.reload();
+			        //location.reload();
 			    }
 			});
 			
-		}
+		
 	
 		
 		

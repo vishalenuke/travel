@@ -20,7 +20,7 @@ class SubagentsController extends Controller
 		$this->agent ='';    	
     	
     	$method=$_SERVER['REQUEST_METHOD'];
-    	if(!(Auth::check() || $method=="POST")){
+    	if(!(Auth::check())){
     		Auth::logout();
 
     	}else{

@@ -68,6 +68,8 @@ class AuthController extends Controller
         if( !Auth::Check() ){
             return view('auth.login');
         }
+
+        return Redirect::to('agency');
         
     }
     public function verification($id)
@@ -135,6 +137,8 @@ class AuthController extends Controller
                     
                     if($url=$user->uploadImage($input))
                         $input['image_url']=$url;
+                    if($pan_url=$user->uploadPAN($input))
+                        $input['pan_copy_url']=$pan_url;
                     $user = $user->create($input);
                     
                     Session::flash('message',  'Registration successfully.');
