@@ -13,13 +13,16 @@
 
 
 
-
+Route::resource('adminsetting','AdminSettingController' );
+Route::get('getsettings','AdminSettingController@getSetting' );
 Route::resource('whitelabel','WhiteLabelController' );
-Route::resource('whitelabel-search','WhiteLabelController@search' );
+Route::get('whitelabel-search','WhiteLabelController@search' );
 Route::resource('agency','AgencyController' );
-Route::resource('agency/{id}/subagents','AgencyController@subAgents' );
+Route::get('agency/{id}/subagents','AgencyController@subAgents' );
+Route::get('agency/{id}/pending','AgencyController@pendingShow' );
 Route::resource('subagents','SubagentsController' );
-Route::resource('agency/{id}/approve','AgencyController@approve' );
+Route::post('agency/{id}/approve','AgencyController@approve' );
+Route::get('agency/{id}/status','AgencyController@block' );
 Route::get('pending/applications','AgencyController@pendingApplications');
 Route::get('agency-search','AgencyController@search' );
 Route::get('airline-search','AirlineController@search' );

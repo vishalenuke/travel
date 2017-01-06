@@ -146,7 +146,7 @@ class AuthController extends Controller
                 
                         if($user->email && verificationEmail( $user->email )){                          
                                 
-                            Session::flash('success', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');                            
+                            Session::flash('message', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');                            
                         }else{
                             Session::flash('message',  'Registration successfully.');
                         }

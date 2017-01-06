@@ -247,7 +247,10 @@ public function verification($id)
 		$agency='';
 		$user='';
 		$login=Auth::user();
+		//$id='';
 		try{
+			$settings = Request::all();
+			//return $id;die();
 			// $agency=Agency::find($id);
 			// $user=User::find($agency->user_id);
 			// $user->status=$user->status?0:1;
@@ -256,6 +259,8 @@ public function verification($id)
 
 
 			$input=Application::find($id);
+			
+			
 			if(User::where(['email'=>$input->email])->count()){
 				Session::flash('message','This email is already register for other user.');
 			}elseif(!$input->status){
@@ -267,8 +272,11 @@ public function verification($id)
 				if($url=self::uploadImage($input))
 					$input['image_url']=$url;
 				$userArray=arrayFromObject($user,$input);
-				
+				$userArray=array_merge($userArray,$settings);
+				if(isset($userArray['_token']))
+					unset($userArray['_token']);
 				$agencyArray=arrayFromObject($agency,$input);
+
 				$documentArray=arrayFromObject($document,$input);
 				$addressArray=arrayFromObject($address,$input);
 				if($userArray['password'])
@@ -314,7 +322,57 @@ public function verification($id)
 			//Session::flash('error','Not approve.');
 		}
 			
+	return Redirect::back();
 		
+	}
+	public function block($id){
+		$agency='';
+		$user='';
+		$login=Auth::user();
+		//$id='';
+		try{
+			//$settings = Request::all();
+			//return $id;die();
+			
+			$user=User::find($id);
+			if((!empty($user))){
+
+				$user->status=$user->status?0:1;
+				$user->save();
+				//return $user->status;
+				$message=$user->status?"User has been enabled.":"User has been blocked.";
+				Session::flash('message',$message);
+			}else{
+				Session::flash('error','User not found.');
+			}
+			
+		}catch(\Exception $e){
+			Session::flash('error',$e->getMessage());
+		}
+
+	}
+	public function pendingShow($id)
+	{
+		$data=array();
+		$user='';
+		$search='';
+		$keys=array();
+		
+		try{
+			 $search=isset($_GET['value'])?$_GET['value']:'';
+			 $keys=self::keys($search);
+			//$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
+			$result=Application::find($id);
+			$keysShow=self::keysShow();
+			$user=arrayFromResult($keysShow,$result);
+			
+			//print_r($user)
+			
+		}catch(\Exception $e){
+		}
+		
+		return view('profiles.pending-profile',['user'=>$user,'keys'=>$keys,'id'=>$id]);
+		//return $id;
 		
 	}
 	/**
@@ -334,9 +392,11 @@ public function verification($id)
 			 $search=isset($_GET['value'])?$_GET['value']:'';
 			 $keys=self::keys($search);
 			//$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
-			$result=Application::find($id);
-			$keysShow=self::keysShow();
+			//$result=Application::find($id);
+			 $result=User::selectRaw('users.status as user_status,users.*,agency.*,documents.*,address.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->leftjoin('address', 'users.id', '=', 'address.user_id')->find($id);
+			$keysShow=self::keysShow(['user_status'=>'user_status','plb_in'=>'plb_in','plb_out'=>'plb_out','commission_in'=>'commission_in','commission_out'=>'commission_out']);
 			$user=arrayFromResult($keysShow,$result);
+			//if(isset($user['user_status']) && isset($user['status']))
 			//print_r($user)
 			
 		}catch(\Exception $e){
@@ -346,8 +406,12 @@ public function verification($id)
 		//return $id;
 		
 	}
-public function keysShow(){
-	return array('first_name', 'last_name', 'email', 'image_url', 'phone', 'address_line1', 'address_line2', 'city', 'state', 'country', 'zip_code', 'status', 'is_verified', 'company_name', 'company_pan','pan_copy_url', 'date_of_incorporation', 'company_type', 'past_experience', 'credit_limit', 'contact_person', 'iata_no', 'valid_from', 'valid_till', 'created_at', 'updated_at');
+public function keysShow($additional_values=''){
+	$array=array('first_name', 'last_name', 'email', 'image_url', 'phone', 'address_line1', 'address_line2', 'city', 'state', 'country', 'zip_code', 'status', 'is_verified', 'company_name', 'company_pan','pan_copy_url', 'date_of_incorporation', 'company_type', 'past_experience', 'credit_limit', 'contact_person', 'iata_no', 'valid_from', 'valid_till', 'created_at', 'updated_at');
+	if((!empty($additional_values)) && is_array($additional_values)){
+		$array=array_merge($additional_values,$array);
+	}
+	return $array;
 
 }
 	/**

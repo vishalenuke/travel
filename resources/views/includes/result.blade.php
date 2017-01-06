@@ -35,17 +35,22 @@
       		@if(isset($keys[2]))
       			<!-- <a href="javascript:void(0)"  onclick="edit('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-user"></i></a> -->
       			<ul class="list-inline">
-      			@if($controller=="agency")
-      			<li>
-      			<button type="button"  title="User" class="btn btn-default" onclick="show('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-user"></i></button></li>
-      			@endif
+      			
+
       			@if(!isset($pending))
+	      			@if($controller=="agency")
+	      			<li>
+	      			<button type="button"  title="User" class="btn btn-default" onclick="show('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-user"></i></button></li>
+	      			@endif
       			<li>
       			<button type="button"  title="Edit" class="btn btn-default" onclick="edit('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-pencil"></i></button></li>
       			<li>
       			<a href="javascript:void(0)" onclick="_delete('{{$value[$keys[2]]}}','{{$controller}}')" ><img src="{{url('/img/user_trash.png')}}" alt="" title=""/></a>
 	      		
 			    </li>
+			    @else
+			    	<li>
+	      			<button type="button"  title="User" class="btn btn-default" onclick="pendingShow('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-user"></i></button></li>
 			    @endif
 			    </ul>
 		    @endif

@@ -1,20 +1,13 @@
 <!--<form > -->
 
 @if(!empty($user))
-<?php 
-$status= 0;
-if(isset($user['user_status'])){
-	$status= $user['user_status'];
-	unset($user['user_status']);
-	
-}
-?>
+
 <div class="domain_detail clearfix">
 <div class="row">
 
  <div class="submit_btn pull-right">
 	<div class="button-inline">
-	<button class="btn-{{$status?'cancel':'submit'}}" type="button" onclick="block('{{$id}}','agency')">{{$status?"Block":"Enable"}}</button>
+	<button class="btn-submit" type="button" onclick="applicationApprove('{{$id}}','agency')">Approve</button>
 	</div>
 </div>
 <h1>Agent's Profile</h1>

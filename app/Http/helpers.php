@@ -32,7 +32,15 @@ function arrayFromObject($object,$input){
   		$array['country']=$countries[$array['country']];
   		$array['state']=$states[$array['state']];
   		$array['city']=$cities[$array['city']];
-  		$array['status']=$array['status']?"Approved":"Not Approve"; 		
+  		if(isset($array['user_status'])){
+  			$array['status']=$array['user_status']?"Approved":"Blocked";
+  		}else{
+  			$array['status']=$array['status']?"Approved":"Not Approve";
+  		}
+  		
+  		
+  			 
+
 
   		return $array;
 	}

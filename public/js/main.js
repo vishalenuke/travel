@@ -66,6 +66,8 @@ jQuery.extend(jQuery.validator.messages, {
 });
 $("#login").validate();
 $("#_Form").validate();
+$("#commission").validate();
+
 
  $('#resultModal').modal('show');
     $('#example').DataTable( 
@@ -179,6 +181,26 @@ var rowCount = 1;
 		}
 		
 	}
+	function pendingShow(id,controller=''){
+		var search=$('.search').val();
+		search= search ? '?value='+search :'';
+		if(controller)
+			controller=controller.toLowerCase();
+		//var url='/'+controller+'/'+id+'/subagents?action=show&&'+search;
+		var url='/'+controller+'/'+id+'/pending';
+		// if(controller=='agency')
+		//  url+='/subagents';
+		//alert(url);
+		if(id){
+			$.get(url , function(data)
+			{
+			    //alert(data);
+			    $(".inner-right-side").html(data);
+			}).done(function(){  
+			});
+		}
+		
+	}
 
 function _delete1(id,controller=''){
 	//if(confirm("Do you want to delete.")){
@@ -217,15 +239,34 @@ function approve(id,controller=''){
 	$('#delete_popup').html('Approve');
 	$('#delete_popup').removeClass('btn-success');
 	$('#delete_popup').addClass('btn-success');
-	$('#delete_popup').attr('onclick',"approve1("+id+",'"+controller+"')");	
+	$('#delete_popup').attr('onclick',"block("+id+",'"+controller+"')");	
 }
-function approve1(id,controller){
+function applicationApprove(id,controller=''){
+		
+	$('#approveModal').modal('show');
+	if(id!='')
+	$('#commission').attr('action', "/agency/"+id+"/approve");
+	$.ajax({
+			    url: '/getsettings',
+			    type: 'GET',
+			    //data: { _token:_token},
+			    success: function(data) {
+			        //console.log(data['plb_in']);
+			        $('#plb_in').val(data['plb_in']);
+			        $('#plb_out').val(data['plb_out']);
+			        $('#commission_in').val(data['commission_in']);
+			        $('#commission_out').val(data['commission_out']);
+			        
+			    }
+			});	
+}
+function block(id,controller=''){
 	
 		// var search=$('.search').val();
 		// search= search ? '?value='+search :'';
 		if(controller)
 			controller=controller.toLowerCase();
-		var url='/'+controller+'/'+id+'/approve';
+		var url='/'+controller+'/'+id+'/status';
 		var _token=$('#__token').data('id');
 		
 		

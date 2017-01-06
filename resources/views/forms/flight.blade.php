@@ -20,9 +20,9 @@
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group">
-			<label for="">Manufactured By:</label>
+			<label for="">Airline Code:</label>
 			<!--<input type="text" class="form-control" id="last_name" placeholder="Last Name">-->
-			{{Form::text('mfd_by', null, array('class' => 'form-control required','placeholder'=>"Manufactured By"))}}
+			{{Form::text('airline_code', null, array('class' => 'form-control required','placeholder'=>"Airline Code"))}}
 		  </div>
 		</div>
 
@@ -43,7 +43,7 @@
 		</div>	
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
-			<label for="">Image:</label>
+			<label for="">Logo:</label>
 			
 			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 

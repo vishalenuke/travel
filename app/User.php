@@ -15,7 +15,7 @@ class User extends Authenticatable
     protected $primaryKey='id';
     public $timestamps = false;
     
-    public $fillable = ['first_name','password', 'last_name', 'email','image_url', 'role', 'phone', 'fax', 'address', 'city', 'state', 'country', 'zip_code', 'status', 'last_login_at', 'created_at', 'updated_at', 'deleted_at'];
+    public $fillable = ['first_name','password', 'last_name', 'email','image_url','plb_in', 'plb_out', 'commission_in', 'commission_out', 'role', 'phone', 'fax', 'address', 'city', 'state', 'country', 'zip_code', 'status', 'last_login_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * The attributes that should be hidden for arrays.

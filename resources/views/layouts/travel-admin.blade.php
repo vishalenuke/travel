@@ -9,6 +9,7 @@
 @include('includes.header')
 @include('includes.menu')
 @include('includes.popup-delete')
+@include('includes.popup-approve')
 @if (Session::has('error') or Session::has('message'))
 	@include('includes.popup-message')
 @endif
