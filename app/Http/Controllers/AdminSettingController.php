@@ -99,15 +99,19 @@ public function search(){
 	public function store()
 	{
 		try{
-			$input = Request::all();			
-			$modal = new Airline;
-			if($url=self::uploadImage($input))
-				$input['logo_url']=$url;
-			$modal=$modal->create($input);
-			$modal->save();
-			Session::flash('message','Airline added successfully.');
+			if(Auth::user()){
+				$input = Request::all();			
+				$modal = new AdminSetting;
+				$input['admin_id']=Auth::user()->user_id;
+				$modal=$modal->create($input);
+				$modal->save();
+				Session::flash('message','Settings added successfully.');
+			}else{
+				Session::flash('error','Settings not added.');
+			}
+			
 		}catch(\Exception $e){
-			Session::flash('error','Airline not added.');
+			Session::flash('error','Settings not added.');
 		}
 		
 		return Redirect::back();		
