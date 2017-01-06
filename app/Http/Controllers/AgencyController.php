@@ -556,15 +556,36 @@ public function uploadImage($input,$user=''){
 		try{			
 			$st=0;
 			$user=User::find($id);
+			$agency=Agency::where(['user_id'=>$id])->first();
 			
 			$address=Address::where(['user_id'=>$id])->first();
-
+			$document='';
+			$application='';
 			if(!empty($user)){
+				$application=Application::where(['email'=>$user->email])->first();
 				$user->delete();
 				$st=1;
 			}else{
 				$st=0;
 			}
+			if(!empty($application)){
+				$application->delete();
+			}
+			if(!empty($agency)){
+				$document=Document::where(['agent_id'=>$agency->id])->first();
+				$agency->delete();
+				$st=1;
+			}else{
+				$st=0;
+			}
+			if(!empty($document)){
+				$document->delete();
+				$st=1;
+			}else{
+				$st=0;
+			}
+			
+			
 			
 			if(!empty($address)){
 				$address->delete();
@@ -573,7 +594,9 @@ public function uploadImage($input,$user=''){
 				$st=0;
 			}
 			if($st)
-			Session::flash('message','Sub agent deleted successfully.');
+			Session::flash('message','Agent deleted successfully.');
+			else
+			Session::flash('error','Agent deleted successfully.');
 		}catch(\Exception $e){
 			Session::flash('error',$e->getMessage());
 			
