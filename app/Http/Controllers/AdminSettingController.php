@@ -102,7 +102,7 @@ public function search(){
 			if(Auth::user()){
 				$input = Request::all();			
 				$modal = new AdminSetting;
-				$input['admin_id']=Auth::user()->user_id;
+				$input['admin_id']=Auth::user()->id;
 				$modal=$modal->create($input);
 				$modal->save();
 				Session::flash('message','Settings added successfully.');
