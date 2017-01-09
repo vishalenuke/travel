@@ -20,9 +20,13 @@
 									  
 									  {{$name=$user_details?ucwords($user_details->first_name." ".$user_details->last_name." "):'First Name '}}<img src="{{$image_url}}" alt="{{$name}}" title="{{$name}}" width="40" height="40" class="img-circle" /> <span class="caret"></span></a>
 									  <ul class="dropdown-menu">
-										<li><a href="#">Profile</a></li>
+									 
 										@if((!empty($user_details) ) && $user_details->role=="admin")
+
+										<li><a href="javascript:void(0)" onclick="show('{{$user_details->id}}','adminsetting')">Profile</a></li>
 										<li><a href="javascript:void(0)" onclick="edit('{{$user_details->id}}','adminsetting')">Setting</a></li>
+										@else
+										<li><a href="javascript:void(0)" onclick="show('{{$user_details->id}}','agency')">Profile</a></li>
 										@endif
 										<li><a href="{{url('auth/logout')}}">Logout</a></li>
 										

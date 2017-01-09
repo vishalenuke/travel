@@ -17,7 +17,7 @@ if(isset($user['user_status'])){
 	<button class="btn-{{$status?'cancel':'submit'}}" type="button" onclick="block('{{$id}}','agency')">{{$status?"Block":"Enable"}}</button>
 	</div>
 </div>
-<h1>Agent's Profile</h1>
+<h1>{{isset($admin)?"Admin's Details" :"Agent's Details"}}</h1>
 </div>
 
 <!-- <div class="action-list">

@@ -7,7 +7,7 @@ use Session;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use Redirect;
-use View, Auth, App\Airline,App\AdminSetting;
+use View, Auth, App\Airline,App\AdminSetting,App\User;
 class AdminSettingController extends Controller {
 
 	public function __construct()
@@ -35,38 +35,38 @@ class AdminSettingController extends Controller {
 	 */
 	public function index()
 	{
-		$data=array();
-		$user='';
-		$keys='';
-		try{
-			$search=isset($_GET['value'])?$_GET['value']:'';
-			$keys=self::keys($search);
-			$data=Airline::where('company_name','LIKE',"%{$search}%")->paginate(10);
-			//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
+		// $data=array();
+		// $user='';
+		// $keys='';
+		// try{
+		// 	$search=isset($_GET['value'])?$_GET['value']:'';
+		// 	$keys=self::keys($search);
+		// 	$data=Airline::where('company_name','LIKE',"%{$search}%")->paginate(10);
+		// 	//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
-		}catch(\Exception $e){
+		// }catch(\Exception $e){
 
-		}
-		//,$elements=array()
-		//print_r($keys);die();
-		return view('airline',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		// }
+		// //,$elements=array()
+		// //print_r($keys);die();
+		// return view('airline',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 		
 	}
 public function search(){
-		$data=array();
-		$user='';
-		$keys='';
-		try{
-			$search=$_GET['value'];
-			$keys=self::keys($search);
-			$data=Airline::where('company_name','LIKE',"%{$search}%")->paginate(10);
+		// $data=array();
+		// $user='';
+		// $keys='';
+		// try{
+		// 	$search=$_GET['value'];
+		// 	$keys=self::keys($search);
+		// 	$data=Airline::where('company_name','LIKE',"%{$search}%")->paginate(10);
 
-		}catch(\Exception $e){
+		// }catch(\Exception $e){
 
-		}
-		//,$elements=array()
-		//echo "data";
-		return view('includes.result',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		// }
+		// //,$elements=array()
+		// //echo "data";
+		// return view('includes.result',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -75,19 +75,19 @@ public function search(){
 	 */
 	public function create()
 	{
-		$data=array();
-		$user='';
-		$keys=self::keys();
-		try{
-			$data=Airline::paginate(10);
+		// $data=array();
+		// $user='';
+		// $keys=self::keys();
+		// try{
+		// 	$data=Airline::paginate(10);
 			
 
-		}catch(\Exception $e){
+		// }catch(\Exception $e){
 
-		}
+		// }
 		
-		//print_r($user);die();
-		return view('flight',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		// //print_r($user);die();
+		// return view('flight',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 		
 	}
 
@@ -147,12 +147,44 @@ public function search(){
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
-	
+		$data=array();
+		$user='';
+		$search='';
+		$keys=array();
+		
+		try{
+			 // $search=isset($_GET['value'])?$_GET['value']:'';
+			 // $keys=self::keys($search);
+			//$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
+			//$result=Application::find($id);
+
+			 $result=User::find($id);
+
+			$keysShow=self::keysShow();
+
+			$user=arrayFromResult($keysShow,$result);
+
+			//if(isset($user['user_status']) && isset($user['status']))
+			
+			
+		}catch(\Exception $e){
+			//return $e->getMessage();
+		}
+		
+		return view('profiles.agent-profile',['user'=>$user,'keys'=>'','id'=>$id,'admin'=>'admin']);
 		
 		
 	}
+	public function keysShow($additional_values=''){
+	$array=array('first_name', 'last_name', 'email', 'phone');
+	if((!empty($additional_values)) && is_array($additional_values)){
+		$array=array_merge($additional_values,$array);
+	}
+	return $array;
+
+}
 public function getSetting($id='')
 	{
 		if(empty($id))
@@ -226,16 +258,16 @@ public function getSetting($id='')
 	 */
 	public function destroy($id)
 	{
-		//
-		try{
-			//$input = Request::all();			
-			$modal = Airline::find($id);
-			$modal->delete();
-			Session::flash('message','Airline deleted successfully.');
-		}catch(\Exception $e){
-			Session::flash('error','Airline not deleted.');
-		}	
-		return array('success'=>true);
+		// //
+		// try{
+		// 	//$input = Request::all();			
+		// 	$modal = Airline::find($id);
+		// 	$modal->delete();
+		// 	Session::flash('message','Airline deleted successfully.');
+		// }catch(\Exception $e){
+		// 	Session::flash('error','Airline not deleted.');
+		// }	
+		// return array('success'=>true);
 		
 	}
 

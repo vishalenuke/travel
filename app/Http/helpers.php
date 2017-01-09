@@ -28,13 +28,15 @@ function arrayFromObject($object,$input){
       			$array[$value]=isset($input[$value])?$input[$value]:'';
   		}
   		
-  		
+  		if(isset($array['country']))
   		$array['country']=$countries[$array['country']];
+  		if(isset($array['state']))
   		$array['state']=$states[$array['state']];
+  		if(isset($array['city']))
   		$array['city']=$cities[$array['city']];
   		if(isset($array['user_status'])){
   			$array['status']=$array['user_status']?"Approved":"Blocked";
-  		}else{
+  		}elseif(isset($array['status'])){
   			$array['status']=$array['status']?"Approved":"Not Approve";
   		}
   		

@@ -7,7 +7,46 @@
 	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Sub Agent's Details": "Edit Sub Agent's Details"):"Sub Agent's Registration"}}</h1>
 @else
 	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Agent's Details": "Edit Agent's Details"):"Agent's Registration"}}</h1>
+	
+	<h1>Settings Detail</h1>
+	<div class="row">
+		
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">PLB In(%):</label>
+				
+				
+				{{Form::text('plb_in', isset($settings) && !empty($settings)?$settings->plb_in:null, array('class' => 'form-control required','placeholder'=>"PLB In"))}}
+			  </div>
+			</div>
+		
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">PLB Out(%):</label>	
+				{{Form::text('plb_out', isset($settings) && !empty($settings)?$settings->plb_out:null, array('class' => 'form-control required','placeholder'=>"PLB Out"))}}
+			  </div>
+			</div>
+		
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">Commission In(%):</label>	
+				{{Form::text('commission_in', isset($settings) && !empty($settings)?$settings->commission_in:null, array('class' => 'form-control required','placeholder'=>"Commission In"))}}
+			  </div>
+			</div>
+		
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">Commission Out(%):</label>	
+				{{Form::text('commission_out', isset($settings) && !empty($settings)?$settings->commission_out:null, array('class' => 'form-control required','placeholder'=>"Commission Out"))}}
+			  </div>
+			</div>
+	</div>
+	<div class="">
+		 <div class="v-hr"></div>
+		 </div>
+	
 @endif
+<h1>Agent's Detail</h1>
 	<div class="row">
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">
@@ -46,19 +85,12 @@
 		  </div>
 		</div>
 		
-		<div class="col-md-4 col-sm-4 col-xs-12">
-		  <div class="form-group">
-			<label for="">Password:</label>
-			<!--<input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password">
-			-->
-			{{$p?Form::password('password',  array('class' => 'form-control','placeholder'=>"******")):Form::password('password',  array('class' => 'form-control required','placeholder'=>"******"))}}
-		  </div>
-		</div>
+		
 		
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
-			<label for="">Image:</label>
+			<label for="">Photo:</label>
 			
 			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
@@ -109,7 +141,8 @@
 			  <div class="form-group">
 				<label for="">Past Experience:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Past Experience"> -->
-				{{Form::text('past_experience', null, array('class' => 'form-control required','placeholder'=>"Past Experience"))}}
+				
+				{{Form::select('past_experience', years(),null,array('class' => 'form-control required','placeholder'=>"Past Experience"))}}
 			  </div>
 			</div> 
 			
@@ -120,20 +153,27 @@
 				{{Form::text('company_pan', null, array('class' => 'form-control required','placeholder'=>"PAN"))}}
 			  </div>
 			</div>
-			
 			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="js">
 			  <div class="form-group">
-				<label for="">Contact Person:</label>
-				<!-- <input type="email" class="form-control" id="" placeholder="Contact Person"> -->
-				{{Form::text('contact_person', null, array('class' => 'form-control required','placeholder'=>"Contact Person"))}}
+				<label for="">Attach PAN Card Copy:</label>
+				
+				<span> <input type="file" id="exampleInputFile1" class="inputfile" name="pan_image">
+				<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
+
+				 Upload</span> 
+				 
+				 
+			  </div>
 			  </div>
 			</div>
 			
+			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
-				<label for="">Authority Name:</label>
+				<label for="">Owner's Name:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Authority Name"> -->
-				{{Form::text('name_of_authority', null, array('class' => 'form-control required','placeholder'=>"Authority Name"))}}
+				{{Form::text('contact_person', null, array('class' => 'form-control required','placeholder'=>"Owner's Name"))}}
 			  </div>
 			</div>
 			
@@ -188,28 +228,19 @@
 		
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
-				<label for="">Address:</label>
+				<label for="">Address Line1:</label>
 				<!-- <input type="email" class="form-control" id="" placeholder="Company Name"> -->
-				{{Form::text('address', null, array('class' => 'form-control required','placeholder'=>"Address"))}}
+				{{Form::text('address_line1', null, array('class' => 'form-control required','placeholder'=>"Address Line1"))}}
+			  </div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">Address Line2:</label>
+				<!-- <input type="email" class="form-control" id="" placeholder="Company Name"> -->
+				{{Form::text('address_line2', null, array('class' => 'form-control required','placeholder'=>"Address Line2"))}}
 			  </div>
 			</div>
 			
-			<div class="col-md-4 col-sm-4 col-xs-12">
-			  <div class="form-group">
-				<label for="">Country:</label>
-				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
-				{{Form::select('country', countries(),null,array('class' => 'form-control required','placeholder'=>"Country"))}}
-				
-			  </div>
-			</div>
-
-			<div class="col-md-4 col-sm-4 col-xs-12">
-			  <div class="form-group">
-				<label for="">State:</label>
-				<!-- <input type="email" class="form-control" id="" placeholder="Founded On"> -->
-				{{Form::select('state', states(),null,array('class' => 'form-control required','placeholder'=>"State"))}}
-			  </div>
-			</div>
 			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
@@ -218,6 +249,22 @@
 				{{Form::select('city', cities(),null,array('class' => 'form-control required','placeholder'=>"City"))}}
 			  </div>
 			</div> 
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">State:</label>
+				<!-- <input type="email" class="form-control" id="" placeholder="Founded On"> -->
+				{{Form::select('state', states(),null,array('class' => 'form-control required','placeholder'=>"State"))}}
+			  </div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div class="form-group">
+				<label for="">Country:</label>
+				<!-- <input type="email" class="form-control" id="" placeholder="Company Type"> -->
+				{{Form::select('country', countries(),null,array('class' => 'form-control required','placeholder'=>"Country"))}}
+				
+			  </div>
+			</div>
+			
 			
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">

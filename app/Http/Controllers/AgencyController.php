@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Redirect;
 use View, Hash, Auth;
 use App\Agency, App\User, App\Document, App\Address;
-use App\Application;
+use App\Application,App\AdminSetting;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
 class AgencyController extends Controller {
@@ -123,16 +123,18 @@ class AgencyController extends Controller {
 		$data=array();
 		$user='';
 		$keys=self::keys();
+		$settings=array();
 		try{
 			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->where('users.id','<>',Auth::user()->id)->paginate(10);
-			
+			if(Auth::user())
+			$settings=AdminSetting::where(['admin_id'=>Auth::user()->id])->first();
 
 		}catch(\Exception $e){
 
 		}
 		
 		//print_r($user);die();
-		return view('user',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		return view('user',['data'=>$data,'user'=>$user,'keys'=>$keys,'settings'=>$settings]);
 		
 	}
 
@@ -161,6 +163,8 @@ class AgencyController extends Controller {
 			$address=new Address;
 			if($url=self::uploadImage($input))
 				$input['image_url']=$url;
+			if($pan_url=self::uploadPAN($input))
+                        $input['pan_copy_url']=$pan_url;
 			$userArray=arrayFromObject($user,$input);
 			$agencyArray=arrayFromObject($agency,$input);
 			$documentArray=arrayFromObject($document,$input);
@@ -226,9 +230,8 @@ public function verification($id)
 		if($id && $user=Application::where(['email'=>base64_decode($id),'is_verified'=>0])->first()){
 			$user->is_verified=1;
 			$user->save();
-			 if(!Session::has('message')) Session::flash('message','Email verification is successful.');
-			//print_r("successfully varified.");
-			 //return View::make('user.verification_success');
+			  Session::flash('message','Email verification is successful.');
+			
 		}else{
 			Session::flash('error','Email verification link has been expired.');
 			//return View::make('user.verification',['expired'=>true]);
@@ -248,17 +251,10 @@ public function verification($id)
 		$agency='';
 		$user='';
 		$login=Auth::user();
-		//$id='';
+		
 		try{
 			$settings = Request::all();
-			//return $id;die();
-			// $agency=Agency::find($id);
-			// $user=User::find($agency->user_id);
-			// $user->status=$user->status?0:1;
-			// $user->save();
-
-
-
+			
 			$input=Application::find($id);
 			
 			
@@ -475,6 +471,33 @@ public function keysShow($additional_values=''){
 		return view('forms.user',['data'=>$data,'user'=>$user,'keys'=>$keys]);
 		
 	}
+public function uploadPAN($input,$user=''){
+	$url='';
+	
+	if((!empty($user))&& $user->pan_copy_url){
+		$url=$user->pan_copy_url;
+	}
+	if( isset($input['pan_image']) && $input['pan_image'] != null ){
+								
+		$file = array('image' => Input::file('pan_image'));
+		$rules = array('image' => 'required|mimes:png,jpg,jpeg,gif');
+		$fileToBeUploaded = Input::file('pan_image');				
+		//Validate image
+		$validator = Validator::make($file, $rules);
+
+		//Store validated image
+		if( !$validator->fails() && $fileToBeUploaded->isValid() ){				
+			
+			$url=generateUrl($fileToBeUploaded);
+			
+			if((!empty($user))&& $user->pan_copy_url && file_exists($already='images/'.$user->pan_copy_url)){
+				unlink($already);		
+			}								
+		}	
+
+	}
+	return $url;
+}
 public function uploadImage($input,$user=''){
 	$url='';
 	if((!empty($user))&& $user->image_url){
@@ -530,6 +553,9 @@ public function uploadImage($input,$user=''){
 			
 			if($url=self::uploadImage($input,$user))
 				$input['image_url']=$url;
+			if($url1=self::uploadPAN($input,$user))
+				$input['pan_copy_url']=$url1;
+			
 //print_r($input['image_url']);die();
 			$userArray=arrayFromObject($user,$input);
 			
