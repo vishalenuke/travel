@@ -343,7 +343,7 @@ public function verification($id)
      
         if(!empty($user)){
             if(!empty($user->email)){
-                $response = Password::sendResetLink($email, function (Message $message) {
+                $response = Password::sendResetLink(['email'=>$email], function (Message $message) {
                     $message->subject($this->getEmailSubject());
 
                    });
