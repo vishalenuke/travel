@@ -222,7 +222,7 @@ class AgencyController extends Controller {
 
 public function verification($id)
 	{
-		if($id && $user=User::where(['email'=>base64_decode($id),'is_verified'=>0])->first()){
+		if($id && $user=Application::where(['email'=>base64_decode($id),'is_verified'=>0])->first()){
 			$user->is_verified=1;
 			$user->save();
 			 if(!Session::has('message')) Session::flash('message','Email verification is successful.');
