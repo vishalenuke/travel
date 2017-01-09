@@ -272,9 +272,11 @@ public function verification($id)
 				if($url=self::uploadImage($input))
 					$input['image_url']=$url;
 				$userArray=arrayFromObject($user,$input);
+
 				$userArray=array_merge($userArray,$settings);
-				if(isset($userArray['_token']))
-					unset($userArray['_token']);
+				//print_r($userArray);die();
+				// if(isset($userArray['_token']))
+				// 	unset($userArray['_token']);
 				$agencyArray=arrayFromObject($agency,$input);
 
 				$documentArray=arrayFromObject($document,$input);
@@ -296,6 +298,8 @@ public function verification($id)
 
 
 				$user=$user->create($userArray);
+				$user->remember_token=$userArray['_token'];
+                $user->save();
 				$agencyArray['user_id']=$user->id;
 				
 				$agency=$agency->create($agencyArray);

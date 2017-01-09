@@ -140,9 +140,13 @@ class AuthController extends Controller
                         $input['image_url']=$url;
                     if($pan_url=$user->uploadPAN($input))
                         $input['pan_copy_url']=$pan_url;
+                    if(isset($input['_token']))
+                        $input['remember_token']=$input['_token'];
+                    
                     $user = $user->create($input);
-                    
-                    
+                    $user->remember_token=$input['_token'];
+                    $user->save();
+                    //print_r($input);die();
                 
                         if($user->email && verificationEmail( $user->email )){                          
                                 
