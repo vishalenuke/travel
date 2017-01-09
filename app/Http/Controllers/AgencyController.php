@@ -11,7 +11,8 @@ use Redirect;
 use View, Hash, Auth;
 use App\Agency, App\User, App\Document, App\Address;
 use App\Application;
-
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Password;
 class AgencyController extends Controller {
 
 
@@ -316,19 +317,50 @@ public function verification($id)
 				$address->save();
 				$input->status=1;
 				$input->save();
-				Session::flash('message','Email has been sent to the user.');
+				if(self::postEmail($user->email))
+					Session::flash('message','Email has been sent to the user.');
+				else
+					Session::flash('error','Email has not been sent to the user.');
 			}else{
 				Session::flash('message','Already approved.');
 			}
 				
 
 		}catch(\Exception $e){
-			//Session::flash('error','Not approve.');
+			Session::flash('error','Not approve.');
 		}
 			
 	return Redirect::back();
 		
 	}
+	public function postEmail($email)
+   {
+       
+       $result=false;
+            $user = User::where(['email'=>$email])->first();  
+        
+        //print_r($user);die();
+     
+        if(!empty($user)){
+            if(!empty($user->email)){
+                $response = Password::sendResetLink($email, function (Message $message) {
+                    $message->subject($this->getEmailSubject());
+
+                   });
+
+                   switch ($response) {
+                       case Password::RESET_LINK_SENT: 
+                           $result=true;
+                           break;
+                       case Password::INVALID_USER: 
+                            $result=true;
+                           
+                   }
+            }
+           
+        }
+        return $result;
+   }
 	public function block($id){
 		$agency='';
 		$user='';
