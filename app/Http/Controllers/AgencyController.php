@@ -327,7 +327,7 @@ public function verification($id)
 				
 
 		}catch(\Exception $e){
-			Session::flash('error','Not approve.');
+			Session::flash('error',$e->getMessage());
 		}
 			
 	return Redirect::back();
