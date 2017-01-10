@@ -202,9 +202,9 @@ class AgencyController extends Controller {
 			$document->save();
 			$address->save();
 			
-			if($user->email &&(empty($login) || isset($input['send_email']) && $input['send_email']=="on") && verificationEmail( $user->email )){
+			if($user->email &&(empty($login) || isset($input['send_email']) && $input['send_email']=="on") && self::postEmail( $user->email )){
 				if(empty($login)){
-					Session::flash('message', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');
+					Session::flash('message', "Password reset link has been sent to user's registered email.");
 					//Session::flash('message','Agency register successfully.');
 				}
 				else
