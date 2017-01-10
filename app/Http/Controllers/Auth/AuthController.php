@@ -97,7 +97,20 @@ class AuthController extends Controller
         return view('auth.register');//->with(['countries' => $countries,'states'=>$states,'cities'=>$cities]);
         
     }
+    protected function getError( $validator )
+    {
+        $messages = [];
+        if( $validator->errors() )
+        {
+            foreach($validator->errors()->getMessages() as $key => $val) {
+                $messages[] = implode(' and ', $val);
+            }
+            $message = implode(' and ', $messages);
+            return $message ? $message.'.' : null;
+        }
 
+        return null;
+    }
     public function postRegister()
     {
         

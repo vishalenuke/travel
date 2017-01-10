@@ -173,12 +173,12 @@ public function search(){
 			//return $e->getMessage();
 		}
 		
-		return view('profiles.agent-profile',['user'=>$user,'keys'=>'','id'=>$id,'admin'=>'admin']);
+		return view('profiles.agent-profile',['user'=>$user,'keys'=>$keysShow,'id'=>$id,'admin'=>'admin']);
 		
 		
 	}
 	public function keysShow($additional_values=''){
-		$array=array('first_name', 'last_name', 'email', 'phone');
+		$array=array(0=>'first_name','image'=>'image_url', 'last_name'=>'last_name', 'email'=>'email', 'phone'=>'phone');
 		if((!empty($additional_values)) && is_array($additional_values)){
 			$array=array_merge($additional_values,$array);
 		}
