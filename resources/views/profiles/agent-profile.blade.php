@@ -20,11 +20,11 @@ if(isset($user['user_status'])){
 				@if(isset($keys['image']))<li><img src="{{$image_url}}" class="img-circle"/></li>@endif
 				@if(isset($keys[0]))<li>{{$user[$keys[0]]}}</li>@endif
 				@if(isset($keys['last_name']))<li>{{$user[$keys['last_name']]}}</li>@endif
-				<?php if(isset($user[$keys['image']])){unset($user[$keys['image']]);}
-			if(isset($user[$keys[0]])){
+				<?php if(isset($keys['image']) && isset($user[$keys['image']])){unset($user[$keys['image']]);}
+			if(isset($keys[0]) && isset($user[$keys[0]])){
 				unset($user[$keys[0]]);
 			}
-			if(isset($user[$keys['last_name']])){
+			if(isset($keys['last_name']) && isset($user[$keys['last_name']])){
 				unset($user[$keys['last_name']]);
 			}?>
 			</ul>
