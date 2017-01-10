@@ -48,6 +48,7 @@ class AgencyController extends Controller {
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
 			$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.first_name','LIKE',"%{$search}%")->where('users.parent_id','=',null)->where('users.id','<>',Auth::user()->id)->paginate(10);
+			$settings=AdminSetting::where(['admin_id'=>Auth::user()->id])->first();
 			//$user=selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -55,7 +56,7 @@ class AgencyController extends Controller {
 		}
 		//,$elements=array()
 		//dd($data);die();
-		return view('agent',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		return view('agent',['data'=>$data,'user'=>$user,'keys'=>$keys,'settings'=>$settings]);
 		
 	}
 	public function subAgents($id){
