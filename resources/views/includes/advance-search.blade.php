@@ -11,14 +11,14 @@
 			  
 			</form>
 			<div class="adv_search">
-				<a href="#">Advance Search</a>
+				<!-- <a href="#">Advance Search</a> -->
 			</div>
 		</div><!--advance-search ends here-->		
 		
 		
 		
 		<div class="advance-search-list">
-			<h3>Result</h3>
+			
 			<ul class="list-unstyled">
 
 			<?php //print_r($keys); die(); ?>

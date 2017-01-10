@@ -11,28 +11,16 @@ if(isset($user['user_status'])){
 ?>
 <div class="domain_detail clearfix">
 <div class="row">
-
+@if(isset($id) && !isset($admin))
  <div class="submit_btn pull-right">
 	<div class="button-inline">
 	<button class="btn-{{$status?'cancel':'submit'}}" type="button" onclick="block('{{$id}}','agency')">{{$status?"Block":"Enable"}}</button>
 	</div>
 </div>
+@endif
 <h1>{{isset($admin)?"Admin's Details" :"Agent's Details"}}</h1>
 </div>
 
-<!-- <div class="action-list">
-						<ul class="list-inline">
-						<li><a href="#"><img src="{{url('/img/user_detail.png')}}" alt="" title=""/></li>
-						<li><a href="#"><img src="{{url('/img/user_edit.png')}}" alt="" title=""/></li>
-						<li>
-						
-						</li>
-						
-						<li><a href="javascript:void(0)" onclick="_delete('{{$id}}','agency')" ><img src="{{url('/img/user_trash.png')}}" alt="" title=""/></a></li> 
-						
-						</ul>
-
-					</div> -->
 
 	<div class="row">
 	{{Form::hidden('_search', isset($keys['search'])?$keys['search']:'')}}
@@ -53,8 +41,8 @@ if(isset($user['user_status'])){
 		  </li>
 		 
 			<li class="text-left">
-
-		  		{!!ucwords($value)!!}
+			<?php //dd($value);die(); ?>
+		  		{!! is_string($value)?ucwords($value):''!!}
 		  	</li>
 			
 		  </ul>			

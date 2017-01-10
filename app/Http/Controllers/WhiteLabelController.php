@@ -8,7 +8,7 @@ use Validator;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use View, Auth;
-use App\WhiteLabel;
+use App\WhiteLabel,App\WhiteLabelPage;
 class WhiteLabelController extends Controller {
 
 public function __construct()
@@ -26,7 +26,10 @@ public function __construct()
 	{
 		return array("0"=>"site_name","1"=>"status","2"=>"id","controller"=>"WhiteLabel","image"=>"file_url","search"=>$search);
 	}
-
+	public function pageKeys($search='')
+	{
+		return array("0"=>"title","1"=>"status","2"=>"page_id","controller"=>"WhiteLabel","image"=>"file_url","search"=>$search);
+	}
 
 
 	/**
@@ -43,13 +46,28 @@ public function __construct()
 	// }
 	public function index()
 	{
+
 		$data=array();
 		$user='';
 		$keys='';
+		$id=0;
 		try{
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
+			//if(isAdmin())
+				
+			if(isAdmin())
 			$data=WhiteLabel::where($keys[0],'LIKE',"%{$search}%")->paginate(10);
+			else{
+				$keys=self::pageKeys($search);
+				$data=WhiteLabelPage::where('title','LIKE',"%{$search}%")->paginate(10);
+				$result=WhiteLabel::where(['user_id'=>Auth::user()->id])->first();
+				$keysShow=self::keysShow();
+				$id=empty($result)?0:$result->id;
+			$user=arrayFromResult($keysShow,$result);
+			}
+			
+
 			//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
 		}catch(\Exception $e){
@@ -57,8 +75,16 @@ public function __construct()
 		}
 		//,$elements=array()
 		//print_r($keys);die();
-		return view('white-label',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		return view('white-label',['data'=>$data,'user'=>$user,'keys'=>$keys,'id'=>$id]);
 		
+	}
+	public function keysShow($additional_values=''){
+		$array=array('domain', 'site_name', 'email', 'mobile', 'file_url', 'description', 'facebook_url', 'instagram_url', 'twitter_url', 'google_plus_url', 'status', 'created_at', 'updated_at', 'deleted_at');
+		if((!empty($additional_values)) && is_array($additional_values)){
+			$array=array_merge($additional_values,$array);
+		}
+		return $array;
+
 	}
 	public function search(){
 		$data=array();
@@ -67,6 +93,7 @@ public function __construct()
 		try{
 			$search=$_GET['value'];
 			$keys=self::keys($search);
+			if(isAdmin())
 			$data=WhiteLabel::where($keys[0],'LIKE',"%{$search}%")->paginate(10);
 			//$user=User::join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->find(1);
 
@@ -87,16 +114,32 @@ public function __construct()
 		$data=array();
 		$user='';
 		$keys=self::keys();
+		$status='';
+		$id='';
 		try{
-			$data=WhiteLabel::paginate(10);
+			if(isAdmin())
+				$data=WhiteLabel::paginate(10);
+			else{
+				$user=WhiteLabel::where(['user_id'=>Auth::user()->id])->first();
+				
+				if(empty($user)){
+					$status="whitelabel";
+				}else{
+					$id=$user->user_id;
+				}
+				//print_r("expression");die();
+			}
+			
+
 			
 
 		}catch(\Exception $e){
 
 		}
-		
-		//print_r($user);die();
-		return view('white-domain',['data'=>$data,'user'=>$user,'keys'=>$keys]);
+		if($status=="whitelabel")
+			return view('white-domain',['data'=>$data,'user'=>$user,'keys'=>$keys,'empty'=>'empty']);
+		else
+			return view('white-domain',['data'=>$data,'user'=>$user,'keys'=>$keys,'id'=>$id]);
 		
 	}
 
@@ -120,11 +163,33 @@ public function __construct()
 			if($url=self::uploadImage($input))
 				$input['file_url']=$url;
 			$userArray=arrayFromObject($user,$input);
+			if(!isAdmin()){
+				$userArray['user_id']=Auth::user()->id;
+			}
 			$user=$user->create($userArray);
 		
 			Session::flash('message','White label detail added successfully.');
 		}catch(\Exception $e){
 			Session::flash('error','White label detail not added.');
+		}
+		
+		return Redirect::back();		
+	}
+	public function addPage($id)
+	{
+		try{
+			$input = Request::all();
+			$user=new WhiteLabelPage;
+			
+			$userArray=arrayFromObject($user,$input);
+			if(!isAdmin()){
+				$userArray['user_id']=$id;
+			}
+			$user=$user->create($userArray);
+		
+			Session::flash('message','White label page added successfully.');
+		}catch(\Exception $e){
+			Session::flash('error',$e->getMessage());
 		}
 		
 		return Redirect::back();		
@@ -224,7 +289,9 @@ public function __construct()
 			if($url=self::uploadImage($input,$user))
 				$input['file_url']=$url;
 			$userArray=arrayFromObject($user,$input);
-
+			if(isset($userArray['user_id'])){
+				unset($userArray['user_id']);
+			}
 			
 
 			$user=$user->update($userArray)?true:$user->create($userArray);

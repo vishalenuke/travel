@@ -16,6 +16,8 @@
 Route::resource('adminsetting','AdminSettingController' );
 Route::get('getsettings','AdminSettingController@getSetting' );
 Route::resource('whitelabel','WhiteLabelController' );
+Route::resource('whitelabelpage','WhiteLabelPageController' );
+Route::post('whitelabel-page/{id}/add','WhiteLabelController@addPage' );
 Route::get('whitelabel-search','WhiteLabelController@search' );
 Route::resource('agency','AgencyController' );
 Route::get('agency/{id}/subagents','AgencyController@subAgents' );

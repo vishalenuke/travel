@@ -26,10 +26,12 @@
 											<li><a href="{{url('pending/applications')}}">Pending Applications</a></li>
 											<li><a href="{{url('agency')}}">Agent Management</a></li>
 											<li><a href="{{url('airline')}}">Airline Management</a></li>
+											<li><a href="{{url('whitelabel')}}">White Label</a></li>
 										@else
 											<li><a href="{{url('subagents')}}">Sub Agent Management</a></li>
+											<li><a href="{{url('whitelabelpage')}}">White Label</a></li>
 										@endif
-											<li><a href="{{url('whitelabel')}}">White Label</a></li>
+											
 											
 										</ul>
 										@endif
@@ -38,7 +40,7 @@
 								</ul>
 								<ul class="list-inline clearfix">
 								@if(hasPermission())
-									<li class="pull-right"><a href="{{url('/'.$type.'/create?action=create')}}" class="btn btn-add"><img src="{{url('img/add.png')}}" alt="" title=""/> Add</a></li>
+									<li class="pull-right"><a href="{{url('/'.$type.'/create?action=create')}}" class="btn btn-add"><img src="{{url('img/add.png')}}" alt="" title=""/> {{Auth::user() && Auth::user()->role!="admin"?($type=="whitelabelpage"?"Add Page":"Add"):"Add"}}</a></li>
 								@endif
 								</ul>
 							</div>

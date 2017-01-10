@@ -1,10 +1,10 @@
 <!--<form > -->
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 
-		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
+		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array('whitelabel'.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New White Label Domain's Details": "Edit White Label Domain's Details"):"White Label Domain's Registration"}}</h1>
+	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"White Label Domain's Details": "White Label Domain's Details"):"White Label Domain's Details"}}</h1>
 	<div class="row">
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">

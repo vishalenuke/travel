@@ -178,13 +178,13 @@ public function search(){
 		
 	}
 	public function keysShow($additional_values=''){
-	$array=array('first_name', 'last_name', 'email', 'phone');
-	if((!empty($additional_values)) && is_array($additional_values)){
-		$array=array_merge($additional_values,$array);
-	}
-	return $array;
+		$array=array('first_name', 'last_name', 'email', 'phone');
+		if((!empty($additional_values)) && is_array($additional_values)){
+			$array=array_merge($additional_values,$array);
+		}
+		return $array;
 
-}
+	}
 public function getSetting($id='')
 	{
 		if(empty($id))

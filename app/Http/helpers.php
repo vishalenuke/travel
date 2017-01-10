@@ -12,17 +12,20 @@ function arrayFromObject($object,$input){
 		$states=states();
 		$cities=cities();
 		foreach ($object as $key => $value) {
-			if($value=='contact_person'){
+			if($value=='contact_person' and !empty($input['contact_person'])){
 	  			$array["owner's_name"]=isset($input[$value])?$input[$value]:'';
 	  			
 	  		}elseif($value=='is_verified'){
 	  			$array['verification_status']=isset($input[$value]) && $input[$value]?"verified":"not verified";
 	  			
-	  		}elseif($value=='pan_copy_url'){
+	  		}elseif($value=='pan_copy_url' and !empty($input['pan_copy_url'])){
 	  			$array['pan_card_copy']="<a href='".url('images/'.$input['pan_copy_url'])."' target='_blank'>Pan Card</a>";
 	  			
-	  		}elseif($value=='image_url'){
+	  		}elseif($value=='image_url' and !empty($input['image_url'])){
 	  			$array['photo']="<a href='".url('images/'.$input['image_url'])."' target='_blank'>Photo</a>";
+	  			
+	  		}elseif($value=='file_url' and !empty($input['file_url'])){
+	  			$array['logo']="<a href='".url('images/'.$input['file_url'])."' target='_blank'>Logo</a>";
 	  			
 	  		}else
       			$array[$value]=isset($input[$value])?$input[$value]:'';
