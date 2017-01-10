@@ -4,10 +4,10 @@
 		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->agent_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 @if($controller=='subagents')
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Sub Agent's Details": "Edit Sub Agent's Details"):"Sub Agent's Registration"}}</h1>
+	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Sub Agent's Details": "Edit Sub Agent's Details"):"Sub Agent's Details"}}</h1>
 @else
 	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"New Agent's Details": "Edit Agent's Details"):"Agent's Registration"}}</h1>
-	
+	@if(isAdmin())
 	<h1>Settings Detail</h1>
 	<div class="row">
 		
@@ -44,9 +44,12 @@
 	<div class="">
 		 <div class="v-hr"></div>
 		 </div>
+	<h1>Agent's Detail</h1>
+	@endif
 	
 @endif
-<h1>Agent's Detail</h1>
+
+
 	<div class="row">
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">

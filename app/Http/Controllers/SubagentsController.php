@@ -31,7 +31,7 @@ class SubagentsController extends Controller
     }
 	public function keys($search='')
 	{
-		return array("0"=>"first_name","1"=>"user_status","2"=>"agent_id","3"=>"created_at","image"=>"image_url","controller"=>"Subagents","search"=>$search);
+		return array("0"=>"first_name","1"=>"user_status","2"=>"id","3"=>"created_at","image"=>"image_url","controller"=>"Subagents","search"=>$search);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -166,7 +166,9 @@ class SubagentsController extends Controller
 			if(isset($userArray['role']) && empty($userArray['role']))
 				$userArray['role']="sub_agent";
 			
-				$userArray['status']=(!empty($login))?($login->role=="admin"?1:0):0;
+				$userArray['status']=1;//(!empty($login))?($login->role=="admin"?1:0):0;
+				
+
 	    	//user create here.
 
 
@@ -179,7 +181,8 @@ class SubagentsController extends Controller
 			$user=$user->create($userArray);
 			
 			
-			
+			if(!isAdmin())
+				$user->parent_id=Auth::user()->id;
 			$addressArray['user_id']=$user->id;
 			$address=$address->create($addressArray);
 			
@@ -189,24 +192,24 @@ class SubagentsController extends Controller
 			
 			$address->save();
 			
-			if($user->email &&(empty($login) || isset($input['send_email']) && $input['send_email']=="on") && verificationEmail( $user->email )){
-				if(empty($login)){
-					Session::flash('message', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');
-					//Session::flash('message','Agency register successfully.');
-				}
-				else
-					Session::flash('message','Agency added successfully.');
-			}else{
-				Session::flash('error','Unable to send email.');
-			}
+			// if($user->email &&(empty($login) || isset($input['send_email']) && $input['send_email']=="on") && verificationEmail( $user->email )){
+			// 	if(empty($login)){
+			// 		Session::flash('message', 'Verification link has been sent to your registered email. Please check your inbox and verify email.');
+			// 		//Session::flash('message','Agency register successfully.');
+			// 	}
+			// 	else
+					Session::flash('message','Sub agent added successfully.');
+			// }else{
+			// 	Session::flash('error','Unable to send email.');
+			// }
 
 			
 			
 		}catch(\Exception $e){
 			if(empty($login))
-				Session::flash('error','Agency not register.');
+				Session::flash('error','Sub agent not register.');
 			else
-				Session::flash('error','Agency not added.');
+				Session::flash('error','Sub agent not added.');
 			//print_r($e->getMessage());die();
 		}
 		
@@ -404,16 +407,16 @@ public function uploadImage($input,$user=''){
 	public function destroy($id)
 	{
 		try{			
-			$agency=Agency::find($id);
-			$user=User::find($agency->user_id);
-			$document=Document::where(['agent_id'=>$id])->first();
-			$address=Address::where(['user_id'=>$agency->user_id])->first();
+			
+			$user=User::find($id);
+			
+			$address=Address::where(['user_id'=>$id])->first();
 
-			$agency->delete();
+			
 			$user->delete();
-			$document->delete();
+			
 			$address->delete();
-			Session::flash('message','Agency deleted successfully.');
+			Session::flash('message','Sub agent deleted successfully.');
 		}catch(\Exception $e){
 			Session::flash('error',$e->getMessage());
 			

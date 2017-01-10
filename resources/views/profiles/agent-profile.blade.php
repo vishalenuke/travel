@@ -11,12 +11,25 @@ if(isset($user['user_status'])){
 ?>
 <div class="domain_detail clearfix">
 <div class="row">
-@if(isset($id) && !isset($admin))
- <div class="submit_btn pull-right">
-	<div class="button-inline">
-	<button class="btn-{{$status?'cancel':'submit'}}" type="button" onclick="block('{{$id}}','agency')">{{$status?"Block":"Enable"}}</button>
+@if(isset($id))
+	<div class="submit_btn pull-right">
+		<div class="button-inline">
+		<button class="btn-submit" type="button" onclick="edit('{{$id}}','agency')">Edit</button>
+		</div>
 	</div>
-</div>
+	@if(!isset($admin) && isAdmin())
+		<div class="submit_btn pull-right">
+			<div class="button-inline">
+			<button class="btn-submit" type="button" onclick="_delete('{{$id}}','agency')">Delete</button>
+			</div>
+		</div>
+		 <div class="submit_btn pull-right">
+			<div class="button-inline">
+			<button class="btn-{{$status?'cancel':'submit'}}" type="button" onclick="block('{{$id}}','agency')">{{$status?"Block":"Enable"}}</button>
+			</div>
+		</div>
+		
+	@endif
 @endif
 <h1>{{isset($admin)?"Admin's Details" :"Agent's Details"}}</h1>
 </div>

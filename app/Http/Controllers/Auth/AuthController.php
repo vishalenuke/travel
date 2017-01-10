@@ -196,8 +196,12 @@ class AuthController extends Controller
                                // return view('user');
                     if(isAdmin())
                         return redirect('pending/applications');
-                    else
+                    elseif(Auth::user()->status)
                         return redirect('agency');
+                    else{
+                        Session::flash('error', 'Approval pending...!');
+                        Auth::logout();
+                    }
                     
                     
                 }else{

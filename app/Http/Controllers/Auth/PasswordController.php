@@ -78,7 +78,7 @@ class PasswordController extends Controller
             }
            
         }else{
-            Session::flash('error','User not found');
+            Session::flash('error','Email '.$email.' is not registered with us.');
                 
         }
         return redirect('auth/login');
