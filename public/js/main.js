@@ -45,6 +45,10 @@ $('#login').bind("submit",function(e){
 // 	validator.form();
 
 });
+
+$(".drpmenu").bind("click", function(e){
+//$("#drpmenu").html($(this).html());
+});
 jQuery.extend(jQuery.validator.messages, {
     required: "Required*",
     remote: "Please fix this field.",

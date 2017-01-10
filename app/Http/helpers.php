@@ -21,9 +21,6 @@ function arrayFromObject($object,$input){
 	  		}elseif($value=='pan_copy_url' and !empty($input['pan_copy_url'])){
 	  			$array['pan_card_copy']="<a href='".url('images/'.$input['pan_copy_url'])."' target='_blank'>Pan Card</a>";
 	  			
-	  		}elseif($value=='image_url' and !empty($input['image_url'])){
-	  			$array['photo']="<a href='".url('images/'.$input['image_url'])."' target='_blank'>Photo</a>";
-	  			
 	  		}elseif($value=='file_url' and !empty($input['file_url'])){
 	  			$array['logo']="<a href='".url('images/'.$input['file_url'])."' target='_blank'>Logo</a>";
 	  			

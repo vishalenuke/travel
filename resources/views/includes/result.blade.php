@@ -5,10 +5,13 @@
 	<li  >
 		<div class="media">
 		  <div class="media-left">
-			<a href="#">
+		  @if(isset($keys['image']))
+			<a href="javascript:void(0)">
+
 			<?php $image_url=imageUrl($value,$keys); ?>
 			  <img class="media-object img-circle" src="{{$image_url}}" alt="{{isset($keys[0])?ucwords($value[$keys[0]]):''}}" >
 			</a>
+			@endif
 		  </div>
 		  <div class="media-body">
 
@@ -40,12 +43,12 @@
       			@if(!isset($pending))
 	      			@if($controller=="agency")
 	      			<li>
-	      			<button type="button"  title="User" class="btn btn-default" onclick="show('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-user"></i></button></li>
+	      			<button type="button"  title="User" class="btn btn-default" onclick="show('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-eye"></i></button></li>
 	      			@endif
       			<li>
       			<button type="button"  title="Edit" class="btn btn-default" onclick="edit('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-pencil"></i></button></li>
       			<li>
-      			<a href="javascript:void(0)" onclick="_delete('{{$value[$keys[2]]}}','{{$controller}}')" ><img src="{{url('/img/user_trash.png')}}" alt="" title=""/></a>
+      			<a href="javascript:void(0)" onclick="_delete('{{$value[$keys[2]]}}','{{$controller}}')" ><i class="fa fa-trash"></i></a>
 	      		
 			    </li>
 			    @else

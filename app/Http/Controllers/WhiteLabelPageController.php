@@ -25,7 +25,7 @@ public function __construct()
 	
 	public function keys($search='')
 	{
-		return array("0"=>"title","1"=>"status","2"=>"page_id","controller"=>"WhiteLabelpage","image"=>"file_url","search"=>$search);
+		return array("0"=>"title","1"=>"status","2"=>"page_id","controller"=>"WhiteLabelpage","search"=>$search);
 	}
 
 

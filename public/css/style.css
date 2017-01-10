@@ -29,7 +29,9 @@ header{background-color:#4f8fe3;padding:15px 0 15px;}
 
 #middle-menu{background-color:#fff;padding:20px 0;border-bottom:2px solid #eee;}
 .middle-menu-list ul {width: 50%;float: left;}
-.middle-menu-list ul li a.btn.btn-add {background: #4f8fe3;padding: 10px 35px;color: #fff;font-weight: bold;font-size: 16px;border-radius:3px;}
+.middle-menu-list ul li a.btn.btn-add {background: #4f8fe3;padding: 10px 35px;color: #fff;font-weight: bold;
+    font-size: 16px;border-radius:0;border-bottom: 3px solid #286090;}
+.middle-menu-list ul li a.btn.btn-add:hover{border-bottom:3px solid #4f8fe3;background: #286090;}
 .middle-menu-list ul li a.btn.btn-add img {padding-right: 10px;margin-top: -3px;}
 .middle-menu-list ul.left-list>li:first-child {padding-left: 5px;}
 .middle-menu-list ul.left-list>li {padding: 0 30px 0;position:relative;}
@@ -47,13 +49,13 @@ header{background-color:#4f8fe3;padding:15px 0 15px;}
 
 /*********** Inner content css here******************/
 .inner-content{background-color:#f7f8f8;}
-.inner-right-side {border-left: 1px solid #e3e3e3;padding: 0 30px;}
+.inner-right-side {border-left: 1px solid #e3e3e3;padding: 0 0 0 20px;}
 .advance-search {padding: 30px 0 0;margin-bottom:10px;  position: relative;}
 .adv_search {text-align: right;padding: 0 17px 0 0;}
 .advance-search-list h3{color:#c5cdd3;margin-top:0;margin-bottom:10px;font-size:14px;text-align:left;font-weight:bold;}
 .advance-search-list ul li{border-bottom:1px solid #e3e3e3;cursor:pointer;margin-bottom:0;padding:15px 20px; position:relative;}
 .advance-search-list ul li:hover{box-shadow:0px 10px 20px rgba(0,0,0,.1);-webkit-box-shadow:0px 10px 20px rgba(0,0,0,.1);-moz-box-shadow:0px 10px 20px rgba(0,0,0,.1);transition-duration: 0.3s;background:#fff;}
-.advance-search-list ul li .media-body h4 {font-size: 14px;font-weight: bold;}
+.advance-search-list ul li .media-body h4 {font-size: 14px;font-weight: bold; white-space: nowrap; width: 120px;overflow: hidden;text-overflow: ellipsis;}
 .advance-search-list ul li .media-body p {font-size: 14px;font-weight: bold;margin:0;}
 .advance-search input {height: 48px;border-radius: 2px;border: 3px solid #e3e3e3;position:relative;width:260px !important;padding: 0px 10px 0px 30px;}
 .advance-search .form-group i  {position:absolute;top:19px;left:14px;font-size:12px;color:#999;}
@@ -65,8 +67,11 @@ header{background-color:#4f8fe3;padding:15px 0 15px;}
 .js span {position: absolute;height: 48px;width: 100%;left: 0;top: 24px;background: #4f8fe3;text-align: center;padding: 10px;color: #fff;font-weight: bold;font-size: 16px;cursor:pointer;border-radius:3px;text-transform:uppercase;}
 .add_more_btn button {border: 0;background: none;position:absolute;top:-50px;right:0;}
 .submit_btn{margin-bottom:20px;margin-top: 20px;}
-.submit_btn  .btn-submit{background-color:#4f8fe3;padding:15px 45px;color:#fff;border:0 none;border-radius:3px;font-weight:bold;}
-.submit_btn  .btn-cancel{background-color:#f34101;padding:15px 45px;color:#fff;border:0 none;border-radius:3px;margin-left:10px;font-weight:bold;}
+.submit_btn  .btn-submit{border-left: 0 none;border-top: 0 none;border-right: 0 none;background-color:#4f8fe3;border-bottom: 3px solid #286090;padding:15px 45px;color:#fff;font-weight:bold;}
+.submit_btn .btn-submit:hover {background: #286090;border-bottom: 3px solid #4f8fe3;}
+
+.submit_btn  .btn-cancel{padding:15px 45px;background-color:rgba(243, 65, 1, 0.78);color:#fff;border-left: 0 none;border-top: 0 none;border-right: 0 none;margin-left:10px;border-bottom:3px solid #f34101;font-weight:bold;}
+.submit_btn  .btn-cancel:hover{background-color:#f34101;padding:15px 45px;color:#fff;border-bottom:3px solid #92320f;margin-left:10px;font-weight:bold;}
 .add-more .form-group input[type=checkbox], input[type=radio]{height:auto;margin-top:40px;}
 .add-more button.btn-danger {position: absolute;bottom: 96px;right: 43px; z-index: 999;}
 .inner-right-side .address_detail select {border-radius: 3px;height: 48px;margin-bottom: 20px;}
@@ -86,7 +91,7 @@ table.dataTable tbody th, table.dataTable tbody td{padding:20px 30px !important;
 table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{border:0 none !important;text-align:center; }
 #example_paginate {width: 100%;text-align: center;margin-top: 40px;}
 
-.advance-search-list ul li .action {position: absolute;right: 13px;top: 25px;font-weight: bold;text-decoration: none;display:none;}
+.advance-search-list ul li .action {position: absolute;right: 13px;top: 12px;font-weight: bold;text-decoration: none;display:none;}
 .advance-search-list ul li:hover .action {display: block;}
 
 /******************* Login Page Css Here ************************/		
@@ -140,6 +145,44 @@ label.text-normal {
 {
     width: 685px;
 }
+.right-text, .heading-left {
+    padding: 20px 0 0;
+}
+.right-text ul li, .heading-left ul li {
+    width: auto;
+}
+
+.heading-left ul li {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.heading-left ul li img {
+    height:60px;
+    width: 60px;
+}
+
+.heading-section {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.right-text ul li.btn-primary{background: rgba(0, 119, 204, 0.82);border-radius: 0;border-bottom: 3px solid #0077cc;}
+.right-text ul li.btn-primary:hover{background: #0077cc;border-bottom: 3px solid #4f8fe3;}
+
+.right-text ul li a{color: #fff;}
+.right-text ul li a:hover{text-decoration: none;}
+
+.right-text ul li.btn-block{background: #a03711;border-radius: 0;border-bottom: 3px solid #f34101 ;}
+.right-text ul li.btn-block:hover{background: #f34101;border-radius: 0;border-bottom: 3px solid #a03711 ;}
+
+
+
+.right-text ul li.btn-delete{background: #a23030; border-radius: 0;border-bottom:3px solid #ea6161;}
+.right-text ul li.btn-delete:hover{background: #ea6161; border-radius: 0;border-bottom:3px solid #a23030;}
+
+
+
 /********************* Footer  Css *****************/
 
  footer {

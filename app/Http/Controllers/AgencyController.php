@@ -29,7 +29,7 @@ class AgencyController extends Controller {
     }
 	public function keys($search='')
 	{
-		return array("0"=>"first_name","1"=>"user_status","2"=>"id","3"=>"created_at","image"=>"image_url","controller"=>"Agency","search"=>$search);
+		return array("0"=>"first_name","1"=>"user_status","2"=>"id","3"=>"created_at","image"=>"image_url","controller"=>"Agency","search"=>$search,'last_name'=>"last_name");
 	}
 	/**
 	 * Display a listing of the resource.

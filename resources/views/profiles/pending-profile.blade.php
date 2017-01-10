@@ -9,29 +9,36 @@ if(isset($user['user_status'])){
 }
 ?>
 <div class="domain_detail clearfix">
-<div class="row">
-
- <div class="submit_btn pull-right">
-	<div class="button-inline">
-	<button class="btn-submit" type="button" onclick="applicationApprove('{{$id}}','agency')">Approve</button>
+	<div class="row">
+		<div class="heading-section clearfix">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="heading-left">
+					<ul class="list-inline">
+					<?php $image_url=imageUrl($user,$keys); 
+					?>
+						@if(isset($keys['image']))<li><img src="{{$image_url}}" class="img-circle"/></li>@endif
+						@if(isset($keys[0]))<li>{{$user[$keys[0]]}}</li>@endif
+						@if(isset($keys['last_name']))<li>{{$user[$keys['last_name']]}}</li>@endif
+						<?php if(isset($user[$keys['image']])){unset($user[$keys['image']]);}
+					if(isset($user[$keys[0]])){
+						unset($user[$keys[0]]);
+					}
+					if(isset($user[$keys['last_name']])){
+						unset($user[$keys['last_name']]);
+					}?>
+					</ul>
+				</div>
+			</div>
+			<div class="submit_btn pull-right">
+				<div class="button-inline">
+				<button class="btn-submit" type="button" onclick="applicationApprove('{{$id}}','agency')">Approve</button>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<h1>Agent's Profile</h1>
-</div>
 
-<!-- <div class="action-list">
-						<ul class="list-inline">
-						<li><a href="#"><img src="{{url('/img/user_detail.png')}}" alt="" title=""/></li>
-						<li><a href="#"><img src="{{url('/img/user_edit.png')}}" alt="" title=""/></li>
-						<li>
-						
-						</li>
-						
-						<li><a href="javascript:void(0)" onclick="_delete('{{$id}}','agency')" ><img src="{{url('/img/user_trash.png')}}" alt="" title=""/></a></li> 
-						
-						</ul>
 
-					</div> -->
+
 
 	<div class="row">
 	{{Form::hidden('_search', isset($keys['search'])?$keys['search']:'')}}
