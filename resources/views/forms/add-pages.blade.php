@@ -1,7 +1,7 @@
 <!--<form > -->
 <?php $controller=strtolower(isset($keys['controller'])?$keys['controller']:'') ?>
 
-		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array('whitelabelpage'.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
+		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array('whitelabelpage'.($user?'.update':'.store'), ($user?$user->page_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
 	<h1>{{"Add Page to White Label"}}</h1>

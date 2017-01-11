@@ -45,6 +45,10 @@
 	      			<li>
 	      			<button type="button"  title="User" class="btn btn-default" onclick="show('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-eye"></i></button></li>
 	      			@endif
+	      			@if($controller=="whitelabelpage")
+	      			<li>
+	      			<button type="button"  title="User" class="btn btn-default" onclick="show('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-eye"></i></button></li>
+	      			@endif
       			<li>
       			<button type="button"  title="Edit" class="btn btn-default" onclick="edit('{{$value[$keys[2]]}}','{{$controller}}')"><i class="fa fa-pencil"></i></button></li>
       			<li>

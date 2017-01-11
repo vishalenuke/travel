@@ -225,10 +225,29 @@ public function __construct()
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
 	
+		$data=array();
+		$user='';
+		$search='';
+		$keys=array();
+		$code='';
 		
+		try{
+			 $search=isset($_GET['value'])?$_GET['value']:'';
+			 $keys=self::keys($search);
+			//$data=User::selectRaw('agency.id as id,users.status as user_status')->selectRaw('documents.*,users.*')->join('agency', 'users.id', '=', 'agency.user_id')->join('documents', 'agency.id', '=', 'documents.agent_id')->where('users.parent_id','=',null)->paginate(10);
+			$result=WhiteLabelPage::find($id);
+			$keysShow=array('code');
+			$user=arrayFromResult($keysShow,$result);
+			$code=(!empty($user))?$user['code']:'';
+			//print_r($user);die();
+			
+		}catch(\Exception $e){
+		}
+		
+		return $code;
 		
 	}
 
@@ -296,9 +315,9 @@ public function __construct()
 			$user=$user->update($userArray)?true:$user->create($userArray);
 			
 		
-			Session::flash('message','White label detail updated successfully.');
+			Session::flash('message','White label page updated successfully.');
 		}catch(\Exception $e){
-			Session::flash('error','White label detail not updated.');
+			Session::flash('error','White label page not updated.');
 		}	
 		return Redirect::back();
 		//return Redirect::to('/whitelabel'.($search?'?value='.$search:''));
