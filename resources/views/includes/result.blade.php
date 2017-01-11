@@ -14,17 +14,21 @@
 			@endif
 		  </div>
 		  <div class="media-body">
-
+		  
 			@if(isset($keys[0]))<h4 class="media-heading">{{ucwords($value[$keys[0]])}}</h4>@endif
-			@if(isset($value['city']))
-			{{isset(cities()[$value['city']])?cities()[$value['city']].',':''}}
-			@endif
-			@if(isset($value['state']))
-			{{isset(states()[$value['state']])?states()[$value['state']].',':''}}
-			@endif
-			@if(isset($value['country']))
-			{{isset(countries()[$value['country']])?countries()[$value['country']]:''}}
-			@endif
+			@if($controller=="whitelabel"  && isset($keys['domain']) && isset($value[$keys['domain']]))
+				{{$value[$keys['domain']]}}
+		  	@else
+				@if(isset($value['city']))
+				{{isset(cities()[$value['city']])?cities()[$value['city']].',':''}}
+				@endif
+				@if(isset($value['state']))
+				{{isset(states()[$value['state']])?states()[$value['state']].',':''}}
+				@endif
+				@if(isset($value['country']))
+				{{isset(countries()[$value['country']])?countries()[$value['country']]:''}}
+				@endif
+		  	@endif
 
 
 			    

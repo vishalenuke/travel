@@ -93,8 +93,10 @@
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
-			<label for="">Photo:</label>
-			
+			<label for="">Photo:</label> 
+			@if(isset($keys['image']) and isset($user[$keys['image']]) and !empty($user[$keys['image']]))
+				<a href='{{url("images/".$user[$keys["image"]]) }}' target='_blank'>Photo</a>
+			@endif
 			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
 
@@ -160,6 +162,9 @@
 			  <div class="js">
 			  <div class="form-group">
 				<label for="">Attach PAN Card Copy:</label>
+@if(isset($keys['image1']) and isset($user[$keys['image1']]) and !empty($user[$keys['image1']]))
+<a href='{{url("images/".$user[$keys["image1"]]) }}' target='_blank'>Copy</a>
+@endif
 				
 				<span> <input type="file" id="exampleInputFile1" class="inputfile" name="pan_image">
 				<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 

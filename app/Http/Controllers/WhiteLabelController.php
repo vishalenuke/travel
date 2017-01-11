@@ -24,7 +24,7 @@ public function __construct()
     }
 	public function keys($search='')
 	{
-		return array("0"=>"site_name","1"=>"status","2"=>"id","controller"=>"WhiteLabel","image"=>"file_url","search"=>$search);
+		return array("0"=>"site_name","1"=>"status","2"=>"id","controller"=>"WhiteLabel","image"=>"file_url","search"=>$search,"domain"=>"domain");
 	}
 	public function pageKeys($search='')
 	{

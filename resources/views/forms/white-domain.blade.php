@@ -57,7 +57,9 @@
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
 			<label for="">Logo:</label>
-			
+			@if(isset($keys['image']) and isset($user[$keys['image']]) and !empty($user[$keys['image']]))
+				<a href='{{url("images/".$user[$keys["image"]]) }}' target='_blank'>Logo</a>
+			@endif			
 			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
 
