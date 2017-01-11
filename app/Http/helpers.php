@@ -101,6 +101,23 @@ function user_Email( $email,$password='',$message='Your account is created with 
 	
 
 }
+function SendEmail( $email,$message='Your Application has been rejected.' ){
+
+	try{
+		if( !empty($email))
+		return Mail::raw($message, function ($message) use($email)   {
+								
+					            $m->from('contact@travels.com', 'Travel Portal');
+
+					            $m->to($email)->subject('Application Rejected');
+					            
+				        	});
+	}catch(\Exception $e){
+
+	}
+	
+
+}
 function countries(){
 	return array('1' =>'India' ,'2'=>'China','3'=>'Other' );
 }

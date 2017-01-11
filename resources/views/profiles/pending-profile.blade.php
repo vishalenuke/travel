@@ -1,6 +1,7 @@
 <!--<form > -->
 
 @if(!empty($user))
+@include('includes.popup-email')
 <?php 
 $status= 0;
 if(isset($user['user_status'])){
@@ -29,11 +30,19 @@ if(isset($user['user_status'])){
 					</ul>
 				</div>
 			</div>
-			<div class="submit_btn pull-right">
-				<div class="button-inline">
-				<button class="btn-submit" type="button" onclick="applicationApprove('{{$id}}','agency')">Approve</button>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="right-text pull-right">
+					
+					<ul class="list-inline">
+						<li class="btn btn-primary"><a href="javascript:void(0)" onclick="sendEmail('{{$id}}')"><!-- <i class="fa fa-edit"></i> --> Send Email</a></li>
+						<li class="btn btn-primary"><a href="javascript:void(0)" onclick="rejectApplication('{{$id}}')"><!-- <i class="fa fa-edit"></i> --> Reject</a></li>
+						<li class="btn btn-primary"><a href="javascript:void(0)" onclick="applicationApprove('{{$id}}','agency')"><!-- <i class="fa fa-edit"></i> --> Approve</a></li>
+						
+					</ul>
+					
 				</div>
 			</div>
+			
 		</div>
 	</div>
 

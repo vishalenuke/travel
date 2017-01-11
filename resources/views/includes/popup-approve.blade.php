@@ -49,7 +49,7 @@
 	  </div>
 							 <div class="submit_btn">
 								<div class="button-inline">
-									<button type="submit" class="btn-submit">Approve</button>
+									<button type="submit" class="btn-submit"  onclick="$('#commission').validate();">Approve</button>
 									<button type="button" class="btn btn-reset " data-dismiss="modal" aria-label="Close">Cancel</button>
 								</div>
 							</div>

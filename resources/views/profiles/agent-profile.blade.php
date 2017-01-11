@@ -35,10 +35,13 @@ if(isset($user['user_status'])){
 		<div class="right-text pull-right">
 			@if(isset($id))
 			<ul class="list-inline">
+				
+				@if(!isset($admin)  )				
 				<li class="btn btn-primary"><a href="javascript:void(0)" onclick="edit('{{$id}}','agency')"><i class="fa fa-edit"></i> Edit</a></li>
-				@if(!isset($admin) && isAdmin())
+				@if(isAdmin())
 				<li class="btn btn-block"><a href="javascript:void(0)" onclick="block('{{$id}}','agency')"><i class="fa fa-unlock{{$status?'-alt':''}}"></i> {{$status?"Block":"Enable"}}</a></li>
 				<li class="btn btn-delete"><a href="javascript:void(0)" onclick="_delete('{{$id}}','agency')"><i class="fa fa-trash"></i> Delete</a></li>
+				@endif
 				@endif
 			</ul>
 			@endif

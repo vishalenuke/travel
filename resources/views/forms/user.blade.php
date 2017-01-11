@@ -276,7 +276,7 @@
 				{{Form::number('zip_code', null, array('class' => 'form-control required','placeholder'=>"Zip Code"))}}
 			  </div>
 			</div>
-			@if(isset($_GET['action']))
+			@if((isAdmin() || $controller=='subagents'))
 			<div class="col-md-4 col-sm-4 col-xs-12">
 			  <div class="form-group">
 				<label>
@@ -293,7 +293,7 @@
 				<div id="addedfRows"></div>
 		<div class="submit_btn">
 			<div class="button-inline">
-				<button type="submit" class="btn-submit">Submit</button>
+				<button type="submit" class="btn-submit"  onclick="$('#_Form').validate();">Submit</button>
 				<a class="btn-cancel btn-close" href="{{ url('agency') }}">Cancel</a>
 			</div>
 		</div>

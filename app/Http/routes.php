@@ -26,6 +26,10 @@ Route::resource('subagents','SubagentsController' );
 Route::post('agency/{id}/approve','AgencyController@approve' );
 Route::get('agency/{id}/status','AgencyController@block' );
 Route::get('pending/applications','AgencyController@pendingApplications');
+
+Route::post('applications/{id}/reject','AgencyController@rejectApplication');
+Route::post('applications/{id}/mail','AgencyController@sendEmail');
+
 Route::get('agency-search','AgencyController@search' );
 Route::get('airline-search','AirlineController@search' );
 Route::resource('airline','AirlineController' );

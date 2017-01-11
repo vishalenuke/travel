@@ -41,7 +41,7 @@
 							</div>
 							<form>
 							  <div class="form-group">
-								<label for="exampleInputEmail1">Email address</label>
+								<label for="exampleInputEmail1">Emaillll address</label>
 								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
 							  </div>
 							  <div class="form-group">
@@ -86,10 +86,10 @@
 					<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
 				  </div>
 				  <div class="modal-body">
-							<form class="form-inline">
+							<form class="form-inline" id="forget">
 							  <div class="form-group">
 								
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Your Email Address">
+								<input type="email" class="form-control required" id="exampleInputEmail1" placeholder="Email Your Email Address">
 							  </div>
 							 
 							  <button type="submit" class="btn btn-reset">Send Password</button>

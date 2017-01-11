@@ -51,7 +51,7 @@
 </div>
 		<div class="submit_btn">
 			<div class="button-inline">
-				<button type="submit" class="btn-submit">Submit</button>
+				<button type="submit" class="btn-submit"  onclick="$('#_Form').validate();">Submit</button>
 				<a class="btn-cancel btn-close" href="{{ url('whitelabel') }}">Cancel</a>
 			</div>
 		</div>

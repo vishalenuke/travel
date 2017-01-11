@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Redirect;
 use View, Hash, Auth;
 use App\Agency, App\User, App\Document, App\Address;
-use App\Application,App\AdminSetting;
+use App\Application,App\AdminSetting,App\RejectedApplication;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
 class AgencyController extends Controller {
@@ -95,6 +95,82 @@ class AgencyController extends Controller {
 		//,$elements=array()
 		//print_r($data);die();
 		return view('pending-applications',['data'=>$data,'user'=>$user,'keys'=>$keys,'pending'=>'pending']);
+		
+	}
+	public function rejectApplication($id)
+	{
+		$data=array();
+		$user='';
+		$keys='';
+		try{
+			$input = Request::all();
+			$message=isset($input['message'])?$input['message']:'Your Application has been rejected';
+			$search=isset($_GET['value'])?$_GET['value']:'';
+			$keys=self::keys($search);
+
+			$data=Application::where('first_name','LIKE',"%{$search}%")->where(['status'=>0])->paginate(10);
+			$user1=Application::find($id);
+
+
+			if((!empty($user1)) && $user1->email){
+				$rej_app=RejectedApplication::where(['email'=>$user1->email])->first();
+				//print_r($rej_app);die();
+				if(empty($rej_app)){
+					$rej_app=new RejectedApplication;
+					$rej_app=$rej_app->create($user1->toArray());
+					$rej_app->remember_token=$user1->remember_token;
+					$rej_app->save();
+					$user1->delete();
+				}
+				SendEmail($user1->email,$message);
+			}
+			Session::flash('message', "Rejection message has been sent to user's email.");
+		}catch(\Exception $e){
+			Session::flash('error',$e->getMessage());
+		}
+		//,$elements=array()
+		//print_r($data);die();
+		return redirect('pending/applications');
+		
+	}
+	public function sendEmail($id)
+	{
+		$data=array();
+		$user='';
+		$keys='';
+		try{
+			$input = Request::all();
+			$message=isset($input['message'])?$input['message']:'';
+			if(empty($message)){
+				Session::flash('error', "Message can not be blank.");
+				return Redirect::back();
+			}
+			$search=isset($_GET['value'])?$_GET['value']:'';
+			$keys=self::keys($search);
+
+			$data=Application::where('first_name','LIKE',"%{$search}%")->where(['status'=>0])->paginate(10);
+			$user1=Application::find($id);
+
+
+			if((!empty($user1)) && $user1->email){
+				// $rej_app=RejectedApplication::where(['email'=>$user1->email])->first();
+				// //print_r($rej_app);die();
+				// if(empty($rej_app)){
+				// 	$rej_app=new RejectedApplication;
+				// 	$rej_app=$rej_app->create($user1->toArray());
+				// 	$rej_app->remember_token=$user1->remember_token;
+				// 	$rej_app->save();
+				// 	$user1->delete();
+				// }
+				SendEmail($user1->email,$message);
+			}
+			Session::flash('message', "Email has been sent to user's email.");
+		}catch(\Exception $e){
+			Session::flash('error',$e->getMessage());
+		}
+		//,$elements=array()
+		//print_r($data);die();
+		return redirect('pending/applications');
 		
 	}
 	public function search(){

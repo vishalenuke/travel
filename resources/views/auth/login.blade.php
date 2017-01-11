@@ -12,7 +12,7 @@
 							{!! Form::open(array('url' => '/auth/login', 'id'=>'login')) !!} 
 							  <div class="form-group">
 								<label for="exampleInputEmail1">Email address</label>
-								{{Form::text('email', null, array('class' => 'form-control required','placeholder'=>"Email","id"=>"email" ))}}
+								{{Form::email('email', null, array('class' => 'form-control required','placeholder'=>"Email","id"=>"email" ))}}
 								<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"> -->
 							  </div>
 							  <div class="form-group">
@@ -21,7 +21,7 @@
 								<!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
 							  </div>
 							 
-							  <button type="submit" class="btn btn-login">Login</button>
+							  <button type="submit" class="btn btn-login" onclick="$('#login').validate();">Login</button>
 							  <ul class="list-inline">
 							  <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">Forgot Password</a></li>
 							  <li> <a href="{{url('/register')}}">Sign Up</a></li>
@@ -43,13 +43,13 @@
 					<h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
 				  </div>
 				  <div class="modal-body">
-							{!! Form::open(array('url' => '/password/email','class'=>'form-inline')) !!} 
+							{!! Form::open(array('url' => '/password/email','class'=>'form-inline', 'id'=>'forget')) !!} 
 							  <div class="form-group">
 								
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Your Email Address" name="email">
+								<input type="email" class="form-control required" id="exampleInputEmail1" placeholder="Email Your Email Address" name="email">
 							  </div>
 							 
-							  <button type="submit" class="btn btn-reset">Send Password</button>
+							  <button type="submit" class="btn btn-reset"  onclick="$('#forget').validate();">Send Password</button>
 							  
 							{!! Form::close() !!}
 				  </div>

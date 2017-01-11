@@ -72,6 +72,8 @@ $("#login").validate();
 $("#_Form").validate();
 $("#commission").validate();
 
+//$("#emailModalForm").validate();
+
 
  $('#resultModal').modal('show');
     $('#example').DataTable( 
@@ -205,8 +207,37 @@ var rowCount = 1;
 		}
 		
 	}
-
+	function sendEmail(id){
+		//alert(id);
+		$('#emailModalLabel').modal('show');
+		if(id){
+			$('#emailModalForm').attr('action', '/applications/'+id+'/mail');
+			// $.get('/applications/'+id+'/mail' , function(data)
+			// {
+			//     //alert(data);
+			//     //$(".inner-right-side").html(data);
+			// }).done(function(){  
+			// 	location.reload();
+			// });
+		}
+		
+	}
+	function rejectApplication(id){
+		$('#emailModalLabel').modal('show');
+		if(id){
+			$('#emailModalForm').attr('action', '/applications/'+id+'/reject');
+			// $.get('/applications/'+id+'/reject' , function(data)
+			// {
+			//     //alert(data);
+			//    // $(".inner-right-side").html(data);
+			// }).done(function(){  
+			// 	location.reload();
+			// });
+		}
+		
+	}
 function _delete1(id,controller=''){
+
 	//if(confirm("Do you want to delete.")){
 		// var search=$('.search').val();
 		// search= search ? '?value='+search :'';
