@@ -59,9 +59,9 @@ public function __construct()
 				// $keys=self::pageKeys($search);
 				$data=WhiteLabelPage::where('title','LIKE',"%{$search}%")->paginate(10);
 				$result=WhiteLabel::where(['user_id'=>Auth::user()->id])->first();
-				$keysShow=self::keysShow();
-				$id=empty($result)?0:$result->id;
-			$user=arrayFromResult($keysShow,$result);
+			// 	$keysShow=self::keysShow();
+			// 	$id=empty($result)?0:$result->id;
+			// $user=arrayFromResult($keysShow,$result);
 			//print_r($user);die();
 			}
 			
@@ -73,7 +73,7 @@ public function __construct()
 		}
 		//,$elements=array()
 		//print_r($keys);die();
-		return view('white-label',['data'=>$data,'user'=>$user,'keys'=>$keys,'id'=>$id]);
+		return view('white-label',['data'=>$data,'user'=>$result,'keys'=>$keys,'id'=>$id]);
 		
 	}
 	public function keysShow($additional_values=''){

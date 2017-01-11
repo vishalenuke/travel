@@ -17,7 +17,8 @@
 							@if(isAdmin())								
 								@include('forms.white-domain')
 							@else
-								@include('profiles.whitelabel-profile')
+								@include('forms.white-domain')
+								<?php //include('profiles.whitelabel-profile') ?>
 							@endif					
 							
 							

@@ -4,7 +4,26 @@
 		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array('whitelabel'.($user?'.update':'.store'), ($user?$user->id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"White Label Domain's Details": "White Label Domain's Details"):"White Label Domain's Details"}}</h1>
+	<div class="row">
+			
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"White Label Domain's Details": "White Label Domain's Details"):"White Label Domain's Details"}}</h1>
+		</div>
+		@if($controller=="whitelabelpage" and isset($user) and $user)
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="right-text pull-right">
+					<ul class="list-inline">
+						<li class="btn btn-delete"><a href="javascript:void(0)" onclick="_delete('{{$user->id}}','whitelabel')"><i class="fa fa-trash"></i> Delete</a></li>
+					</ul>
+				</div>
+			</div>
+		@endif			
+	</div>
+
+
+	
+
+	
 	<div class="row">
 		
 		<div class="col-md-4 col-sm-4 col-xs-12">
@@ -37,7 +56,7 @@
 		</div>	
 		<div class="col-md-4 col-sm-4 col-xs-12">
 		  <div class="form-group js">
-			<label for="">Image:</label>
+			<label for="">Logo:</label>
 			
 			<span> <input type="file" id="exampleInputFile" class="inputfile" name="image">
 			<img src="{{url('/img/upload_icon.png')}}" alt="" title=""/> 
@@ -112,7 +131,7 @@
 		<div class="submit_btn">
 			<div class="button-inline">
 				<button type="submit" class="btn-submit"  onclick="$('#_Form').validate();">Submit</button>
-				<a class="btn-cancel btn-close" href="{{ url('whitelabel') }}">Cancel</a>
+				<a class="btn-cancel btn-close" href="{{ isAdmin()?url('whitelabel'):url('subagents') }}">Cancel</a>
 			</div>
 		</div>
 		
