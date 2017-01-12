@@ -12,8 +12,9 @@
 									<h4><div id="confirm_message">Do you really want to delete.</div></h5>
 															
 							  <br/>
-							 <button type="cancel" class="btn btn-reset " data-dismiss="modal" aria-label="Close">Cancel</button>
-							  <button type="button" class="btn btn-reset" id="delete_popup">Delete</button>
+							 <div class="">
+							  <button type="button" class="btn btn-cancel" id="delete_popup">Delete</button>
+							  </div>
 							</center>
 								
 							  

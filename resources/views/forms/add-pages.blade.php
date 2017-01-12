@@ -7,7 +7,7 @@
 	<h1>{{"Add Page to White Label"}}</h1>
 	<div class="row">
 		
-		<div class="col-md-4 col-sm-4 col-xs-12">
+		<div class="col-md-12 col-sm-12 col-xs-12">
 		  <div class="form-group">
 			<label for="">Page Title:</label>
 			<!--<input type="text" class="form-control first_name" id="first_name" placeholder="First Name"> -->
@@ -32,7 +32,7 @@
 		  <div class="form-group">
 			<label for="">Contents:</label>
 			
-			{{ Form::textarea('code',null,array('class' => 'form-control required','placeholder'=>"Contents","rows"=>"2")) }}
+			{{ Form::textarea('code',null,array('class' => 'form-control required descrpt','placeholder'=>"Contents","rows"=>"2")) }}
 		  </div>
 		</div>
 		
@@ -61,7 +61,7 @@
  
 <script type="text/javascript">
 $(function () {
-
+	tinyInit();
 	$('.datepicker').datetimepicker({
 	                format: 'YYYY-MM-DD'
 	            });

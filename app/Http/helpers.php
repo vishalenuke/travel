@@ -12,7 +12,36 @@ function arrayFromObject($object,$input){
 		$states=states();
 		$cities=cities();
 		foreach ($object as $key => $value) {
-			if($value=='contact_person' and !empty($input['contact_person'])){
+			
+  			if($value=='date_of_incorporation' and !empty($input['date_of_incorporation'])){
+  				$time = strtotime($input['date_of_incorporation']);
+				$array["date_of_incorporation"] = date(Config::get('constants.date_format'),$time);
+	  			
+	  		}elseif($value=='valid_till' and !empty($input['valid_till'])){
+  				$time = strtotime($input['valid_till']);
+				$array["valid_till"] = date(Config::get('constants.date_format'),$time);
+	  			
+	  		}elseif($value=='valid_from' and !empty($input['valid_from'])){
+	  			$time = strtotime($input['valid_from']);
+				$array["valid_from"] = date(Config::get('constants.date_format'),$time);
+	  			
+	  			
+	  		}elseif($value=='past_experience' and !empty($input['past_experience'])){
+	  			$array["past_experience"]=$input['past_experience'].' year(s)';
+	  			
+	  		}elseif($value=='plb_in' and !empty($input['plb_in'])){
+	  			$array["plb_in"]=$input['plb_in'].' (%)';
+	  			
+	  		}elseif($value=='plb_out' and !empty($input['plb_out'])){
+	  			$array["plb_out"]=$input['plb_out'].' (%)';
+	  			
+	  		}elseif($value=='commission_in' and !empty($input['commission_in'])){
+	  			$array["commission_in"]=$input['commission_in'].' (%)';
+	  			
+	  		}elseif($value=='commission_out' and !empty($input['commission_out'])){
+	  			$array["commission_out"]=$input['commission_out'].' (%)';
+	  			
+	  		}elseif($value=='contact_person' and !empty($input['contact_person'])){
 	  			$array["owner's_name"]=isset($input[$value])?$input[$value]:'';
 	  			
 	  		}elseif($value=='is_verified'){
@@ -45,6 +74,39 @@ function arrayFromObject($object,$input){
 
 
   		return $array;
+	}
+
+	function commission($array=array()){
+		$commision;
+		if(!empty($array)){
+			//commision details
+			if(isset($array['plb_in']))
+  				$commision['plb_in']=$array['plb_in'];
+  			if(isset($array['plb_out']))
+  				$commision['plb_out']=$array['plb_out'];
+  			if(isset($array['commision_in']))
+  				$commision['commision_in']=$array['commision_in'];
+  			if(isset($array['commision_out']))
+  				$commision['commision_out']=$array['commision_out'];
+
+		}
+
+	}
+	function personal($array=array()){
+		$personal;
+		// if(!empty($array)){
+		// 	//commision details
+		// 	if(isset($array['email']))
+  // 				$personal['email']=$array['email'];
+  // 			if(isset($array['phone']))
+  // 				$personal['phone']=$array['phone'];
+  // 			if(isset($array['commision_in']))
+  // 				$personal['commision_in']=$array['commision_in'];
+  // 			if(isset($array['commision_out']))
+  // 				$personal['commision_out']=$array['commision_out'];
+
+		// }
+
 	}
 	function imageUrl($value='',$keys=''){
 		$url=url('/img/list_user_icon.png');
@@ -101,15 +163,15 @@ function user_Email( $email,$password='',$message='Your account is created with 
 	
 
 }
-function SendEmail( $email,$message='Your Application has been rejected.' ){
+function SendEmail( $email,$message='Your Application has been rejected.',$subject='Application Rejected' ){
 
 	try{
 		if( !empty($email))
-		return Mail::raw($message, function ($message) use($email)   {
+		return Mail::raw($message, function ($message) use($email,$subject)   {
 								
 					            $m->from('contact@travels.com', 'Travel Portal');
 
-					            $m->to($email)->subject('Application Rejected');
+					            $m->to($email)->subject($subject);
 					            
 				        	});
 	}catch(\Exception $e){

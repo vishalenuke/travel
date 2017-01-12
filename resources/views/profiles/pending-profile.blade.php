@@ -54,6 +54,67 @@ if(isset($user['user_status'])){
 	<?php //print_r($user->fillable);die(); ?>
 	
 		@foreach($user as $key=>$value)
+		 @if($key=="plb_in")
+		 <div class="row">
+		 	<div class="col-md-12 col-sm-12 col-xs-12">
+		  <div class="form-group">
+			  <ul class="list-inline">
+			  <li class="text-left">
+
+			   <h4>{{Form::label("Commission Details", null)}}</h4>
+			  	</li>
+				
+			  </ul>			
+			
+		  </div>
+		</div>
+		 </div>
+		 @elseif($key=="email")
+		 <div class="row">
+		 	<div class="col-md-12 col-sm-12 col-xs-12">
+		  <div class="form-group">
+			  <ul class="list-inline">
+			  <li class="text-left">
+
+			   <h4>{{Form::label("Personnel Details", null)}}</h4>
+			  	</li>
+				
+			  </ul>			
+			
+		  </div>
+		</div>
+		 </div>
+		 @elseif($key=="address_line1")
+		 <div class="row">
+		 	<div class="col-md-12 col-sm-12 col-xs-12">
+		  <div class="form-group">
+			  <ul class="list-inline">
+			  <li class="text-left">
+
+			   <h4>{{Form::label("Address Details", null)}}</h4>
+			  	</li>
+				
+			  </ul>			
+			
+		  </div>
+		</div>
+		 </div>
+		 @elseif($key=="company_name")
+		 <div class="row">
+		 	<div class="col-md-12 col-sm-12 col-xs-12">
+		  <div class="form-group">
+			  <ul class="list-inline">
+			  <li class="text-left">
+
+			   <h4>{{Form::label("Company Details", null)}}</h4>
+			  	</li>
+				
+			  </ul>			
+			
+		  </div>
+		</div>
+		 </div>
+		@endif
 		<div class="col-md-6 col-sm-6 col-xs-12">
 		  <div class="form-group">
 		  <ul class="list-inline">

@@ -282,7 +282,7 @@
 			  </div>
 			</div>
 			@if((isAdmin() || $controller=='subagents'))
-			<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="col-md-12 col-sm-12 col-xs-12">
 			  <div class="form-group">
 				<label>
 				{{Form::checkbox('send_email', null)}}

@@ -1,4 +1,20 @@
-  
+  function tinyInit(){
+	tinymce.init({
+	  selector: '.descrpt',
+	  content_css : "/css/content.css",	  
+	  height:200,	 
+	  min_height: 200,
+	  
+	  plugins: [    
+	    'textcolor colorpicker textpattern hr code paste image',
+	    
+	  ],
+	   toolbar1: ' bold italic underline  | bullist numlist | forecolor | hr | image | styleselect alignleft aligncenter alignright bullist numlist outdent indent code',
+	   menubar: false,
+	  elementpath: false,
+	  
+	});
+}
 $(document).ready(function() {
 // 	$("#_Form").bind('submit',function(e) {
 
@@ -22,7 +38,7 @@ $(document).ready(function() {
 
 // $( ".inner-right-side" ).height($( document ).height()-($( "#middle-menu" ).height()*(5/2)+$( "#site-header" ).height()*2));
 // $( ".inner-right-side" ).height($( document ).height()-($( "#middle-menu" ).outerHeight()+$( "#site-header" ).outerHeight()+$( "#site-footer" ).outerHeight()));
- 
+ tinyInit();
 $('#login').bind("submit",function(e){
 	//  if(!requiredFieldsError())
 	// e.preventDefault();

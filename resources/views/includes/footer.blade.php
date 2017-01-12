@@ -21,5 +21,8 @@
 	  <script type="text/javascript" src="{{url('/js/jquery.dataTables.min.js')}}"></script>
 	  
 	  <script src="{{url('/js/jquery.validate.js')}}"></script>
-	  
+	  <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+
+
+
 		<script src="{{url('/js/main.js')}}"></script>

@@ -105,6 +105,7 @@ class AgencyController extends Controller {
 		try{
 			$input = Request::all();
 			$message=isset($input['message'])?$input['message']:'Your Application has been rejected';
+			
 			$search=isset($_GET['value'])?$_GET['value']:'';
 			$keys=self::keys($search);
 
@@ -162,7 +163,7 @@ class AgencyController extends Controller {
 				// 	$rej_app->save();
 				// 	$user1->delete();
 				// }
-				SendEmail($user1->email,$message);
+				SendEmail($user1->email,$message,"Travel Portal");
 			}
 			Session::flash('message', "Email has been sent to user's email.");
 		}catch(\Exception $e){
@@ -516,7 +517,7 @@ public function verification($id)
 		
 	}
 public function keysShow($additional_values=''){
-	$array=array('first_name', 'last_name', 'email', 'image_url', 'phone', 'address_line1', 'address_line2', 'city', 'state', 'country', 'zip_code', 'status', 'is_verified', 'company_name', 'company_pan','pan_copy_url', 'date_of_incorporation', 'company_type', 'past_experience', 'credit_limit', 'contact_person', 'iata_no', 'valid_from', 'valid_till', 'created_at', 'updated_at');
+	$array=array('first_name', 'last_name', 'email', 'image_url', 'phone','company_name', 'company_pan','pan_copy_url', 'date_of_incorporation', 'company_type', 'past_experience', 'credit_limit', 'contact_person', 'iata_no', 'valid_from', 'valid_till', 'address_line1', 'address_line2', 'city', 'state', 'country', 'zip_code', 'status', 'is_verified',  'created_at', 'updated_at');
 	if((!empty($additional_values)) && is_array($additional_values)){
 		$array=array_merge($additional_values,$array);
 	}

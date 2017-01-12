@@ -163,7 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        
+       // 'Torann\GeoIP\GeoIPServiceProvider',
        // Illuminate\Html\HtmlServiceProvider::class,
         'Collective\Html\HtmlServiceProvider',
         /*
@@ -231,6 +231,7 @@ return [
 
         //'Form'      => Illuminate\Html\FormFacade::class,
         'Form' => 'Collective\Html\FormFacade',
+       // 'GeoIP' => 'Torann\GeoIP\GeoIPFacade',
 
     ],
 

@@ -37,10 +37,10 @@ header{background-color:#4f8fe3;padding:15px 0 15px;}
 .middle-menu-list ul.left-list>li {padding: 0 30px 0;position:relative;}
 .middle-menu-list ul.left-list li a i {font-size: 20px;color:#344f61;}
 .middle-menu-list ul.left-list li.dropdown a {text-decoration:none;border: 2px solid #ddd;padding: 10px 20px;color: #425b6c;font-weight: bold;display:block;}
-.middle-menu-list ul li ul.dropdown-menu {padding: 0;border-radius: 5px;min-width:280px;top:60px;border:2px solid #4f8fe3;}
+.middle-menu-list ul li ul.dropdown-menu {padding: 0;border-radius: 5px;min-width:200px;top:60px;border:2px solid #4f8fe3;}
 .middle-menu-list ul li ul.dropdown-menu li a{border:0 !important;}
 .middle-menu-list ul li ul.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{background:none;color:#344f61 !important;}
-.middle-menu-list ul li ul.dropdown-menu>li>a{background:none;color:#b3bdc5 !important;}
+.middle-menu-list ul li ul.dropdown-menu>li>a{background:none;color:#b3bdc5;}
 .dropdown-content {display: none;position: absolute;background-color: #f9f9f9;min-width: 160px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
 .dropdown-content a {color: black;padding: 12px 16px;text-decoration: none;display: block;}
 .middle-menu-list ul li ul.dropdown-menu li {border-bottom: 1px solid #ddd;padding: 0;}
@@ -71,9 +71,8 @@ header{background-color:#4f8fe3;padding:15px 0 15px;}
 .submit_btn .btn-submit:hover {background: #286090;border-bottom: 3px solid #4f8fe3;}
 
 .submit_btn  .btn-cancel{padding:15px 45px;background-color:rgba(243, 65, 1, 0.78);color:#fff;border-left: 0 none;border-top: 0 none;border-right: 0 none;margin-left:10px;border-bottom:3px solid #f34101;font-weight:bold;}
-.submit_btn  .btn-cancel:hover{background-color:#f34101;padding:15px 45px;color:#fff;border-bottom:3px solid #92320f;margin-left:10px;font-weight:bold;}
-.add-more .form-group input[type=checkbox], input[type=radio]{height:auto;margin-top:40px;}
-.add-more button.btn-danger {position: absolute;bottom: 96px;right: 43px; z-index: 999;}
+.submit_btn  .btn-cancel:hover{text-decoration: none;background-color:#f34101;padding:15px 45px;color:#fff;border-bottom:3px solid #92320f;margin-left:10px;font-weight:bold;}
+.add-more .form-group input[type=checkbox], input[type=radio]{height:auto;margin-top:10px;}
 .inner-right-side .address_detail select {border-radius: 3px;height: 48px;margin-bottom: 20px;}
 
 /**************** Sub Agent Search Css ***************************/
@@ -106,8 +105,9 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{bo
 .forgot_password .modal-header {background: #0077cc;color: #fff;}		
 .forgot_password .modal-header button.close {position: absolute;right: -10px;top: -7px;background: #fff;opacity: 1;width: 30px;border: 2px solid #0077cc;height: 30px;border-radius: 28px;font-size: 20px;}		
 .forgot_password .modal-body form input {height: 48px;width: 350px;border-radius: 3px;}		
-.forgot_password .modal-body form .btn-reset {background:#f34101;padding:13px 35px;border-radius:3px;color:#fff;font-weight:bold;}
-
+.forgot_password .modal-body form .btn-reset {background-color:rgba(243, 65, 1, 0.78);
+padding:13px 35px;border-radius:0;color:#fff;font-weight:bold;border-bottom:3px solid #f34101;}
+.forgot_password .modal-body form .btn-reset:hover{background-color:#f34101;border-bottom:3px solid #92320f;}
 
 /************* Agent Register Wrapper Css ****************/
 .agent-register-wrapper{background:#fff;padding:10px 20px;border-radius:3px;width:890px;margin:15.5% auto;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);-webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);}
@@ -117,7 +117,13 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{bo
 .agent-register-wrapper .address_detail select{height:48px;border-radius:3px;}
 .agent-register-wrapper .domain_detail input{height:48px;border-radius:3px;}
 .agent-register-wrapper .company_detail form label{color:#0077cc;}
-.login-wrapper form .btn-login{background-color:#0077cc;padding:10px 25px;border-radius:3px;color:#fff;font-weight:bold;margin-bottom:20px;}
+.login-wrapper form .btn-login{background-color:#0077cc;padding:10px 25px;border-radius:0;color:#fff;font-weight:bold;margin-bottom:20px; border-bottom: 3px solid #286090;
+ background:#4f8fe3;}
+ .login-wrapper form .btn-login:hover {
+    background: #286090;
+    border-bottom: 3px solid #4f8fe3;
+}
+
 .agent-register-wrapper .domain_detail{padding:0;}
 
 .form-group label.error{
@@ -180,8 +186,16 @@ label.text-normal {
 
 .right-text ul li.btn-delete{background: #a23030; border-radius: 0;border-bottom:3px solid #ea6161;}
 .right-text ul li.btn-delete:hover{background: #ea6161; border-radius: 0;border-bottom:3px solid #a23030;}
+#emailModalForm textarea {
+    margin-bottom: 20px;
+    height:120px;
+    width:100%;
+    border-radius: 0;
+}
 
 
+#deleteModal  .btn-cancel{padding:10px 25px;background-color:rgba(243, 65, 1, 0.78);color:#fff;border-left: 0 none;border-top: 0 none;border-right: 0 none;margin-left:10px;border-bottom:3px solid #f34101;font-weight:bold;}
+#deleteModal .btn-cancel:hover{text-decoration: none;background-color:#f34101;padding:10px 25px;color:#fff;border-bottom:3px solid #92320f;margin-left:10px;font-weight:bold;}
 
 /********************* Footer  Css *****************/
 
