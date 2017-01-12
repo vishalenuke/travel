@@ -6,7 +6,7 @@ class WhiteLabelPage extends Model
 {
 	protected $table = 'white_label_pages';
 	protected $primaryKey='page_id';
-	public $timestamps = true;
+	public $timestamps = false;
 	
 	public $fillable = ['user_id','title', 'code', 'description'];
 	

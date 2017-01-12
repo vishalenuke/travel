@@ -1,7 +1,7 @@
   function tinyInit(){
 	tinymce.init({
 	  selector: '.descrpt',
-	  content_css : "/css/content.css",	  
+	  //content_css : "/css/content.css",	  
 	  height:200,	 
 	  min_height: 200,
 	  

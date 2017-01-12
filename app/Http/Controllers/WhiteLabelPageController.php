@@ -300,7 +300,7 @@ public function __construct()
 		$keys=array();
 		try{
 			$input = Request::all();
-			//print_r($id);die();
+			//print_r($input);die();
 			$search=$input['_search'];
 			//print_r($search);die();
 			$keys=self::keys($search);
@@ -317,7 +317,7 @@ public function __construct()
 		
 			Session::flash('message','White label page updated successfully.');
 		}catch(\Exception $e){
-			Session::flash('error','White label page not updated.');
+			Session::flash('error',$e->getMessage());
 		}	
 		return Redirect::back();
 		//return Redirect::to('/whitelabel'.($search?'?value='.$search:''));

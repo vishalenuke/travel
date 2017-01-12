@@ -37,7 +37,7 @@ Route::get('account/verification/{id}', 'AgencyController@verification');
 Route::get('auth/verification/{id}', 'AuthController@verification');
 Route::get('/', function () {	
 	if(!Auth::check())
-		return Redirect::to('auth/login');  
+		return view('welcome');//Redirect::to('auth/login');  
 	else
 	  return Redirect::to('agency');
 });

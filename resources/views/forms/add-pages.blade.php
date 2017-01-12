@@ -4,7 +4,7 @@
 		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array('whitelabelpage'.($user?'.update':'.store'), ($user?$user->page_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
-	<h1>{{"Add Page to White Label"}}</h1>
+	<h1>{{(empty($user)?"Add ":"Edit ")."Page to White Label"}}</h1>
 	<div class="row">
 		
 		<div class="col-md-12 col-sm-12 col-xs-12">

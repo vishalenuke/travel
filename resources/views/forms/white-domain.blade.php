@@ -7,7 +7,7 @@
 	<div class="row">
 			
 		<div class="col-md-6 col-sm-6 col-xs-12">
-			<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"White Label Domain's Details": "White Label Domain's Details"):"White Label Domain's Details"}}</h1>
+			<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"Add White Label Domain's Details": "Edit White Label Domain's Details"):(empty($user)?"Add ":"Edit ")."White Label Domain's Details"}}</h1>
 		</div>
 		@if($controller=="whitelabelpage" and isset($user) and $user)
 			<div class="col-md-6 col-sm-6 col-xs-12">

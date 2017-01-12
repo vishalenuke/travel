@@ -666,7 +666,7 @@ public function uploadImage($input,$user=''){
 			$document=$document->update($documentArray)?true:$document->create($documentArray);
 			$address=$address->update($addressArray)?true:$address->create($addressArray);
 			
-			if($user->email && isset($input['send_email']) && $input['send_email']=="on" && user_Email( $user->email, $password,"Your profile details has been updated." )){
+			if($user->email && isset($input['send_email']) && $input['send_email']=="on" && user_Email( $user->email, $password,"Your profile details has been updated.","Account Updated" )){
 				self::postEmail( $user->email );
 				if(empty($login)){
 					Session::flash('message', 'Agency updated successfully.Email has been send to user.');

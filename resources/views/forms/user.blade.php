@@ -4,9 +4,9 @@
 		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->agent_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 @if($controller=='subagents')
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"Sub Agent's Details": "Edit Sub Agent's Details"):"Sub Agent's Details"}}</h1>
+	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"Add Sub Agent's Details": "Edit Sub Agent's Details"):"Add Sub Agent's Details"}}</h1>
 @else
-	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"Agent's Details": "Edit Agent's Details"):"Agent's Registration"}}</h1>
+	<h1>{{isset($_GET['action']) ?($_GET['action']=="create"?"Add Agent's Details": "Edit Agent's Details"):"Add Agent's Details"}}</h1>
 	@if(isAdmin())
 	<h1>Settings Detail</h1>
 	<div class="row">

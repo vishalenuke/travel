@@ -82,7 +82,9 @@ if(isset($user['user_status'])){
 
 		 <div class="row ">
 		 	<div class="col-md-12 col-sm-12 col-xs-12">
+		 	@if(!isAdmin())
 		 	<div class="heading-section"></div>
+		 	@endif
 		  <div class="form-group">
 			  <ul class="list-inline">
 			  <li class="text-left">

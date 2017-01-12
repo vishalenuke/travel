@@ -146,7 +146,7 @@ function arrayFromObject($object,$input){
 	
 
 }
-function user_Email( $email,$password='',$message='Your account is created with following details.' ){
+function user_Email( $email,$password='',$message='Your account is created with following details.',$subject='Account Created' ){
 
 	try{
 		if( !empty($email))
@@ -154,7 +154,7 @@ function user_Email( $email,$password='',$message='Your account is created with 
 								
 					            $m->from(Config::get('constants.contact_email'), Config::get('constants.contact_title'));
 
-					            $m->to($email)->subject('Account Created');
+					            $m->to($email)->subject(ucwords($subject));
 					            
 				        	});
 	}catch(\Exception $e){

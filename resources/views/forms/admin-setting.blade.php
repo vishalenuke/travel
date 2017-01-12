@@ -4,8 +4,11 @@
 		{{Form::model($user=(isset($user) and $user)?$user:null, array('route' => array($controller.($user?'.update':'.store'), ($user?$user->setting_id:null)),'id'=>'_Form','method'=>($user?'put':'post'),'enctype'=>'multipart/form-data' ))}}
 <div class="domain_detail clearfix">
 
-	
-	<h1>Admin Settings</h1>
+	@if(empty($user))
+	<h1>Add Admin's Settings</h1>
+	@else
+	<h1>Admin's Settings</h1>
+	@endif
 	<div class="form-group">
 		<div class="row">
 
