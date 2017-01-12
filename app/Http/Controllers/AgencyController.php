@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use Session;
 use Validator;
+use Config;
 //use Input;
 use Illuminate\Support\Facades\Input;
 use Redirect;
