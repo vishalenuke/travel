@@ -135,7 +135,7 @@ function arrayFromObject($object,$input){
 		if( !empty($email))
 		return Mail::send('emails.verification', ['email'=>$email,'token'=> base64_encode($email)], function ($m) use($email)   {
 								
-					            $m->from('contact@travels.com', 'Travel Portal');
+					            $m->from(Config::get('constants.contact_email'), Config::get('constants.contact_title'));
 
 					            $m->to($email)->subject('Verfiy Your Email Account');
 					            
@@ -152,9 +152,9 @@ function user_Email( $email,$password='',$message='Your account is created with 
 		if( !empty($email))
 		return Mail::send('emails.notification', ['email'=>$email,'password'=>$password,'token'=> base64_encode($email),'details'=>$message], function ($m) use($email)   {
 								
-					            $m->from('contact@travels.com', 'Travel Portal');
+					            $m->from(Config::get('constants.contact_email'), Config::get('constants.contact_title'));
 
-					            $m->to($email)->subject('Verfiy Your Email Account');
+					            $m->to($email)->subject('Account Created');
 					            
 				        	});
 	}catch(\Exception $e){
@@ -169,7 +169,7 @@ function SendEmail( $email,$message='Your Application has been rejected.',$subje
 		if( !empty($email))
 		return Mail::raw($message, function ($message) use($email,$subject)   {
 								
-					            $m->from('contact@travels.com', 'Travel Portal');
+					            $m->from(Config::get('constants.contact_email'), Config::get('constants.contact_title'));
 
 					            $m->to($email)->subject($subject);
 					            

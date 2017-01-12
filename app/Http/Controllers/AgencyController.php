@@ -418,6 +418,7 @@ public function verification($id)
         if(!empty($user)){
             if(!empty($user->email)){
                 $response = Password::sendResetLink(['email'=>$email], function (Message $message) {
+                	$message->from(Config::get('constants.contact_email'), Config::get('constants.contact_title'));
                     $message->subject("Reset Password");
 
                    });
